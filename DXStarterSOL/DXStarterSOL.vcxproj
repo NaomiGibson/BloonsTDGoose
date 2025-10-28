@@ -97,14 +97,18 @@
   <ItemGroup>
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TexCache.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
-    <ClInclude Include="TexCache.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="WindowUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
