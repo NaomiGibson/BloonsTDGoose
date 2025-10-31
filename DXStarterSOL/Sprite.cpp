@@ -1,27 +1,18 @@
 #include "Sprite.h"
 
-Sprite::Sprite(MyD3D& d3d, ResourceManager& rm, wstring texFile, string texName_, RECT texRect_, Vector2 pos_, float rotation_, Vector2 scale_) {
-	//Sprite::Sprite(Vector2 pos_, float rotation_, Vector2 scale_) {
-	//	//assert(rm.findRect(texName, sprID));
-	//	texName = texName_;
-	//	texRect = rm.findRect(texName, sprID);
-	//	pos = pos_;
-	//	rotation = rotation_;
-	//	scale = scale_;
-	//}
-}
-void Sprite::init(MyD3D& d3d, ResourceManager& rm, wstring texFile, string texName_, RECT texRect_) {
-	rm.loadTexture(d3d, texFile, texName_);
+void Sprite::init(string texName_, RECT texRect_, Vector2 pos_, float rotation_, Vector2 scale_) {
 	texName = texName_;
 	texRect = texRect_;
-	//pos = pos_;
-	//rotation = rotation_;
-	//scale = scale_;
+	pos = pos_;
+	rotation = rotation_;
+	scale = scale_;
 }
-void Sprite::init(MyD3D& d3d, ResourceManager& rm, wstring texFile, string texName_, int rows, int columns, int numSprites) {
-	rm.loadSpritesheet(d3d, texFile, texName_, rows, columns, numSprites);
-	//texName = texName_;
-	//texRect = texRect_;
+void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
+	texName = sprSheet.texName;
+	texRect = sprSheet.texRects[sprID - 1];
+	pos = pos_;
+	rotation = rotation_;
+	scale = scale_;
 }
 
 void Sprite::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {

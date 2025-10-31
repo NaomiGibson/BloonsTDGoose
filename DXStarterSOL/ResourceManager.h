@@ -36,10 +36,9 @@ public:
 	ID3D11ShaderResourceView* findTex(ID3D11ShaderResourceView* pTex);
 	string loadTexture(MyD3D& d3d, const wstring& fileName, const string& texName); // For loading a single texture. Use Spritesheet::loadSpritesheet for a texture atlas
 
-	string loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int rows_, int columns_, int numSprites);
+	Spritesheet loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int rows_, int columns_, int numSprites);
 	Spritesheet findSpritesheet(string sprSheetName);
-	RECT findRect(string texName, int spriteID);
-	//RECT findRect(ID3D11ShaderResourceView* pTex, int spriteID);
+	RECT findRect(string spritesheet, int spriteID); // find the rect of the given sprite on a spritesheet
 
 	DirectX::SpriteFont* findFont(string fontName);
 	DirectX::SpriteFont* findFont(DirectX::SpriteFont* pFont);

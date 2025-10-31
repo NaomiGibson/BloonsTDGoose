@@ -24,8 +24,9 @@ private:
 	ResourceManager rm; // game's resource manager
 
 	DirectX::SpriteBatch* gpSpriteBatch = nullptr;
-	Sprite spr_bg{ *p_d3d, rm, L"../bin/data/BloonsMap.dds", "main_background", { 0, 0, 1920, 1080 }, {0, 0}, 0 };
+	Sprite spr_bg;
 	Sprite spr_goose;
+	Sprite spr_bloon;
 
 	int gCycle = 0;
 	float gTime = 0;

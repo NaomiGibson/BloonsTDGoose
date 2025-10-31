@@ -12,9 +12,10 @@ void ResourceManager::release() {
 
 // SPRITESHEETS
 
-string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int rows, int columns, int numSprites) {
+ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
 	ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
 	Spritesheet sprSheet;
+	sprSheet.texName = texName;
 
 	ID3D11Resource* pResource = nullptr;
 	ID3D11Texture2D* pTexture2D = nullptr;
@@ -28,24 +29,34 @@ string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, con
 	width = desc.Width;
 	height = desc.Height;
 
-	int sprW = width / rows;
-	int sprH = height / columns;
+	int sprW = width / columns;
+	int sprH = height / rows;
 
-	for (int r = 1; r < numSprites; r++) {
-		for (int c = 1; c < numSprites; c++) {
-			sprSheet.texRects.push_back({ sprW * (c - 1),  sprH * (r - 1), sprW * c, sprH * r });
+	int r(0), c(0);
+	for (int i = 0; i < numSprites; i++)
+	{
+		sprSheet.texRects.push_back({ sprW * c,  sprH * r, sprW * (c + 1), sprH * (r + 1) });
+		c++;
+		if (c >= columns) {
+			r++;
+			c = 0;
 		}
 	}
+
+	//for (int r = 1; r < rows; r++) {
+	//	for (int c = 1; c < columns; c++) {
+	//	}
+	//}
 	addSprSheet(texName, sprSheet);
-	return texName;
+	return sprSheet;
 }
 ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetName) {
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
 	if (it != spritesheetCache.end())
 		return (*it).second;
 }
-RECT ResourceManager::findRect(string texName, int spriteID) {
-	Spritesheet sprSheet = findSpritesheet(texName);
+RECT ResourceManager::findRect(string spritesheet, int spriteID) {
+	Spritesheet sprSheet = findSpritesheet(spritesheet);
 	assert(spriteID < sprSheet.texRects.size());
 	return sprSheet.texRects[spriteID - 1];
 }
@@ -54,6 +65,7 @@ RECT ResourceManager::findRect(string texName, int spriteID) {
 
 //look it up using the key
 ID3D11ShaderResourceView* ResourceManager::findTex(string texName) {
+	assert(texName != "");
 	TexMap::iterator it = texCache.find(texName);
 	if (it != texCache.end())
 		return (*it).second;
