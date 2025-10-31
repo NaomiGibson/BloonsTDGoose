@@ -7,9 +7,12 @@ Game::Game(MyD3D* d3d_)
 }
 void Game::init() {
 	rm.loadFont(*p_d3d, L"../bin/data/Moghul.spritefont", "Moghul");
+	spr_bg.setTexName(rm.loadTexture(*p_d3d, L"../bin/data/BloonsMap.dds", "mainBackground"));
+	spr_bg.setTexRect({ 0, 0, 1920, 1080 });
+	spr_goose.setTexName(rm.loadSpritesheet(*p_d3d, L"../bin/data/Geese.dds", "Geese", 4, 4, 15));
+	spr_goose.setTexRect(rm.findRect(spr_goose.getTexName(), 3));
 	gpSpriteBatch = new SpriteBatch(&(*p_d3d).GetDeviceCtx());
 	assert(gpSpriteBatch);
-
 }
 void Game::release() {
 	rm.release();
@@ -22,6 +25,7 @@ void Game::render() {
 	gpSpriteBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
 
 	spr_bg.render(*p_d3d, rm, 0, *gpSpriteBatch);
+	spr_goose.render(*p_d3d, rm, 0, *gpSpriteBatch);
 
 	gpSpriteBatch->End();
 	p_d3d->EndRender();

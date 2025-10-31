@@ -7,7 +7,51 @@ void ResourceManager::release() {
 	for (auto& pair : fontCache)
 		pair.second = nullptr;
 	fontCache.clear();
+	spritesheetCache.clear();
 }
+
+// SPRITESHEETS
+
+string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int rows, int columns, int numSprites) {
+	ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
+	Spritesheet sprSheet;
+
+	ID3D11Resource* pResource = nullptr;
+	ID3D11Texture2D* pTexture2D = nullptr;
+	unsigned int width;
+	unsigned int height;
+
+	tex->GetResource(&pResource);
+	pResource->QueryInterface<ID3D11Texture2D>(&pTexture2D);
+	D3D11_TEXTURE2D_DESC desc;
+	pTexture2D->GetDesc(&desc);
+	width = desc.Width;
+	height = desc.Height;
+
+	int sprW = width / rows;
+	int sprH = height / columns;
+
+	for (int r = 1; r < numSprites; r++) {
+		for (int c = 1; c < numSprites; c++) {
+			sprSheet.texRects.push_back({ sprW * (c - 1),  sprH * (r - 1), sprW * c, sprH * r });
+		}
+	}
+	addSprSheet(texName, sprSheet);
+	return texName;
+}
+ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetName) {
+	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
+	if (it != spritesheetCache.end())
+		return (*it).second;
+}
+RECT ResourceManager::findRect(string texName, int spriteID) {
+	Spritesheet sprSheet = findSpritesheet(texName);
+	assert(spriteID < sprSheet.texRects.size());
+	return sprSheet.texRects[spriteID - 1];
+}
+
+// TEXTURES
+
 //look it up using the key
 ID3D11ShaderResourceView* ResourceManager::findTex(string texName) {
 	TexMap::iterator it = texCache.find(texName);
@@ -28,11 +72,10 @@ ID3D11ShaderResourceView* ResourceManager::findTex(ID3D11ShaderResourceView* pTe
 	assert(p);
 	return p;
 }
-
 void ResourceManager::addTex(string texName, ID3D11ShaderResourceView* tex) {
 	texCache.insert(TexMap::value_type(texName, tex));
 }
-ID3D11ShaderResourceView* ResourceManager::loadTexture(MyD3D& d3d, const wstring& fileName, const string& texName) {
+string ResourceManager::loadTexture(MyD3D& d3d, const wstring& fileName, const string& texName) {
 	if (!findTex(texName)) {// if it is not already loaded
 		DDS_ALPHA_MODE alpha; // load the texture
 		ID3D11ShaderResourceView* tex;
@@ -42,11 +85,14 @@ ID3D11ShaderResourceView* ResourceManager::loadTexture(MyD3D& d3d, const wstring
 		}
 		assert(tex);
 		texCache.insert(pair<string, ID3D11ShaderResourceView*>(texName, tex)); // add to cache
-		return tex;
+		return texName;
 	}
 	else
-		return findTex(texName); // if already loaded, return the version already in cache
+		return texName; // if already loaded, return the version already in cache
 }
+
+
+// FONTS
 
 //look it up using the key
 DirectX::SpriteFont* ResourceManager::findFont(string fontName) {
@@ -68,10 +114,6 @@ DirectX::SpriteFont* ResourceManager::findFont(DirectX::SpriteFont* pFont) {
 	assert(p);
 	return p;
 }
-
-void ResourceManager::addFont(string texName, DirectX::SpriteFont* font) {
-	fontCache.insert(FontMap::value_type(texName, font));
-}
 DirectX::SpriteFont* ResourceManager::loadFont(MyD3D& d3d, const wstring& fileName, const string& fontName) {
 	if (!findTex(fontName)) {// if it is not already loaded
 		DDS_ALPHA_MODE alpha; // load the texture
@@ -87,4 +129,11 @@ DirectX::SpriteFont* ResourceManager::loadFont(MyD3D& d3d, const wstring& fileNa
 		return findFont(fontName); // if already loaded, return the version already in cache
 }
 
+// ADD TO MAPS
 
+void ResourceManager::addSprSheet(string texName, Spritesheet sprSheet) {
+	spritesheetCache.insert(SpritesheetMap::value_type(texName, sprSheet));
+}
+void ResourceManager::addFont(string texName, DirectX::SpriteFont* font) {
+	fontCache.insert(FontMap::value_type(texName, font));
+}
