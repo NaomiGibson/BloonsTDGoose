@@ -33,8 +33,17 @@ void Sprite::setTexRect(RECT texRect_) {
 Vector2 Sprite::getOrigin() {
 	return origin;
 }
+
+void Sprite::setOrigin(Vector2 origin_) {
+	origin = {	(texRect.right - texRect.left) * origin_.x,
+				(texRect.bottom - texRect.top) * origin_.y
+			};
+}
 Vector2 Sprite::getPos() {
 	return pos;
+}
+void Sprite::setPos(Vector2 pos_) {
+	pos = pos_;
 }
 float Sprite::geRotation() {
 	return rotation;

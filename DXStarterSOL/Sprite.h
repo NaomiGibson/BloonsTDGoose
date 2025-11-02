@@ -28,16 +28,18 @@ public:
 	RECT getTexRect();
 	void setTexRect(RECT texRect_);
 	Vector2 getOrigin();
+	void setOrigin(Vector2 origin_);
 	Vector2 getPos();
+	void setPos(Vector2 pos_);
 	float geRotation();
 	Vector2 getScale();
 	void setScale(const Vector2& scale_);
 
 protected:
-	string texName;
-	RECT texRect;
+	string texName{ "default" };
+	RECT texRect{ 0, 0, 0, 0 };
 	Vector2 origin{ 0, 0 };
-	Vector2 pos;
-	float rotation;
+	Vector2 pos{ 0, 0 };
+	float rotation{ 0 };
 	Vector2 scale{ 1, 1 };
 };

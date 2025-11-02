@@ -72,8 +72,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	{
 		if (canUpdateRender)
 		{
-			game.update(); // dTime, d3d
-			game.render(); // dTime, d3d
+			game.update(dTime); // dTime, d3d
+			game.render(dTime); // dTime, d3d
 		}
 		dTime = WinUtil::Get().EndLoop(canUpdateRender);
 		// gFrameCounter++;
