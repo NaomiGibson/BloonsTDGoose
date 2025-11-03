@@ -6,7 +6,7 @@ Game::Game(MyD3D* d3d_)
 void Game::init() {
 	rm.loadFont(*p_d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(*p_d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
-	//spr_goose.init(rm.loadSpritesheet(*p_d3d, L"../bin/data/Geese.dds", "Geese", 4, 4, 15), 14, { 200, 200 }, 0, { 3, 3 });
+	goose.init(rm, *p_d3d);
 	bloon.init(rm, *p_d3d);
 
 	gameStats.init(*p_d3d, rm, lives, 0, 1);
@@ -29,7 +29,7 @@ void Game::render(float dTime) {
 	gpSpriteBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
 
 	spr_bg.render(*p_d3d, rm, 0, *gpSpriteBatch);
-	//spr_goose.render(*p_d3d, rm, 0, *gpSpriteBatch);
+	goose.render(*p_d3d, rm, 0, *gpSpriteBatch);
 	bloon.render(*p_d3d, rm, 0, *gpSpriteBatch);
 	gameStats.render(*p_d3d, rm, dTime, *gpSpriteBatch);
 

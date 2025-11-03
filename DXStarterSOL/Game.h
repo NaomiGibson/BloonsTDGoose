@@ -16,6 +16,7 @@ using namespace DirectX::SimpleMath;
 
 #include "ResourceManager.h"
 #include "Sprite.h"
+#include "Goose.h"
 #include "Bloon.h"
 #include "Stats.h"
 
@@ -34,7 +35,7 @@ private:
 	int lives{ 200 };
 
 	Sprite spr_bg;
-	Sprite spr_goose;
+	Goose goose;
 	Bloon bloon;
 	Track track{ {
 		{-48, 360},

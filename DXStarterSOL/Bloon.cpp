@@ -1,6 +1,6 @@
 #include "Bloon.h"
 void Bloon::init(ResourceManager& rm, MyD3D& d3d) {
-	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "Bloons", 2, 4, 5), 1, { 300, 200 }, 0, { 3, 3 });
+	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), 1, { 0, 0 }, 0, { 3, 3 });
 	spr.setOrigin({ 0.5, 0.5 });
 	isActive = true;
 }

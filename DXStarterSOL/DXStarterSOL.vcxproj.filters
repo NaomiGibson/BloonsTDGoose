@@ -60,6 +60,9 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Goose.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Goose.h">
+      <Filter>Header Files\World Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

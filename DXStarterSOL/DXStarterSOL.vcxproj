@@ -99,6 +99,7 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Goose.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="Bloon.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
+    <ClInclude Include="Goose.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Sprite.h" />

@@ -23,6 +23,12 @@ public:
 	void init(string texName_, RECT texRect_, Vector2 pos_, float rotation_, Vector2 scale_); // initialise sprite with a whole texture
 	void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_); // initialise sprite with spritesheet
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	// true if the sprite is overlapping the given point
+	bool isColliding(Vector2 point);
+	// true if the sprite is overlapping with the given box
+	bool isColliding(RECT box);
+	// true if the sprite is overlapping with the given circle
+	bool isColliding(Vector2 centre, float radius);
 	string getTexName();
 	void setTexName(string texName);
 	RECT getTexRect();

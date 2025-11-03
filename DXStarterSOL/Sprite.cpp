@@ -18,6 +18,12 @@ void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_
 void Sprite::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	batch.Draw(rm.findTex(texName), pos, &texRect, Vector4(1, 1, 1, 1), rotation, origin, scale, DirectX::SpriteEffects::SpriteEffects_None, 1);
 }
+
+bool Sprite::isColliding(Vector2 centre, float radius) {
+	float distance;
+	distance = abs(centre.x + pos.x);
+	return (distance > radius + (texRect.right - texRect.left));
+}
 string Sprite::getTexName() {
 	return texName;
 }
