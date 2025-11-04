@@ -14,14 +14,26 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-#include "ResourceManager.h"
-#include "Sprite.h"
-#include "Goose.h"
-#include "Bloon.h"
-#include "Stats.h"
+
+#include "utils.cpp"
+#include "PlaceMode.h"
+#include "DefendMode.h"
+#include "LoseMode.h"
 
 class Game
 {
+public:
+
+	struct GameStats {
+		int lives{ 200 };
+		int coins{ 0 };
+	};
+	Game(MyD3D*);
+	void init();
+	void release();
+	void update(float dTime);
+	void render(float dTime);
+	void changeState(Modes newMode);
 private:
 	MyD3D* p_d3d;
 	ResourceManager rm; // game's resource manager
@@ -31,35 +43,10 @@ private:
 	float gResTimer = 0;
 	int gFrameCounter = 0;
 	float gFrameTimer = 0;
+	Modes mode;
+	DefendMode defendMode;
+	LoseMode loseMode;
 
-	int lives{ 200 };
-
-	Sprite spr_bg;
-	Goose goose;
-	Bloon bloon;
-	Track track{ {
-		{-48, 360},
-		{528, 360},
-		{528, 648},
-		{240, 648},
-		{240, 68},
-		{1392, 68},
-		{1392, 452},
-		{1296, 452},
-		{1296, 1032},
-		{720, 1032},
-		{720, 552},
-		{1008, 552},
-		{1008, 840},
-		{-48, 840},
-		} };
-
-	Stats gameStats;
-
-public:
-	Game(MyD3D*);
-	void init();
-	void release();
-	void update(float dTime);
-	void render(float dTime);
+	GameStats gameStats;
+	Stats ui_stats;
 };

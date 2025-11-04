@@ -25,6 +25,12 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{b7e0d4ed-c7a3-46a3-8f4d-8e1de64afb70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gamemodes">
+      <UniqueIdentifier>{f16e06ba-ef80-4785-9fd7-27ffa2357ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gamemodes">
+      <UniqueIdentifier>{47611614-ce1c-48b6-a961-2498c3b58c19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D.cpp">
@@ -40,9 +46,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bloon.cpp">
@@ -63,6 +66,21 @@
     <ClCompile Include="Goose.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseMode.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaceMode.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefendMode.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -75,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bloon.h">
@@ -97,6 +112,18 @@
     </ClInclude>
     <ClInclude Include="Goose.h">
       <Filter>Header Files\World Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseMode.h">
+      <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaceMode.h">
+      <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefendMode.h">
+      <Filter>Header Files\Gamemodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

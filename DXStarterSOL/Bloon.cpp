@@ -2,7 +2,6 @@
 void Bloon::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), 1, { 0, 0 }, 0, { 3, 3 });
 	spr.setOrigin({ 0.5, 0.5 });
-	isActive = true;
 }
 bool Bloon::update(float dTime) {
 	if (isActive) {
@@ -22,4 +21,8 @@ void Bloon::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 	if (isActive) {
 		spr.render(d3d, rm, dTime, batch);
 	}
+}
+void Bloon::activate() {
+	isActive = true;
+	progress = 0;
 }

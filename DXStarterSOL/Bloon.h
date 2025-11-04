@@ -9,11 +9,13 @@ private:
 	Track& track;
 	bool isActive = false;
 	float progress{ 0 };
-	float speed{ 200 };
+	float speed{ 500 };
 public:
 	Bloon(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	// returns false if bloon has reached the end of the track
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	bool getIsActive() { return isActive; }
+	void activate();
 };

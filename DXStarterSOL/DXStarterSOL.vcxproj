@@ -98,21 +98,28 @@
     <ClCompile Include="Bloon.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
+    <ClCompile Include="DefendMode.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Goose.cpp" />
+    <ClCompile Include="LoseMode.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlaceMode.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloon.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
+    <ClInclude Include="DefendMode.h" />
     <ClInclude Include="Goose.h" />
+    <ClInclude Include="LoseMode.h" />
+    <ClInclude Include="PlaceMode.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Sprite.h" />
