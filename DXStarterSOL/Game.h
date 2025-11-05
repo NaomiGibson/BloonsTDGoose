@@ -15,7 +15,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 
-#include "utils.cpp"
+//#include "Utils.cpp"
 #include "PlaceMode.h"
 #include "DefendMode.h"
 #include "LoseMode.h"
@@ -23,17 +23,14 @@ using namespace DirectX::SimpleMath;
 class Game
 {
 public:
-
-	struct GameStats {
-		int lives{ 200 };
-		int coins{ 0 };
-	};
 	Game(MyD3D*);
 	void init();
 	void release();
 	void update(float dTime);
 	void render(float dTime);
 	void changeState(Modes newMode);
+	void switchstate(Modes m);
+	
 private:
 	MyD3D* p_d3d;
 	ResourceManager rm; // game's resource manager
@@ -43,10 +40,9 @@ private:
 	float gResTimer = 0;
 	int gFrameCounter = 0;
 	float gFrameTimer = 0;
-	Modes mode;
+	Modes mode{ Modes::defend };
 	DefendMode defendMode;
-	LoseMode loseMode;
+	//LoseMode loseMode;
 
-	GameStats gameStats;
 	Stats ui_stats;
 };

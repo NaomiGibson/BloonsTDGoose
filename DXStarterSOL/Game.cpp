@@ -6,7 +6,23 @@ Game::Game(MyD3D* d3d_)
 void Game::release() {
 	rm.release();
 }
+
 void Game::init() {
+	switch (mode)
+	{
+	case start:
+		break;
+	case place:
+		break;
+	case defend:defendMode.init(rm, *p_d3d);
+		break;
+	case win:
+		break;
+	case lose:
+		break;
+	default:
+		break;
+	}
 	gpSpriteBatch = new SpriteBatch(&(*p_d3d).GetDeviceCtx());
 	assert(gpSpriteBatch);
 }
@@ -14,17 +30,17 @@ void Game::update(float dTime) {
 	Modes oldMode = mode;
 	switch (mode)
 	{
-	case start: // return isStartPressed
+	case start:
 		break;
-	case place: // return isStartPressed
+	case place:
 		break;
-	case defend:  // return gameStats and use that to determine change of state?
-		oldMode = defendMode.update(dTime);
+	case defend:
+		mode = defendMode.update(dTime);
 		break;
-	case win:					// return buttonPressed ~~ probably not :/
+	case win:
 		break;
-	case lose:				// return buttonPressed?
-		oldMode = loseMode.update(dTime);
+	case lose:
+		//mode = loseMode.update(dTime);
 		break;
 	default:
 		break;
@@ -37,6 +53,7 @@ void Game::render(float dTime) {
 	switch (mode)
 	{
 	case start:
+
 		break;
 	case place:
 		break;
@@ -46,7 +63,7 @@ void Game::render(float dTime) {
 	case win:
 		break;
 	case lose:
-		loseMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
+		//loseMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	default:
 		break;
@@ -60,12 +77,12 @@ void Game::changeState(Modes oldMode) {
 	case place:
 		break;
 	case defend:
-		defendMode.release();
+		//defendMode.release();
 		break;
 	case win:
 		break;
 	case lose:
-		loseMode.release();
+		//loseMode.release();
 		break;
 	default:
 		break;
@@ -82,9 +99,14 @@ void Game::changeState(Modes oldMode) {
 	case win:
 		break;
 	case lose:
-		loseMode.init(rm, *p_d3d);
+		//loseMode.init(rm, *p_d3d);
 		break;
 	default:
 		break;
 	}
+}
+
+void Game::switchstate(Modes m)
+{
+	mode = m;
 }

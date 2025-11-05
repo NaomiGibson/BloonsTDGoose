@@ -14,8 +14,7 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
-#include "utils.cpp"
+#include "Utils.cpp"
 #include "ResourceManager.h"
 #include "Sprite.h"
 #include "Goose.h"
@@ -25,9 +24,9 @@ using namespace DirectX::SimpleMath;
 class LoseMode
 {
 public:
-	void init(ResourceManager& rm, MyD3D& d3d);
-	void release();
-	Modes update(float dTime);
-	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
+	//void init(ResourceManager& rm, MyD3D& d3d);
+	//void release();
+	//Modes update(float dTime);
+	//void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 };
 

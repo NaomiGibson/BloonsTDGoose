@@ -14,7 +14,7 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-#include "utils.cpp"
+#include "Utils.cpp"
 #include "ResourceManager.h"
 #include "Sprite.h"
 #include "Goose.h"
@@ -44,8 +44,9 @@ private:
 		{-48, 840},
 		} };
 public:
+	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void release();
+	//void release();
 	Modes update(float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 

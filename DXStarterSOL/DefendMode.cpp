@@ -3,7 +3,7 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	goose.init(rm, d3d);
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < GC::MAX_BLOONS; i++) {
 		bloons.emplace_back(track);
 		bloons[i].init(rm, d3d);
 	}
@@ -11,10 +11,10 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 }
 Modes DefendMode::update(float dTime) {
 	static float lastBloonSpawn = 0;
-	float spawnRate = 1;
+	float spawnRate = 0.2f;
 	float time = GetClock();
 	if (time - lastBloonSpawn > spawnRate) {
-		for (int i = 0; i < bloons.size(); i++) {
+		for (unsigned int i = 0; i < bloons.size(); i++) {
 			if (!bloons[i].getIsActive()) {
 				bloons[i].activate();
 				lastBloonSpawn = GetClock();
@@ -22,10 +22,12 @@ Modes DefendMode::update(float dTime) {
 			}
 		}
 	}
-	for (int i = 0; i < bloons.size(); i++) {
+	for (unsigned int i = 0; i < bloons.size(); i++) {
 		if (!bloons[i].update(dTime)) {
-			//lives--;
-			//gameStats.setLives(lives);
+			gameStats.loseLife();
+			if (gameStats.getLives() < 0) {
+				return Modes::lose;
+			}
 		}
 	}
 	return Modes::defend;
@@ -37,7 +39,7 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 
 	spr_bg.render(d3d, rm, 0, sprBatch);
 	goose.render(d3d, rm, 0, sprBatch);
-	for (int i = 0; i < bloons.size(); i++) {
+	for (unsigned int i = 0; i < bloons.size(); i++) {
 		bloons[i].render(d3d, rm, 0, sprBatch);
 	}
 	//gameStats.render(*p_d3d, rm, dTime, sprBatch);
