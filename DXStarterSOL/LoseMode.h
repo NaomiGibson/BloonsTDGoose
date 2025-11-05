@@ -16,17 +16,19 @@ using namespace DirectX::SimpleMath;
 
 #include "Utils.cpp"
 #include "ResourceManager.h"
-#include "Sprite.h"
-#include "Goose.h"
 #include "Bloon.h"
 #include "Stats.h"
 
 class LoseMode
 {
+private:
+	//vector<Sprite> spr_bloons;
+	//vector<Text> txt_loseMsgs;
+	Text txt_loseMsg;
+	Sprite spr_bg;
 public:
-	//void init(ResourceManager& rm, MyD3D& d3d);
-	//void release();
-	//Modes update(float dTime);
-	//void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
+	void init(ResourceManager& rm, MyD3D& d3d);
+	Modes update(float dTime);
+	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 };
 

@@ -14,11 +14,13 @@ void Game::init() {
 		break;
 	case place:
 		break;
-	case defend:defendMode.init(rm, *p_d3d);
+	case defend:
+		defendMode.init(rm, *p_d3d);
 		break;
 	case win:
 		break;
 	case lose:
+		loseMode.init(rm, *p_d3d);
 		break;
 	default:
 		break;
@@ -40,7 +42,7 @@ void Game::update(float dTime) {
 	case win:
 		break;
 	case lose:
-		//mode = loseMode.update(dTime);
+		mode = loseMode.update(dTime);
 		break;
 	default:
 		break;
@@ -50,6 +52,10 @@ void Game::update(float dTime) {
 	}
 }
 void Game::render(float dTime) {
+	p_d3d->BeginRender({ 0, 0, 0, 0 });
+	CommonStates dxstate(&(*p_d3d).GetDevice());
+	gpSpriteBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
+
 	switch (mode)
 	{
 	case start:
@@ -63,11 +69,13 @@ void Game::render(float dTime) {
 	case win:
 		break;
 	case lose:
-		//loseMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
+		loseMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	default:
 		break;
 	}
+	gpSpriteBatch->End();
+	p_d3d->EndRender();
 }
 void Game::changeState() {
 	switch (mode)

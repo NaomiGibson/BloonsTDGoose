@@ -41,9 +41,6 @@ Modes DefendMode::update(float dTime) {
 		return Modes::defend;
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
-	d3d.BeginRender({ 0, 0, 0, 0 });
-	CommonStates dxstate(&d3d.GetDevice());
-	sprBatch.Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
 
 	spr_bg.render(d3d, rm, 0, sprBatch);
 	goose.render(d3d, rm, 0, sprBatch);
@@ -52,6 +49,5 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	}
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 
-	sprBatch.End();
-	d3d.EndRender();
+
 }

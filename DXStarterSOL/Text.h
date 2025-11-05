@@ -21,6 +21,11 @@ private:
 public:
 	Text(string fontName_, string msg_, Vector2 pos_, Vector4 colour_)
 		: fontName(fontName_), msg(msg_), pos(pos_), colour(colour_) {};
+
+	Text(string fontName_, string msg_)
+		: fontName(fontName_), msg(msg_) {
+		pos = { 0, 0 }, colour = { 0, 0, 0, 0 };
+	};
 	string getFontName() { return fontName; }
 	void setFontName(string fontName_) { fontName = fontName_; }
 	string getMsg() { return msg; }
