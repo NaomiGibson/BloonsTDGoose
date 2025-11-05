@@ -43,10 +43,13 @@ private:
 		{1008, 840},
 		{-48, 840},
 		} };
+	Stats ui_stats;
 public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	//void release();
+	void spawnBloon();
+	void DefendMode::updateBloons(float dTime);
 	Modes update(float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 

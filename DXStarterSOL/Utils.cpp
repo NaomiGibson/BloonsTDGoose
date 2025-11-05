@@ -10,6 +10,7 @@ namespace GC {
 	const int START_LIVES = 200;
 	const int NUM_ROUNDS = 10;
 	const int MAX_BLOONS = 100;
+	const float BLOON_SPAWN_RATE = 0.2;
 }
 struct GameStats {
 private:
@@ -27,5 +28,6 @@ public:
 		round++; 
 		return round; 
 	}
+	int getRound() { return round; }
 }; 
 static GameStats gameStats;

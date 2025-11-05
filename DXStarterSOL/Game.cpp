@@ -46,7 +46,7 @@ void Game::update(float dTime) {
 		break;
 	}
 	if (mode != oldMode) {
-		changeState(oldMode);
+		changeState();
 	}
 }
 void Game::render(float dTime) {
@@ -69,24 +69,7 @@ void Game::render(float dTime) {
 		break;
 	}
 }
-void Game::changeState(Modes oldMode) {
-	switch (oldMode)
-	{
-	case start:
-		break;
-	case place:
-		break;
-	case defend:
-		//defendMode.release();
-		break;
-	case win:
-		break;
-	case lose:
-		//loseMode.release();
-		break;
-	default:
-		break;
-	}
+void Game::changeState() {
 	switch (mode)
 	{
 	case start:
@@ -104,9 +87,4 @@ void Game::changeState(Modes oldMode) {
 	default:
 		break;
 	}
-}
-
-void Game::switchstate(Modes m)
-{
-	mode = m;
 }

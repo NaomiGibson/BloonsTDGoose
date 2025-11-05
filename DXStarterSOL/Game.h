@@ -28,8 +28,7 @@ public:
 	void release();
 	void update(float dTime);
 	void render(float dTime);
-	void changeState(Modes newMode);
-	void switchstate(Modes m);
+	void changeState();
 	
 private:
 	MyD3D* p_d3d;
@@ -42,7 +41,4 @@ private:
 	float gFrameTimer = 0;
 	Modes mode{ Modes::defend };
 	DefendMode defendMode;
-	//LoseMode loseMode;
-
-	Stats ui_stats;
 };

@@ -7,30 +7,38 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 		bloons.emplace_back(track);
 		bloons[i].init(rm, d3d);
 	}
-	//gameStats.init(*p_d3d, rm, lives, 0, 1);
+	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
 }
-Modes DefendMode::update(float dTime) {
+void DefendMode::spawnBloon() {
 	static float lastBloonSpawn = 0;
-	float spawnRate = 0.2f;
 	float time = GetClock();
-	if (time - lastBloonSpawn > spawnRate) {
+	if (time - lastBloonSpawn > GC::BLOON_SPAWN_RATE) {			// at the set bloon spawn rate
 		for (unsigned int i = 0; i < bloons.size(); i++) {
-			if (!bloons[i].getIsActive()) {
-				bloons[i].activate();
+			if (!bloons[i].getIsActive()) {						// search for an inactive bloon
+				bloons[i].activate();							// and activate it
 				lastBloonSpawn = GetClock();
 				i = bloons.size();
 			}
 		}
 	}
+}
+void DefendMode::updateBloons(float dTime) {
 	for (unsigned int i = 0; i < bloons.size(); i++) {
 		if (!bloons[i].update(dTime)) {
 			gameStats.loseLife();
-			if (gameStats.getLives() < 0) {
-				return Modes::lose;
-			}
+			ui_stats.setLives(gameStats.getLives());
 		}
 	}
-	return Modes::defend;
+}
+Modes DefendMode::update(float dTime) {
+	spawnBloon();
+	updateBloons(dTime);
+
+	// After updating everything, decide final state
+	if (gameStats.getLives() < 0)
+		return Modes::lose;
+	else
+		return Modes::defend;
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
 	d3d.BeginRender({ 0, 0, 0, 0 });
@@ -42,7 +50,7 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	for (unsigned int i = 0; i < bloons.size(); i++) {
 		bloons[i].render(d3d, rm, 0, sprBatch);
 	}
-	//gameStats.render(*p_d3d, rm, dTime, sprBatch);
+	ui_stats.render(d3d, rm, dTime, sprBatch);
 
 	sprBatch.End();
 	d3d.EndRender();
