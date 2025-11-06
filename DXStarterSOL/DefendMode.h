@@ -49,7 +49,8 @@ public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	//void release();
 	void spawnBloon();
-	void DefendMode::updateBloons(float dTime);
+	void updateBloons(float dTime);
+	void handleCollision();
 	Modes update(float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 

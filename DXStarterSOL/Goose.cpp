@@ -7,7 +7,7 @@ void Goose::setRange(float radius) {
 }
 void Goose::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 528, 164 }, 0, { 1, 1 });
-	spr_range.init(rm.loadTexture(d3d, L"../bin/data/GooseRadius.dds", "goose_rad"), {0, 0, 512, 512}, {528, 164}, 0, {1, 1});
+	spr_range.init(rm.loadSpritesheet(d3d, L"../bin/data/GooseRadius.dds", "goose_rad", 2, 1, 1), 1, {528, 164}, 0, {1, 1});
 	spr.setOrigin({ 0.5, 0.5 });
 	spr_range.setOrigin({ 0.5, 0.5 });
 	setRange(144);

@@ -21,6 +21,7 @@ public:
 	// returns false if bloon has reached the end of the track
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	Sprite& getSpr() { return spr; }
 	bool getIsActive() { return isActive; }
 	void activate();
 	void setSpeed(float speed_) { speed = speed_; }

@@ -30,9 +30,17 @@ void DefendMode::updateBloons(float dTime) {
 		}
 	}
 }
+void DefendMode::handleCollision() {
+	for (int i = 0; i < GC::MAX_BLOONS; i++) {
+		if (goose.getSprRange().isColliding( bloons[i].getSpr().getPos() , bloons[i].getSpr().getTexRect().right / 2 )) {
+			goose.getSprRange().setTexRect({ 512, 0, 512, 512 });
+		}
+	}
+}
 Modes DefendMode::update(float dTime) {
 	spawnBloon();
 	updateBloons(dTime);
+	handleCollision();
 
 	// After updating everything, decide final state
 	if (gameStats.getLives() < 0)

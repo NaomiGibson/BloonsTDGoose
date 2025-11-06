@@ -17,6 +17,8 @@ public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	Sprite& getSpr() { return spr; }
+	Sprite& getSprRange() { return spr_range; }
 	// returns direction in which to shoot (aiming slightly in front of the target bloon)
 	Vector2 findTarget(Track& track);
 	void shoot();

@@ -21,8 +21,9 @@ void Sprite::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 
 bool Sprite::isColliding(Vector2 centre, float radius) {
 	float distance;
-	distance = abs(centre.x + pos.x);
-	return (distance > radius + (texRect.right - texRect.left));
+	distance = abs(sqrt((centre.x + pos.x) * (centre.x + pos.x) + (centre.y + pos.y) * (centre.y + pos.y)));
+	float thisRad = (texRect.right - texRect.left) / 2;
+	return (distance <= radius + thisRad);
 }
 string Sprite::getTexName() {
 	return texName;
