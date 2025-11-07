@@ -81,6 +81,9 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="DefendMode.h">
       <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\World Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

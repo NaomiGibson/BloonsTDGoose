@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bloon.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="DefendMode.cpp" />
@@ -114,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloon.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="DefendMode.h" />
