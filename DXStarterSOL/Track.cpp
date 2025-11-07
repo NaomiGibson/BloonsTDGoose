@@ -32,7 +32,7 @@ float Track::getLength(Vector2 wp1, Vector2 wp2) {
     return len;
 }
 // calculate length of entire track
-float Track::getLength() {
+float Track::calculateLength() {
     float len(0);
     for (int i(0); i < points.size() - 1; i++) {
         len += getLength(points[i], points[i + 1]);

@@ -3,11 +3,6 @@
 #include "Track.h";
 #include "Utils.cpp"
 
-class Bloon
-{
-private:
-public:
-};
 class Bloons 
 {
 private:

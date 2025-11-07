@@ -19,12 +19,15 @@ class Track
 {
 private:
 	vector<Vector2> points;
+	float length{ 0 };
 public:
 	Track(vector<Vector2> points_) { points = points_; };
+	void init() { length = getLength(); }
 	// find location at n distance along track
 	Vector2 findPos(float progress);
 	// calculate length between 2 points
 	float getLength(Vector2 wp1, Vector2 wp2);
-	// calculate length of entire track
-	float getLength();
+	// return length of entire track
+	float calculateLength();
+	float getLength() { return length; }
 };

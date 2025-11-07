@@ -5,6 +5,7 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	goose.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
+	track.init();
 }
 //void DefendMode::handleCollision() {
 //	for (int i = 0; i < GC::MAX_BLOONS; i++) {

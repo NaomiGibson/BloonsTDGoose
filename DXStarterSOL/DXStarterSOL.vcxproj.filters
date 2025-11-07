@@ -48,7 +48,7 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bloon.cpp">
+    <ClCompile Include="Bloons.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
@@ -98,7 +98,7 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bloon.h">
+    <ClInclude Include="Bloons.h">
       <Filter>Header Files\World Objects</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">

@@ -9,14 +9,15 @@ enum Modes {
 namespace GC {
 	const int START_LIVES = 200;
 	const int NUM_ROUNDS = 10;
-	const int MAX_BLOONS = 100;
+	const int MAX_BLOONS = 60;
 	const float BLOON_SPAWN_RATE = 0.2;
+	const int MAX_ROUNDS = 10;
 }
 struct GameStats {
 private:
 	int lives{ GC::START_LIVES };
 	int coins{ 0 };
-	int round = 0;
+	int round{ 0 };
 public:
 	int getLives() { return lives; }
 	void resetLives() { lives = GC::START_LIVES; }

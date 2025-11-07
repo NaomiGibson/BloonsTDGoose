@@ -95,7 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bloon.cpp" />
+    <ClCompile Include="Bloons.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
@@ -114,7 +114,7 @@
     <ClCompile Include="WindowUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bloon.h" />
+    <ClInclude Include="Bloons.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />

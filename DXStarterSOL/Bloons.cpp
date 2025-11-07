@@ -1,4 +1,4 @@
-#include "Bloon.h"
+#include "Bloons.h"
 void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), 1, { 0, 0 }, 0, { 1, 1 });
 	spr.setOrigin({ 0.5, 0.5 });
@@ -16,7 +16,6 @@ void Bloons::spawnBloon(int idx) {
 		}
 	}
 }
-
 bool Bloons::update(float dTime) {
 	bool isLifeLost = false;
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
