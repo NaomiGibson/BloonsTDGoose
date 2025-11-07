@@ -40,6 +40,7 @@ public:
 	float geRotation();
 	Vector2 getScale();
 	void setScale(const Vector2& scale_);
+	Vector2 GetScreenSize();
 
 protected:
 	string texName{ "default" };

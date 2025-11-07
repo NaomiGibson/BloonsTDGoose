@@ -61,3 +61,6 @@ Vector2 Sprite::getScale() {
 void Sprite::setScale(const Vector2& scale_) {
 	scale = scale_;
 }
+Vector2 Sprite::GetScreenSize() {
+	return { (texRect.right - texRect.left) * scale.x, (texRect.bottom - texRect.top) * scale.y };
+}

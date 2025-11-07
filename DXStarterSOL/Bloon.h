@@ -1,29 +1,34 @@
 #pragma once
 #include "Sprite.h";
 #include "Track.h";
+#include "Utils.cpp"
 
 class Bloon
 {
 private:
+public:
+};
+class Bloons 
+{
+private:
 	Sprite spr;
 	Track& track;
-	bool isActive = false;
-	float progress{ 0 };
-	float speed{ 500 };
+	bool isActive[GC::MAX_BLOONS] = { false };
+	float progress[GC::MAX_BLOONS] = { 100 };
+	float speed[GC::MAX_BLOONS] = { 0 };
 public:
-	Bloon(Track& track_) : track(track_) {};
-	Bloon(Track& track_, Vector2 pos_, float speed_) 
-		: track(track_) {
-		spr.setPos(pos_);
-		speed = speed_;
-	}
+	Bloons(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	// returns false if bloon has reached the end of the track
+	// Handles all bloon spawning logic
+	// @return true if a bloon spawned
+	void spawnBloon(int idx);
+	// returns false if one or more bloons have reached the end of the track
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
-	bool getIsActive() { return isActive; }
-	void activate();
-	void setSpeed(float speed_) { speed = speed_; }
-	void setProgress(float progress_) { progress = progress_; }
+	bool getIsActive(int idx) { return isActive; }
+	void activate(int idx);
+	void setSpeed(float speed_, int idx) { speed[idx] = speed_; }
+	void setProgress(float progress_, int idx) { progress[idx] = progress_; }
+
 };

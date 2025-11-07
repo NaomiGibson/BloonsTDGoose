@@ -26,7 +26,7 @@ class DefendMode
 private:
 	Sprite spr_bg;
 	Goose goose;
-	vector<Bloon> bloons;
+	Bloons bloons{ track };
 	Track track{ {
 		{-48, 360},
 		{528, 360},
@@ -47,10 +47,7 @@ private:
 public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	//void release();
-	void spawnBloon();
-	void updateBloons(float dTime);
-	void handleCollision();
+	//void handleCollision();
 	Modes update(float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 
