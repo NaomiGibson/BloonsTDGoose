@@ -18,6 +18,11 @@ void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 	spr.render(d3d, rm, dTime, batch);
 	coll_range.db_render(d3d, rm, dTime, batch);
 }
+void Goose::fire(Bloons& bloons, int idx) {
+	Vector2 tgt = bloons.getPos(idx);
+	float direction = atan2(abs(bloons.getPos(idx).x - spr.getPos().x), abs(bloons.getPos(idx).y - spr.getPos().y));
+	spr.setRotationRads(direction);
+}
 bool Goose::shoot(Bloons& bloons) {
 	static float lastShot = -shootSpeed;
 	float time = GetClock();
@@ -34,7 +39,7 @@ bool Goose::shoot(Bloons& bloons) {
 		}
 		if (coll_range.isColliding(bloons.getCollider(closestIdx))) {	// if the closest bloon is within range, shoot it
 			lastShot = time;
-			DBOUT("SHOOTING BLOON " + to_string(closestIdx));
+			fire(bloons, closestIdx);
 			return true;
 		}
 	}

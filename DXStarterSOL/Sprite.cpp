@@ -18,13 +18,6 @@ void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_
 void Sprite::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	batch.Draw(rm.findTex(texName), pos, &texRect, Vector4(1, 1, 1, 1), rotation, origin, scale, DirectX::SpriteEffects::SpriteEffects_None, 1);
 }
-
-//bool Sprite::isColliding(Vector2 centre, float radius) {
-//	float distance;
-//	distance = abs(sqrt((centre.x + pos.x) * (centre.x + pos.x) + (centre.y + pos.y) * (centre.y + pos.y)));
-//	float thisRad = (texRect.right - texRect.left) / 2;
-//	return (distance <= radius + thisRad);
-//}
 string Sprite::getTexName() {
 	return texName;
 }
@@ -52,12 +45,18 @@ Vector2 Sprite::getPos() {
 void Sprite::setPos(Vector2 pos_) {
 	pos = pos_;
 }
-float Sprite::geRotation() {
+float Sprite::getRotation() {
 	return rotation;
 }
-//void Sprite::setRotation(float rotation_) {
-//	 = rotation_;
-//}
+void Sprite::setRotation(float rotation_) {
+	if (rotation_ > 360)
+		rotation = rotation - 360;
+	else
+		rotation = rotation_ * 0.01745329251;
+}
+void Sprite::setRotationRads(float rads) {
+	rotation = rads;
+}
 Vector2 Sprite::getScale() {
 	return scale;
 }

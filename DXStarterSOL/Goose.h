@@ -20,5 +20,6 @@ public:
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
+	void fire(Bloons& bloons, int idx);
 	bool shoot(Bloons& bloons);
 };

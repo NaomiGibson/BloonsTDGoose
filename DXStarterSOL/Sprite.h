@@ -11,6 +11,7 @@
 #include "DDSTextureLoader.h"
 #include "CommonStates.h"
 #include "ResourceManager.h"
+#include "Utils.cpp"
 
 using namespace std;
 using namespace DirectX;
@@ -37,7 +38,9 @@ public:
 	void setOrigin(Vector2 origin_);
 	Vector2 getPos();
 	void setPos(Vector2 pos_);
-	float geRotation();
+	float getRotation();
+	void setRotation(float rotation_);
+	void Sprite::setRotationRads(float rads);
 	Vector2 getScale();
 	void setScale(const Vector2& scale_);
 	Vector2 GetScreenSize();

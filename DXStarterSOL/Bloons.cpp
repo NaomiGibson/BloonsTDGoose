@@ -9,9 +9,9 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 // Handles all bloon spawning logic
 // @return true if a bloon spawned
 void Bloons::spawnBloon(int idx) {
-	static float lastBloonSpawn = 0;
+	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
 	float time = GetClock();
-	if (time - lastBloonSpawn > GC::BLOON_SPAWN_RATE) {			// at the set bloon spawn rate
+	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE) {			// at the set bloon spawn rate
 		if (!isActive[idx]) {						// search for an inactive bloon
 			activate(idx);							// and activate it
 			lastBloonSpawn = GetClock();
