@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h";
+#include "Collider.h"
 #include "Track.h";
 #include "Utils.cpp"
 
@@ -8,8 +9,10 @@ class Bloons
 private:
 	Sprite spr;
 	Track& track;
+	Collider collider;
 	bool isActive[GC::MAX_BLOONS] = { false };
 	float progress[GC::MAX_BLOONS] = { 100 };
+	Vector2 position[GC::MAX_BLOONS] = { { 0, 0 } };
 	float speed[GC::MAX_BLOONS] = { 0 };
 public:
 	Bloons(Track& track_) : track(track_) {};
@@ -22,8 +25,9 @@ public:
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	bool getIsActive(int idx) { return isActive; }
+	Vector2 getPos(int idx) { return position[idx]; }
 	void activate(int idx);
 	void setSpeed(float speed_, int idx) { speed[idx] = speed_; }
 	void setProgress(float progress_, int idx) { progress[idx] = progress_; }
-
+	Collider& getCollider(int idx);
 };

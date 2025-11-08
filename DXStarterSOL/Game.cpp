@@ -37,7 +37,7 @@ void Game::update(float dTime) {
 	case place:
 		break;
 	case defend:
-		mode = defendMode.update(dTime);
+		mode = defendMode.update(rm, dTime);
 		break;
 	case win:
 		break;

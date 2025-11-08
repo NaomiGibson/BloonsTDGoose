@@ -28,7 +28,7 @@ public:
 	// true if the sprite is overlapping with the given box
 	//bool isColliding(RECT box);
 	// true if the sprite is overlapping with the given circle
-	bool isColliding(Vector2 centre, float radius);
+	//bool isColliding(Vector2 centre, float radius);
 	string getTexName();
 	void setTexName(string texName);
 	RECT getTexRect();

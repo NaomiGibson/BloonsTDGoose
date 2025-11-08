@@ -19,6 +19,7 @@ private:
 	Vector2 pos{ 0, 0 };
 	Vector4 colour{ 0, 0, 0, 0 };
 public:
+	Text() {};
 	Text(string fontName_, string msg_, Vector2 pos_, Vector4 colour_)
 		: fontName(fontName_), msg(msg_), pos(pos_), colour(colour_) {};
 

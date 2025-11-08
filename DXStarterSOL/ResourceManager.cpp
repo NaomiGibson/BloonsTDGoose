@@ -57,7 +57,7 @@ ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetNam
 }
 RECT ResourceManager::findRect(string spritesheet, int spriteID) {
 	Spritesheet sprSheet = findSpritesheet(spritesheet);
-	assert(spriteID < sprSheet.texRects.size());
+	assert(spriteID <= sprSheet.texRects.size());
 	return sprSheet.texRects[spriteID - 1];
 }
 

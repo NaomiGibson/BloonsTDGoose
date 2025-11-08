@@ -30,25 +30,26 @@ private:
 	Track track{ {
 		{-48, 360},
 		{528, 360},
-		{528, 648},
-		{240, 648},
-		{240, 68},
-		{1392, 68},
-		{1392, 452},
-		{1296, 452},
-		{1296, 1032},
-		{720, 1032},
-		{720, 552},
-		{1008, 552},
-		{1008, 840},
+		//{528, 648},
+		//{240, 648},
+		//{240, 68},
+		//{1392, 68},
+		//{1392, 452},
+		//{1296, 452},
+		//{1296, 1032},
+		//{720, 1032},
+		//{720, 552},
+		//{1008, 552},
+		//{1008, 840},
+		{528, 840},
 		{-48, 840},
 		} };
 	Stats ui_stats;
 public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	//void handleCollision();
-	Modes update(float dTime);
+	void handleCollision(ResourceManager& rm);
+	Modes update(ResourceManager& rm, float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 
 };

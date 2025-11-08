@@ -1,22 +1,42 @@
 #include "Goose.h"
 void Goose::setRange(float radius) {
-	radius;
-	float spriteRadius = 256;
-	float scale = radius / spriteRadius;
-	spr_range.setScale({ scale, scale });
+	range = radius;
+	coll_range.setRad(radius);
 }
 void Goose::init(ResourceManager& rm, MyD3D& d3d) {
-	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 528, 164 }, 0, { 1, 1 });
-	spr_range.init(rm.loadSpritesheet(d3d, L"../bin/data/GooseRadius.dds", "goose_rad", 2, 1, 1), 1, {528, 164}, 0, {1, 1});
+	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 528, 260 }, 0, { 1, 1 });
+	range = 128;
+	coll_range.init(rm, d3d, spr.getPos(), range);
 	spr.setOrigin({ 0.5, 0.5 });
-	spr_range.setOrigin({ 0.5, 0.5 });
-	setRange(144);
+	coll_range.getDbSpr().setOrigin({ 0.5, 0.5 });
 	isActive = true;
 }
-void Goose::update(float dTime) {
-	//if(spr.isColliding(spr.getPos, ))
+void Goose::update(float dTime, Bloons& bloons) {
+	shoot(bloons);
 }
 void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	spr.render(d3d, rm, dTime, batch);
-	spr_range.render(d3d, rm, dTime, batch);
+	coll_range.db_render(d3d, rm, dTime, batch);
+}
+bool Goose::shoot(Bloons& bloons) {
+	static float lastShot = -shootSpeed;
+	float time = GetClock();
+	if (time - lastShot >= shootSpeed) {								// at the set shoot speed
+		int closestIdx(0);
+		float closestDist(coll_range.getDistance(bloons.getCollider(0)));
+		float thisDist(closestDist);
+		for (int i(1); i < GC::MAX_BLOONS; i++) {						// find the closest bloon
+			thisDist = coll_range.getDistance(bloons.getCollider(i));
+			if (thisDist < closestDist) {
+				closestDist = thisDist;
+				closestIdx = i;
+			}
+		}
+		if (coll_range.isColliding(bloons.getCollider(closestIdx))) {	// if the closest bloon is within range, shoot it
+			lastShot = time;
+			DBOUT("SHOOTING BLOON " + to_string(closestIdx));
+			return true;
+		}
+	}
+	return false;
 }

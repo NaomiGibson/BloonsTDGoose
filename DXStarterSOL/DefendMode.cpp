@@ -7,18 +7,22 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
 	track.init();
 }
-//void DefendMode::handleCollision() {
-//	for (int i = 0; i < GC::MAX_BLOONS; i++) {
-//		if (goose.getSprRange().isColliding( bloons[i].getSpr().getPos() , bloons[i].getSpr().getTexRect().right / 2 )) {
-//			goose.getSprRange().setTexRect({ 512, 0, 512, 512 });
-//		}
-//	}
-//}
-Modes DefendMode::update(float dTime) {
+void DefendMode::handleCollision(ResourceManager& rm) {
+	// BLOON V GOOSE COLLISION
+	bool isGooseColliding = false;
+	for (int i = 0; i < GC::MAX_BLOONS; i++) {
+		Collider& coll_bloon = bloons.getCollider(i);
+		bool isColliding = goose.getRangeCollider().isColliding(coll_bloon);
+		if (isColliding) isGooseColliding = true;
+	}
+	goose.getRangeCollider().onCollision(rm, isGooseColliding);
+}
+Modes DefendMode::update(ResourceManager& rm, float dTime) {
 	if (bloons.update(dTime)) {
 		ui_stats.setLives(gameStats.getLives());
 	}
-	//handleCollision();
+	goose.update(dTime, bloons);
+	handleCollision(rm);
 
 	// After updating everything, decide final state
 	if (gameStats.getLives() < 0)

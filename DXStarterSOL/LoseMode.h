@@ -25,9 +25,10 @@ class LoseMode
 private:
 	//vector<Sprite> spr_bloons;
 	//vector<Text> txt_loseMsgs;
-	//Text txt_loseMsg;
+	Text txt_loseMsg;
 	Sprite spr_bg;
 public:
+	LoseMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	Modes update(float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);

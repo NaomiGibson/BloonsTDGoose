@@ -13,7 +13,9 @@ public:
 	void setPos(Vector2 pos_);
 	Vector2 getCentre() { return centre; }
 	float getRad() { return rad; }
+	void setRad(float rad_);
+	float Collider::getDistance(const Collider& other);
 	bool isColliding(const Collider& other);
-	void Collider::onCollision(ResourceManager& rm);
+	void onCollision(ResourceManager& rm, bool isColliding);
 	Sprite& getDbSpr() { return db_spr; }
 };

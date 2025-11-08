@@ -22,7 +22,7 @@ private:
 	float length{ 0 };
 public:
 	Track(vector<Vector2> points_) { points = points_; };
-	void init() { length = getLength(); }
+	void init() { length = calculateLength(); }
 	// find location at n distance along track
 	Vector2 findPos(float progress);
 	// calculate length between 2 points

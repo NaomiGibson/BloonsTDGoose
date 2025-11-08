@@ -2,7 +2,7 @@
 
 // find location at n distance along track
 Vector2 Track::findPos(float progress) {
-    assert(progress <= getLength());
+    assert(progress <= length);
     Vector2 pos = points[0]; // for holding the running total for return value
     Vector2 dist = { 0, 0 }; // ignores signs. for holding running total of calculated distance 
     float remaining = progress;
@@ -10,7 +10,7 @@ Vector2 Track::findPos(float progress) {
     for (int i(0); i < points.size() - 1; i++) {
         dist += {   abs(points[i + 1].x - points[i].x), 
                     abs(points[i + 1].y - points[i].y) };
-        if (dist.x + dist.y > progress) {                           // at the first point to surpass the requested progress,
+        if (dist.x + dist.y >= progress) {                           // at the first point to surpass the requested progress,
             Vector2 dir = { points[i + 1].x - points[i].x,          // in the direction of the next point,
                             points[i + 1].y - points[i].y };
             dir.Normalize();
