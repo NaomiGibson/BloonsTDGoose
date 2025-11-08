@@ -5,6 +5,7 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	collider.getDbSpr().setOrigin({ 0.5, 0.58 });
 	spr.setOrigin({ 0.5, 0.5 });
 	std::fill_n(speed, GC::MAX_BLOONS, 100);
+	std::fill_n(value, GC::MAX_BLOONS, 1);
 }
 // Handles all bloon spawning logic
 // @return true if a bloon spawned
@@ -12,10 +13,8 @@ void Bloons::spawnBloon(int idx) {
 	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
 	float time = GetClock();
 	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE) {			// at the set bloon spawn rate
-		if (!isActive[idx]) {						// search for an inactive bloon
-			activate(idx);							// and activate it
-			lastBloonSpawn = GetClock();
-		}
+		activate(idx);							// and activate it
+		lastBloonSpawn = GetClock();
 	}
 }
 bool Bloons::update(float dTime) {
@@ -54,4 +53,8 @@ void Bloons::activate(int idx) {
 Collider& Bloons::getCollider(int idx) {
 	collider.setPos(position[idx]);
 	return collider;
+}
+void Bloons::onCollision_projectile(int idx) {
+	gameStats.addCoins(value[idx]);
+	isActive[idx] = false;
 }

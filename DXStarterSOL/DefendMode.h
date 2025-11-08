@@ -19,6 +19,7 @@ using namespace DirectX::SimpleMath;
 #include "Sprite.h"
 #include "Goose.h"
 #include "Bloons.h"
+#include "Projectiles.h"
 #include "Stats.h"
 
 class DefendMode
@@ -26,6 +27,7 @@ class DefendMode
 private:
 	Sprite spr_bg;
 	Goose goose;
+	Projectiles projectiles{};
 	Bloons bloons{ track };
 	Track track{ {
 		{-48, 360},

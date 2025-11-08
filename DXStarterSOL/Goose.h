@@ -1,6 +1,7 @@
 #pragma once
 #include "Sprite.h"
 #include "Bloons.h"
+#include "Projectiles.h"
 #include "Collider.h"
 
 class Goose
@@ -16,10 +17,10 @@ private:
 public:
 	void setRange(float rad);
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(float dTime, Bloons& bloons);
+	void update(float dTime, Bloons& bloons, Projectiles& projectiles);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
-	void fire(Bloons& bloons, int idx);
-	bool shoot(Bloons& bloons);
+	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
+	bool shoot(Bloons& bloons, Projectiles& projectiles);
 };

@@ -19,7 +19,6 @@ float Collider::getDistance(const Collider& other) {
 	float xDist = abs(centre.x - other.centre.x);
 	float yDist = abs(centre.y - other.centre.y);
 	return sqrt(xDist * xDist + yDist * yDist);
-
 }
 bool Collider::isColliding(const Collider& other) {
 	float touchingDist = rad + other.rad;

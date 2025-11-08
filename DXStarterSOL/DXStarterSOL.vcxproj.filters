@@ -84,7 +84,7 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
+    <ClCompile Include="Projectiles.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,7 +134,7 @@
     <ClInclude Include="Collider.h">
       <Filter>Header Files\World Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
+    <ClInclude Include="Projectiles.h">
       <Filter>Header Files\World Objects</Filter>
     </ClInclude>
   </ItemGroup>

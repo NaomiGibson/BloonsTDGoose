@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h";
+#include "Projectiles.h"
 #include "Collider.h"
 #include "Track.h";
 #include "Utils.cpp"
@@ -11,6 +12,7 @@ private:
 	Track& track;
 	Collider collider;
 	bool isActive[GC::MAX_BLOONS] = { false };
+	int value[GC::MAX_BLOONS] = { 1 };
 	float progress[GC::MAX_BLOONS] = { 100 };
 	Vector2 position[GC::MAX_BLOONS] = { { 0, 0 } };
 	float speed[GC::MAX_BLOONS] = { 0 };
@@ -24,10 +26,11 @@ public:
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
-	bool getIsActive(int idx) { return isActive; }
+	bool getIsActive(int idx) { return isActive[idx]; }
 	Vector2 getPos(int idx) { return position[idx]; }
 	void activate(int idx);
 	void setSpeed(float speed_, int idx) { speed[idx] = speed_; }
 	void setProgress(float progress_, int idx) { progress[idx] = progress_; }
 	Collider& getCollider(int idx);
+	void onCollision_projectile(int idx);
 };

@@ -1,0 +1,41 @@
+#include "Projectiles.h"
+
+void Projectiles::init(ResourceManager& rm, MyD3D& d3d) {
+	spr.init(rm.loadTexture(d3d, L"../bin/data/Projectile.dds", "projectile"), {0, 0, 8, 8}, {0, 0}, 0, {1, 1});
+	collider.init(rm, d3d, { 0, 0 }, 4);
+	collider.getDbSpr().setOrigin({ 0.5, 0.5 });
+	spr.setOrigin({ 0.5, 0.5 });
+	std::fill_n(speed, GC::MAX_BLOONS, 1000);
+}
+void Projectiles::update(float dTime) {
+	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
+		position[i] += direction[i] * speed[i] * dTime;
+	}
+}
+void Projectiles::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
+	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
+		if (isActive[i]) {
+			spr.setPos(position[i]);
+			spr.render(d3d, rm, dTime, batch);
+			collider.setPos(position[i]);
+			collider.db_render(d3d, rm, dTime, batch);
+		}
+	}
+}
+void Projectiles::activate(Vector2 startPos, float directionRads) {
+	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
+		if (!isActive[i]) {
+			isActive[i] = true;
+			position[i] = startPos;
+			direction[i] = { -(float)sin(directionRads), (float)cos(directionRads) };
+			i = GC::MAX_PROJECTILES;
+		}
+	}
+}
+Collider& Projectiles::getCollider(int idx) {
+	collider.setPos(position[idx]);
+	return collider;
+}
+void Projectiles::onCollision_bloon(int idx) {
+	isActive[idx] = false;
+}

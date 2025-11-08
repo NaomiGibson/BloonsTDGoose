@@ -105,7 +105,7 @@
     <ClCompile Include="LoseMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlaceMode.cpp" />
-    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Projectiles.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -123,7 +123,7 @@
     <ClInclude Include="Goose.h" />
     <ClInclude Include="LoseMode.h" />
     <ClInclude Include="PlaceMode.h" />
-    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Projectiles.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Sprite.h" />
