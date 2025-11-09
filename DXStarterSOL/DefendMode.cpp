@@ -28,6 +28,7 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 					if (coll_bloon.isColliding(coll_projectile)) {
 						bloons.onCollision_projectile(b);
 						projectiles.onCollision_bloon(p);
+						ui_stats.setCoins(gameStats.getCoins());
 					}
 				}
 			}

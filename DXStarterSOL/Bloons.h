@@ -22,7 +22,7 @@ public:
 	// Handles all bloon spawning logic
 	// @return true if a bloon spawned
 	void spawnBloon(int idx);
-	// returns false if one or more bloons have reached the end of the track
+	// @return true if one or more bloons have reached the end of the track
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
