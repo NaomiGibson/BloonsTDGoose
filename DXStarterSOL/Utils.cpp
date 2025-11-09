@@ -9,10 +9,10 @@ enum Modes {
 namespace GC {
 	const int START_LIVES = 200;
 	const int NUM_ROUNDS = 10;
-	const int MAX_BLOONS = 70;
-	const float BLOON_SPAWN_RATE = 5;
+	const int MAX_BLOONS = 4;
+	const float BLOON_SPAWN_RATE = 0.5;
 	const int MAX_ROUNDS = 10;
-	const int MAX_PROJECTILES = 100;
+	const int MAX_PROJECTILES = 4;
 }
 struct GameStats {
 private:

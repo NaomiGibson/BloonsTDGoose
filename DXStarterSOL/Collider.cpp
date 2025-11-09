@@ -22,7 +22,8 @@ float Collider::getDistance(const Collider& other) {
 }
 bool Collider::isColliding(const Collider& other) {
 	float touchingDist = rad + other.rad;
-	return getDistance(other) <= touchingDist;
+	float dist = getDistance(other);
+	return dist <= touchingDist;
 }
 void Collider::onCollision(ResourceManager& rm, bool isColliding) {
 	if (isColliding)

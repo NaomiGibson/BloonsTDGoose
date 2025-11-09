@@ -9,7 +9,14 @@ void Projectiles::init(ResourceManager& rm, MyD3D& d3d) {
 }
 void Projectiles::update(float dTime) {
 	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
-		position[i] += direction[i] * speed[i] * dTime;
+		
+		if (position[i].x > 0 &&
+			position[i].x < WinUtil::Get().GetData().clientWidth &&
+			position[i].y > 0 &&
+			position[i].y < WinUtil::Get().GetData().clientHeight)
+			position[i] += direction[i] * speed[i] * dTime;
+		else
+			isActive[i] = false;
 	}
 }
 void Projectiles::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {

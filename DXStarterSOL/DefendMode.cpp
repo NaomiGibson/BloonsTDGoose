@@ -19,16 +19,16 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 	goose.getRangeCollider().onCollision(rm, isGooseColliding);
 
 	// PROJECTILE V BLOON COLLISION
-	for (int b(0); b < GC::MAX_BLOONS; b++) {
-		if (bloons.getIsActive(b)) {
-			for (int p(0); p < GC::MAX_PROJECTILES; p++) {
-				if (projectiles.getIsActive(p)) {
+	for (int b(0); b < GC::MAX_BLOONS; b++) {										//for each active
+		if (bloons.getIsActive(b)) {												//pair of bloons
+			for (int p(0); p < GC::MAX_PROJECTILES; p++) {							//and projectiles
+				if (projectiles.getIsActive(p)) {									//
 					Collider& coll_bloon = bloons.getCollider(b);
 					Collider& coll_projectile = projectiles.getCollider(b);
-					if (coll_bloon.isColliding(coll_projectile)) {
+					if (coll_bloon.isColliding(coll_projectile)) {					// if they are overlapping, call appropriate functions
 						bloons.onCollision_projectile(b);
 						projectiles.onCollision_bloon(p);
-						ui_stats.setCoins(gameStats.getCoins());
+						ui_stats.setCoins(gameStats.getCoins());					// update ui to reflect coins gained from popping bloon
 					}
 				}
 			}
