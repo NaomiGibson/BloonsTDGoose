@@ -26,6 +26,8 @@ class DefendMode
 {
 private:
 	Sprite spr_bg;
+	Sprite spr_bridge1;
+	Sprite spr_bridge2;
 	Goose goose;
 	Projectiles projectiles{};
 	Bloons bloons{ track };
@@ -53,6 +55,5 @@ public:
 	void handleCollision(ResourceManager& rm);
 	Modes update(ResourceManager& rm, float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
-
 };
 

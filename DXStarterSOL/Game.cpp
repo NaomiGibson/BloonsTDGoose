@@ -43,10 +43,10 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = defendMode.update(rm, dTime);
 		break;
 	case win:
-		mode = winMode.update(dTime);
+		mode = winMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case lose:
-		mode = loseMode.update(dTime);
+		mode = loseMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	default:
 		break;
@@ -91,6 +91,7 @@ void Game::changeState() {
 	case place:
 		break;
 	case defend:
+		DefendMode
 		defendMode.init(rm, *p_d3d);
 		break;
 	case win:

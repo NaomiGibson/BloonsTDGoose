@@ -27,11 +27,16 @@ public:
 	void loseLife() { lives--; }
 	int getCoins() { return coins; }
 	void addCoins(int coins_) { coins += coins_; }
-	void resetCoins(int coins_) { coins = 0; }
+	void resetCoins() { coins = 0; }
 	int nextRound() { 
 		round++; 
 		return round; 
 	}
 	int getRound() { return round; }
+	void resetGame() {
+		resetLives();
+		resetCoins();
+		round = 0;
+	}
 }; 
 static GameStats gameStats;

@@ -19,6 +19,7 @@ using namespace DirectX::SimpleMath;
 #include "Sprite.h"
 #include "Bloons.h"
 #include "Stats.h"
+#include "Button.h"
 
 class LoseMode
 {
@@ -27,10 +28,16 @@ private:
 	//vector<Text> txt_loseMsgs;
 	Text txt_loseMsg;
 	Sprite spr_bg;
+
+	Button btn_reset;
+	Text txt_reset;
+	Button btn_exit;
+
+	Stats ui_stats;
 public:
 	LoseMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(float dTime);
+	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 };
 
