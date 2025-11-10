@@ -1,3 +1,4 @@
+#pragma once
 #ifndef WINDOWSUTILS
 #define WINDOWSUTILS
 
@@ -27,8 +28,8 @@ private:
 		std::string mainWndCaption;
 		int clientWidth;
 		int clientHeight;
-		const int minClientWidth = 200;
-		const int minClientHeight = 200;
+		const int minClientWidth{ 200 };
+		const int minClientHeight{ 200 };
 	};
 	WinData mWinData;
 	MyD3D *mpMyD3D;
@@ -50,6 +51,7 @@ public:
 	}
 	//setup a window to render into
 	bool InitMainWindow(int width, int height, HINSTANCE hInstance, const std::string& appName, WNDPROC mssgHandler, bool centred=true);
+	HWND GetMainWnd();
 	//make the link between windows and D3D
 	void SetD3D(MyD3D& d3d) {
 		assert(mpMyD3D == nullptr);

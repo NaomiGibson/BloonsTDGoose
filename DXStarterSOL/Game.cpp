@@ -11,6 +11,7 @@ void Game::init() {
 	switch (mode)
 	{
 	case start:
+		startMode.init(rm, *p_d3d);
 		break;
 	case place:
 		break;
@@ -18,6 +19,7 @@ void Game::init() {
 		defendMode.init(rm, *p_d3d);
 		break;
 	case win:
+		winMode.init(rm, *p_d3d);
 		break;
 	case lose:
 		loseMode.init(rm, *p_d3d);
@@ -28,11 +30,12 @@ void Game::init() {
 	gpSpriteBatch = new SpriteBatch(&(*p_d3d).GetDeviceCtx());
 	assert(gpSpriteBatch);
 }
-void Game::update(float dTime) { 
+void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	Modes oldMode = mode;
 	switch (mode)
 	{
 	case start:
+		mode = startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
 		break;
@@ -40,6 +43,7 @@ void Game::update(float dTime) {
 		mode = defendMode.update(rm, dTime);
 		break;
 	case win:
+		mode = winMode.update(dTime);
 		break;
 	case lose:
 		mode = loseMode.update(dTime);
@@ -59,7 +63,7 @@ void Game::render(float dTime) {
 	switch (mode)
 	{
 	case start:
-
+		startMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case place:
 		break;
@@ -67,6 +71,7 @@ void Game::render(float dTime) {
 		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case win:
+		winMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case lose:
 		loseMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
@@ -81,6 +86,7 @@ void Game::changeState() {
 	switch (mode)
 	{
 	case start:
+		startMode.init(rm, *p_d3d);
 		break;
 	case place:
 		break;
@@ -88,9 +94,10 @@ void Game::changeState() {
 		defendMode.init(rm, *p_d3d);
 		break;
 	case win:
+		winMode.init(rm, *p_d3d);
 		break;
 	case lose:
-		//loseMode.init(rm, *p_d3d);
+		loseMode.init(rm, *p_d3d);
 		break;
 	default:
 		break;

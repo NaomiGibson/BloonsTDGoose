@@ -15,10 +15,12 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 
-//#include "Utils.cpp"
+#include "Utils.cpp"
+#include "StartMode.h"
 #include "PlaceMode.h"
 #include "DefendMode.h"
 #include "LoseMode.h"
+#include "WinMode.h"
 
 class Game
 {
@@ -26,7 +28,7 @@ public:
 	Game(MyD3D*);
 	void init();
 	void release();
-	void update(float dTime);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(float dTime);
 	void changeState();
 	
@@ -39,7 +41,9 @@ private:
 	float gResTimer = 0;
 	int gFrameCounter = 0;
 	float gFrameTimer = 0;
-	Modes mode{ Modes::defend };
+	Modes mode{ Modes::start };
+	StartMode startMode;
 	DefendMode defendMode;
 	LoseMode loseMode;
+	WinMode winMode;
 };

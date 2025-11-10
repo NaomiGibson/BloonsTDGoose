@@ -5,7 +5,6 @@ void LoseMode::init(ResourceManager& rm, MyD3D& d3d) {
 	string texName = rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground");
 	spr_bg.init(texName, { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	txt_loseMsg = Text("Moghul", "YOU LOSE!", { 512, 512 }, { 0, 0, 0, 1 });
-
 }
 Modes LoseMode::update(float dTime) {
 	for (int i = 0; i < 7; i++) {

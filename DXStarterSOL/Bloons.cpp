@@ -2,19 +2,24 @@
 void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), 1, { 0, 0 }, 0, { 1, 1 });
 	collider.init(rm, d3d, { 0, 0 }, 26);
-	collider.getDbSpr().setOrigin({ 0.5, 0.58 });
+	collider.getDbSpr().setOrigin({ 0.5f, 0.58f });
 	spr.setOrigin({ 0.5, 0.5 });
 	std::fill_n(speed, GC::MAX_BLOONS, 100);
 	std::fill_n(value, GC::MAX_BLOONS, 1);
 }
 // Handles all bloon spawning logic
+// @param idx must be that of an inactive bloon
 // @return true if a bloon spawned
 void Bloons::spawnBloon(int idx) {
+	assert(!isActive[idx]);
 	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
 	float time = GetClock();
 	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE) {			// at the set bloon spawn rate
-		activate(idx);							// and activate it
-		lastBloonSpawn = GetClock();
+		if (bloonsSpawned < GC::BLOONS_PER_ROUND) {					// until all bloons for the round have been spawned
+			bloonsSpawned++;
+			activate(idx);											// activate an inactive bloon
+			lastBloonSpawn = GetClock();
+		}
 	}
 }
 bool Bloons::update(float dTime) {
@@ -45,6 +50,14 @@ void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 			collider.db_render(d3d, rm, dTime, batch);
 		}
 	}
+}
+int Bloons::getNumActiveBloons() {
+	int count(0);
+	for (int i(0); i < GC::MAX_BLOONS; i++) {
+		if (isActive[i])
+			count++;
+	}
+	return count;
 }
 void Bloons::activate(int idx) {
 	isActive[idx] = true;

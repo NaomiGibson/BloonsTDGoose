@@ -1,3 +1,4 @@
+#pragma once
 #ifndef D3DH
 #define D3DH
 

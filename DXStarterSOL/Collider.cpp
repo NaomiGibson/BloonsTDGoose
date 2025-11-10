@@ -16,14 +16,22 @@ void Collider::setRad(float rad_) {
 	db_spr.setScale({ (rad * 2) / db_spr.GetScreenSize().x, (rad * 2) / db_spr.GetScreenSize().y });
 }
 float Collider::getDistance(const Collider& other) {
-	float xDist = abs(centre.x - other.centre.x);
-	float yDist = abs(centre.y - other.centre.y);
+	return getDistance(other.centre);
+}
+float Collider::getDistance(Vector2 other) {
+	float xDist = abs(centre.x - other.x);
+	float yDist = abs(centre.y - other.y);
 	return sqrt(xDist * xDist + yDist * yDist);
+
 }
 bool Collider::isColliding(const Collider& other) {
 	float touchingDist = rad + other.rad;
 	float dist = getDistance(other);
 	return dist <= touchingDist;
+}
+bool Collider::isColliding(Vector2 other) {
+	float dist = getDistance(other);
+	return dist <= rad;
 }
 void Collider::onCollision(ResourceManager& rm, bool isColliding) {
 	if (isColliding)

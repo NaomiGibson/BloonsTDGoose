@@ -46,6 +46,8 @@ Modes DefendMode::update(ResourceManager& rm, float dTime) {
 	// After updating everything, decide final state
 	if (gameStats.getLives() < 0)
 		return Modes::lose;
+	else if (bloons.getBloonsSpawned() >= GC::BLOONS_PER_ROUND && bloons.getNumActiveBloons() == 0)
+		return Modes::win;
 	else
 		return Modes::defend;
 }

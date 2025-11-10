@@ -7,7 +7,7 @@ Vector2 Track::findPos(float progress) {
     Vector2 dist = { 0, 0 }; // ignores signs. for holding running total of calculated distance 
     float remaining = progress;
 
-    for (int i(0); i < points.size() - 1; i++) {
+    for (unsigned int i(0); i < points.size() - 1; i++) {
         dist += {   abs(points[i + 1].x - points[i].x), 
                     abs(points[i + 1].y - points[i].y) };
         if (dist.x + dist.y >= progress) {                           // at the first point to surpass the requested progress,
@@ -24,6 +24,7 @@ Vector2 Track::findPos(float progress) {
         }
     }
     assert(false);
+    return { 0, 0 };
 }
 // calculate length between 2 points
 float Track::getLength(Vector2 wp1, Vector2 wp2) {
@@ -34,7 +35,7 @@ float Track::getLength(Vector2 wp1, Vector2 wp2) {
 // calculate length of entire track
 float Track::calculateLength() {
     float len(0);
-    for (int i(0); i < points.size() - 1; i++) {
+    for (unsigned int i(0); i < points.size() - 1; i++) {
         len += getLength(points[i], points[i + 1]);
     }
     return len;

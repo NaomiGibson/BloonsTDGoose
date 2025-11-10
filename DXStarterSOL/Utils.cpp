@@ -13,6 +13,8 @@ namespace GC {
 	const float BLOON_SPAWN_RATE = 0.5;
 	const int MAX_ROUNDS = 10;
 	const int MAX_PROJECTILES = 4;
+
+	const int BLOONS_PER_ROUND = 10;
 }
 struct GameStats {
 private:

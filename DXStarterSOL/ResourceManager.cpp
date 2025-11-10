@@ -54,6 +54,7 @@ ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetNam
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
 	if (it != spritesheetCache.end())
 		return (*it).second;
+	return Spritesheet{};
 }
 RECT ResourceManager::findRect(string spritesheet, int spriteID) {
 	Spritesheet sprSheet = findSpritesheet(spritesheet);

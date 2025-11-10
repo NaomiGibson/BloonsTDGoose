@@ -180,6 +180,10 @@ bool WinUtil::InitMainWindow(int width, int height, HINSTANCE hInstance, const s
 
 
 
+HWND WinUtil::GetMainWnd()
+{
+	return mWinData.hMainWnd;
+}
 
 bool WinUtil::BeginLoop(bool& canUpdateRender)
 {

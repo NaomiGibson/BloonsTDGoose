@@ -96,41 +96,49 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bloons.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="DefendMode.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Goose.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="LoseMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlaceMode.cpp" />
     <ClCompile Include="Projectiles.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StartMode.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
+    <ClCompile Include="WinMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloons.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="DefendMode.h" />
     <ClInclude Include="Goose.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="LoseMode.h" />
     <ClInclude Include="PlaceMode.h" />
     <ClInclude Include="Projectiles.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StartMode.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="Stats.h" />
     <ClInclude Include="WindowUtils.h" />
+    <ClInclude Include="WinMode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

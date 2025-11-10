@@ -87,6 +87,18 @@
     <ClCompile Include="Projectiles.cpp">
       <Filter>Source Files\World Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMode.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMode.cpp">
+      <Filter>Source Files\Gamemodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -136,6 +148,18 @@
     </ClInclude>
     <ClInclude Include="Projectiles.h">
       <Filter>Header Files\World Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartMode.h">
+      <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="WinMode.h">
+      <Filter>Header Files\Gamemodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,9 @@ public:
 	float getRad() { return rad; }
 	void setRad(float rad_);
 	float getDistance(const Collider& other);
+	float getDistance(Vector2 other);
 	bool isColliding(const Collider& other);
+	bool isColliding(Vector2 other);
 	void onCollision(ResourceManager& rm, bool isColliding);
 	Sprite& getDbSpr() { return db_spr; }
 };

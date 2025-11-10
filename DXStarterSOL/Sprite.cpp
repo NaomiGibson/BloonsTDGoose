@@ -52,7 +52,7 @@ void Sprite::setRotation(float rotation_) {
 	if (rotation_ > 360)
 		rotation = rotation - 360;
 	else
-		rotation = rotation_ * 0.01745329251;
+		rotation = rotation_ * 0.01745329251f;
 }
 void Sprite::setRotationRads(float rads) {
 	rotation = rads;
