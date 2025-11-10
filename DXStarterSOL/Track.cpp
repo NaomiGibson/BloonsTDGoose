@@ -26,6 +26,14 @@ Vector2 Track::findPos(float progress) {
     assert(false);
     return { 0, 0 };
 }
+float Track::getProgressAtPoint(int point) {
+    assert(point <= points.size());
+    float len(0);
+    for (unsigned int i(0); i < point - 1; i++) {
+        len += getLength(points[i], points[i + 1]);
+    }
+    return len;
+}
 // calculate length between 2 points
 float Track::getLength(Vector2 wp1, Vector2 wp2) {
     float len = sqrt((wp1.x - wp2.x) * (wp1.x - wp2.x) +

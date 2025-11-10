@@ -8,9 +8,11 @@
 class Bloons 
 {
 private:
+
 	Sprite spr;
 	Track& track;
 	Collider collider;
+	int layer[GC::MAX_BLOONS] = { 0 };
 	bool isActive[GC::MAX_BLOONS] = { false };
 	int value[GC::MAX_BLOONS] = { 1 };
 	float progress[GC::MAX_BLOONS] = { 100 };
@@ -25,7 +27,7 @@ public:
 	void spawnBloon(int idx);
 	// @return true if one or more bloons have reached the end of the track
 	bool update(float dTime);
-	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_);
 	Sprite& getSpr() { return spr; }
 	bool getIsActive(int idx) { return isActive[idx]; }
 	int getNumActiveBloons();

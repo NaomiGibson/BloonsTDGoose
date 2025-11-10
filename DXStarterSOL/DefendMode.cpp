@@ -2,9 +2,10 @@
 void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
-	//wstring texName = rm.loadSpritesheet(d3d, L"../bin/data/BloonsMap.dds", "environmentTiles", 4, 4, 14);
-	//spr_bridge1.init(texName, 14, { 0, 0 }, 0, { 1, 1 });
-	//goose.init(rm, d3d);
+	ResourceManager::Spritesheet texName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
+	spr_bridge1.init(texName, 14, { 192, 312 }, 0, { 1, 1 });
+	spr_bridge2.init(texName, 13, { 672, 792 }, 0, { 1, 1 });
+	goose.init(rm, d3d);
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
@@ -56,10 +57,12 @@ Modes DefendMode::update(ResourceManager& rm, float dTime) {
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
-	//spr_bridge1.render(d3d, rm, dTime, sprBatch);
-	//spr_bridge2.render(d3d, rm, dTime, sprBatch);
+	bloons.render(d3d, rm, dTime, sprBatch, 2);
+	spr_bridge2.render(d3d, rm, dTime, sprBatch);
+	bloons.render(d3d, rm, dTime, sprBatch, 1);
+	spr_bridge1.render(d3d, rm, dTime, sprBatch);
+	bloons.render(d3d, rm, dTime, sprBatch, 0);
 	projectiles.render(d3d, rm, dTime, sprBatch);
 	goose.render(d3d, rm, dTime, sprBatch);
-	bloons.render(d3d, rm, dTime, sprBatch);
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 }

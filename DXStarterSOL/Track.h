@@ -25,6 +25,8 @@ public:
 	void init() { length = calculateLength(); }
 	// find location at n distance along track
 	Vector2 findPos(float progress);
+	Vector2 getPoint(int point) { return points[point - 1]; }
+	float getProgressAtPoint(int point);
 	// calculate length between 2 points
 	float getLength(Vector2 wp1, Vector2 wp2);
 	// return length of entire track

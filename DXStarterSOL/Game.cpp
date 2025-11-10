@@ -91,7 +91,6 @@ void Game::changeState() {
 	case place:
 		break;
 	case defend:
-		DefendMode
 		defendMode.init(rm, *p_d3d);
 		break;
 	case win:

@@ -27,6 +27,12 @@ bool Bloons::update(float dTime) {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		if (isActive[i]) {
 			progress[i] += speed[i] * dTime;
+			if (progress[i] > track.getProgressAtPoint(1) && progress[i] < track.getProgressAtPoint(4)) // determing the layer for bloons that appear under / over bridges
+				layer[i] = 0;
+			else if (progress[i] > track.getProgressAtPoint(4) && progress[i] < track.getProgressAtPoint(13))
+				layer[i] = 1;
+			else
+				layer[i] = 2;
 			if (progress[i] > track.getLength()) {	// if bloon has reached the end of the track
 				isActive[i] = false;				// deactivate it and lose a life
 				gameStats.loseLife();
@@ -39,9 +45,9 @@ bool Bloons::update(float dTime) {
 	}
 	return isLifeLost;
 }
-void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
+void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_) {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
-		if (isActive[i]) {
+		if (isActive[i] && layer[i] == layer_) {
 			Vector2 pos = track.findPos(progress[i]);
 			position[i] = pos;
 			spr.setPos(pos);
