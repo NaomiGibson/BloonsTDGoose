@@ -25,15 +25,34 @@ void Button::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 	spr.render(d3d, rm, dTime, batch);
 }
 void Button::onBeginHover() {
-	spr.setScale({ 1.1f, 1.1f });
+	spr.setScale({ hoverScale, hoverScale });
 
 }
 void Button::onEndHover() {
-	spr.setScale({ 1.f, 1.f });
+	spr.setScale({ 1, 1 });
 }
 void Button::onClick() {
 	isButtonDown = true;
 }
 void Button::onUp() {
 	isButtonDown = false;
+}
+
+void BtnWithTxt::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
+	Button::render(d3d, rm, dTime, batch);
+	txt.render(d3d, rm, dTime, batch);
+}
+void BtnWithTxt::onBeginHover() {
+	Button::onBeginHover();
+	txt.setScale(hoverScale);
+}
+void BtnWithTxt::onEndHover() {
+	Button::onEndHover();
+	txt.setScale(1);
+}
+void BtnWithTxt::initText(string fontName_, string msg_, Vector2 pos_, Vector4 colour_) {
+	txt = Text(fontName_, msg_, spr.getPos() + pos_, colour_);
+}
+void BtnWithTxt::initText(string fontName_, string msg_) {
+	txt = Text(fontName_, msg_);
 }

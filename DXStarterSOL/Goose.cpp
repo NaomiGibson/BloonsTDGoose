@@ -32,10 +32,12 @@ bool Goose::shoot(Bloons& bloons, Projectiles& projectiles) {
 		float closestDist(coll_range.getDistance(bloons.getCollider(0)));
 		float thisDist(closestDist);
 		for (int i(1); i < GC::MAX_BLOONS; i++) {						// find the closest bloon
-			thisDist = coll_range.getDistance(bloons.getCollider(i));
-			if (thisDist < closestDist) {
-				closestDist = thisDist;
-				closestIdx = i;
+			if (bloons.getIsActive(i)) {
+				thisDist = coll_range.getDistance(bloons.getCollider(i));
+				if (thisDist < closestDist) {
+					closestDist = thisDist;
+					closestIdx = i;
+				}
 			}
 		}
 		if (coll_range.isColliding(bloons.getCollider(closestIdx))) {	// if the closest bloon is within range, shoot it

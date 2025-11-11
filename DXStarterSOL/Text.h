@@ -18,6 +18,7 @@ private:
 	string msg{ "msg" };
 	Vector2 pos{ 0, 0 };
 	Vector4 colour{ 0, 0, 0, 0 };
+	float scale{ 1 };
 public:
 	Text() {};
 	Text(string fontName_, string msg_, Vector2 pos_, Vector4 colour_)
@@ -35,6 +36,8 @@ public:
 	void setPos(Vector2 pos_) { pos = pos_; }
 	Vector4 getColour() { return colour; }
 	void setColour(Vector4 colour_) { colour = colour_; }
+	float getScale() { return scale; }
+	void setScale(float scale_) { scale = scale_; }
 	//void init();
 	//void update();
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);

@@ -8,7 +8,7 @@ void WinMode::init(ResourceManager& rm, MyD3D& d3d) {
 	txt_winMsg = Text("Moghul", "YOU WIN!", { 512, 512 }, { 0, 0, 0, 1 });
 	texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon.dds", "playIcon");
 	btn_reset.init(d3d, rm, { 256, 256 }, texName, { 0, 0, 256, 256 }, { 1680, 744 }, 0, { 1, 1 });
-	txt_reset = Text{ "Moghul", "Reset", { 1620, 730 }, { 0, 0, 0, 1 } };
+	btn_reset.initText("Moghul", "Reset", { -55, -16 }, { 0, 0, 0, 1 });
 	texName = rm.loadTexture(d3d, L"../bin/data/ExitIcon.dds", "ExitIcon");
 	btn_exit.init(d3d, rm, { 128, 128 }, texName, { 0, 0, 128, 128 }, { 84, 980 }, 0, { 1, 1 });
 
@@ -27,6 +27,5 @@ void WinMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprB
 	spr_bg.render(d3d, rm, dTime, sprBatch);
 	txt_winMsg.render(d3d, rm, dTime, sprBatch);
 	btn_reset.render(d3d, rm, dTime, sprBatch);
-	txt_reset.render(d3d, rm, dTime, sprBatch);
 	btn_exit.render(d3d, rm, dTime, sprBatch);
 }

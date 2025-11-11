@@ -29,8 +29,8 @@ private:
 	Text txt_winMsg;
 	Sprite spr_bg;
 
-	Button btn_reset;
-	Text txt_reset;
+	BtnWithTxt btn_reset;
+	//Text txt_reset;
 	Button btn_exit;
 
 	Stats ui_stats;

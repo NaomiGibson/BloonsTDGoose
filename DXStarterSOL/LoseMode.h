@@ -29,8 +29,7 @@ private:
 	Text txt_loseMsg;
 	Sprite spr_bg;
 
-	Button btn_reset;
-	Text txt_reset;
+	BtnWithTxt btn_reset;
 	Button btn_exit;
 
 	Stats ui_stats;
