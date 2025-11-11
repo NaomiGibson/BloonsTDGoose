@@ -18,5 +18,6 @@ void GoosePlacer::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBat
 	}
 }
 void GoosePlacer::placeGoose(Vector2 pos) {
-
+	isActive = false;
+	//gameStats lose money
 }

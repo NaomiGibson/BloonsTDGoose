@@ -13,42 +13,47 @@ void ResourceManager::release() {
 // SPRITESHEETS
 
 ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
-	ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
-	Spritesheet sprSheet;
-	sprSheet.texName = texName;
+	Spritesheet sheet = findSpritesheet(texName);
+	string name = sheet.texName;
+	if (!(findSpritesheet(texName).texName == texName)) {
+		ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
+		Spritesheet sprSheet;
+		sprSheet.texName = texName;
 
-	ID3D11Resource* pResource = nullptr;
-	ID3D11Texture2D* pTexture2D = nullptr;
-	unsigned int width;
-	unsigned int height;
+		ID3D11Resource* pResource = nullptr;
+		ID3D11Texture2D* pTexture2D = nullptr;
+		unsigned int width;
+		unsigned int height;
 
-	tex->GetResource(&pResource);
-	pResource->QueryInterface<ID3D11Texture2D>(&pTexture2D);
-	D3D11_TEXTURE2D_DESC desc;
-	pTexture2D->GetDesc(&desc);
-	width = desc.Width;
-	height = desc.Height;
+		tex->GetResource(&pResource);
+		pResource->QueryInterface<ID3D11Texture2D>(&pTexture2D);
+		D3D11_TEXTURE2D_DESC desc;
+		pTexture2D->GetDesc(&desc);
+		width = desc.Width;
+		height = desc.Height;
 
-	int sprW = width / columns;
-	int sprH = height / rows;
+		int sprW = width / columns;
+		int sprH = height / rows;
 
-	int r(0), c(0);
-	for (int i = 0; i < numSprites; i++)
-	{
-		sprSheet.texRects.push_back({ sprW * c,  sprH * r, sprW * (c + 1), sprH * (r + 1) });
-		c++;
-		if (c >= columns) {
-			r++;
-			c = 0;
+		int r(0), c(0);
+		for (int i = 0; i < numSprites; i++)
+		{
+			sprSheet.texRects.push_back({ sprW * c,  sprH * r, sprW * (c + 1), sprH * (r + 1) });
+			c++;
+			if (c >= columns) {
+				r++;
+				c = 0;
+			}
 		}
-	}
 
-	//for (int r = 1; r < rows; r++) {
-	//	for (int c = 1; c < columns; c++) {
-	//	}
-	//}
-	addSprSheet(texName, sprSheet);
-	return sprSheet;
+		//for (int r = 1; r < rows; r++) {
+		//	for (int c = 1; c < columns; c++) {
+		//	}
+		//}
+		addSprSheet(texName, sprSheet);
+		return sprSheet;
+	}
+	return findSpritesheet(texName);
 }
 ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetName) {
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
