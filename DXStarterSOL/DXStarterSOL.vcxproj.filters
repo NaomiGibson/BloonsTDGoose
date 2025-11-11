@@ -99,6 +99,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="GoosePlacer.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files\Gamemodes</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GoosePlacer.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

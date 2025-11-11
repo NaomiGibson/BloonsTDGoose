@@ -19,6 +19,7 @@ using namespace DirectX::SimpleMath;
 #include "Goose.h"
 #include "Stats.h"
 #include "Button.h"
+#include "GoosePlacer.h"
 
 class PlaceMode
 {
@@ -27,6 +28,7 @@ private:
 	Stats ui_stats;
 	Button btn_play;
 	Button btn_placeGoose;
+	GoosePlacer ui_goosePlacer;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);

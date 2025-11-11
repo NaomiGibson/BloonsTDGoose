@@ -103,6 +103,7 @@
     <ClCompile Include="DefendMode.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Goose.cpp" />
+    <ClCompile Include="GoosePlacer.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LoseMode.cpp" />
     <ClCompile Include="main.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="DefendMode.h" />
     <ClInclude Include="Goose.h" />
+    <ClInclude Include="GoosePlacer.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LoseMode.h" />
     <ClInclude Include="PlaceMode.h" />

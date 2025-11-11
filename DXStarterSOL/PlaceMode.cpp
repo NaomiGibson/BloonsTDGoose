@@ -8,12 +8,16 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	btn_play.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1775, 996 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet sprsheet = rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12);
 	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 800 }, 0, { 1, 1 });
+	ui_goosePlacer.init(rm, d3d);
 }
 Modes PlaceMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	if (btn_play.getIsBtnDown())
 		return Modes::defend;
 	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
+	if (btn_placeGoose.getIsBtnDown())
+		ui_goosePlacer.setIsActive(true);
+	ui_goosePlacer.update(mousePos, isLMBPressed);
 	return Modes::place;
 }
 void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
@@ -21,4 +25,5 @@ void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sp
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 	btn_play.render(d3d, rm, dTime, sprBatch);
 	btn_placeGoose.render(d3d, rm, dTime, sprBatch);
+	ui_goosePlacer.render(d3d, rm, dTime, sprBatch);
 }
