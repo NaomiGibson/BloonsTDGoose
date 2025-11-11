@@ -16,7 +16,7 @@ Modes PlaceMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		return Modes::defend;
 	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
 	if (btn_placeGoose.getIsBtnDown())
-		ui_goosePlacer.setIsActive(true);
+		ui_goosePlacer.activate();
 	ui_goosePlacer.update(mousePos, isLMBPressed);
 	return Modes::place;
 }

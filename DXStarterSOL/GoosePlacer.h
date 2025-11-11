@@ -13,6 +13,6 @@ public:
 	void update(Vector2 mousePos, bool isLMBPressed);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	void placeGoose(Vector2 pos);
-	void setIsActive(bool isActive_) { isActive = isActive_; }
+	void activate();
 };
 

@@ -21,3 +21,6 @@ void GoosePlacer::placeGoose(Vector2 pos) {
 	isActive = false;
 	//gameStats lose money
 }
+void GoosePlacer::activate() {
+	isActive = true;
+}
