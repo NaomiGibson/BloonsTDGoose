@@ -8,8 +8,11 @@ void Button::init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName,
 	spr.setOrigin({ 0.5, 0.5 });
 	collider.init(rm, d3d, pos_, (texRect.right - texRect.left * texScaleX) / 2);
 }
-//void Button::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
-//}
+void Button::init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
+	spr.init(sprSheet, sprID, pos_, rotation_, scale_);
+	spr.setOrigin({ 0.5, 0.5 });
+	collider.init(rm, d3d, pos_, (sprSheet.texRects[sprID].right - sprSheet.texRects[sprID].left * scale_.x) / 2);
+}
 void Button::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (collider.isColliding(mousePos)) {
 		onBeginHover();

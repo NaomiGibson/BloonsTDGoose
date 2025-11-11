@@ -28,4 +28,5 @@ void WinMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprB
 	txt_winMsg.render(d3d, rm, dTime, sprBatch);
 	btn_reset.render(d3d, rm, dTime, sprBatch);
 	btn_exit.render(d3d, rm, dTime, sprBatch);
+	ui_stats.render(d3d, rm, dTime, sprBatch);
 }

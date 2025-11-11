@@ -41,8 +41,9 @@ private:
 	float gResTimer = 0;
 	int gFrameCounter = 0;
 	float gFrameTimer = 0;
-	Modes mode{ Modes::lose };
+	Modes mode{ Modes::place };
 	StartMode startMode;
+	PlaceMode placeMode;
 	DefendMode defendMode;
 	LoseMode loseMode;
 	WinMode winMode;

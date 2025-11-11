@@ -1,8 +1,8 @@
 #pragma once
-#include "Sprite.h";
+#include "Sprite.h"
 #include "Projectiles.h"
 #include "Collider.h"
-#include "Track.h";
+#include "Track.h"
 #include "Utils.cpp"
 
 class Bloons 

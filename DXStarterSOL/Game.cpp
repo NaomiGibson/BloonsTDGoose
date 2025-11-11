@@ -14,6 +14,7 @@ void Game::init() {
 		startMode.init(rm, *p_d3d);
 		break;
 	case place:
+		placeMode.init(rm, *p_d3d);
 		break;
 	case defend:
 		defendMode.init(rm, *p_d3d);
@@ -38,6 +39,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
+		mode = placeMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case defend:
 		mode = defendMode.update(rm, dTime);
@@ -66,6 +68,7 @@ void Game::render(float dTime) {
 		startMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case place:
+		placeMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case defend:
 		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
@@ -89,6 +92,7 @@ void Game::changeState() {
 		startMode.init(rm, *p_d3d);
 		break;
 	case place:
+		placeMode.init(rm, *p_d3d);
 		break;
 	case defend:
 		defendMode.init(rm, *p_d3d);

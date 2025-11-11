@@ -29,7 +29,7 @@ Vector2 Track::findPos(float progress) {
 float Track::getProgressAtPoint(int point) {
     assert(point <= points.size());
     float len(0);
-    for (unsigned int i(0); i < point - 1; i++) {
+    for (int i(0); i < point - 1; i++) {
         len += getLength(points[i], points[i + 1]);
     }
     return len;

@@ -26,8 +26,8 @@ private:
 		bool      maximized = false;
 		bool      resizing = false;
 		std::string mainWndCaption;
-		int clientWidth;
-		int clientHeight;
+		int clientWidth{ 1920 };
+		int clientHeight{ 1080 };
 		const int minClientWidth{ 200 };
 		const int minClientHeight{ 200 };
 	};
