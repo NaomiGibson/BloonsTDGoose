@@ -29,6 +29,8 @@ private:
 	Sprite spr_bridge1;
 	Sprite spr_bridge2;
 	Goose goose;
+	Goose goose2;
+	Goose goose3;
 	Projectiles projectiles{};
 	Bloons bloons{ track };
 	Track track{ {
@@ -53,7 +55,8 @@ public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void handleCollision(ResourceManager& rm);
-	Modes update(ResourceManager& rm, float dTime);
+	Modes update(ResourceManager& rm, float dTime, float timeScale);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
+	void reset();
 };
 

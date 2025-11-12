@@ -8,7 +8,6 @@
 class Bloons 
 {
 private:
-
 	Sprite spr;
 	Track& track;
 	Collider collider;
@@ -24,10 +23,11 @@ public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	// Handles all bloon spawning logic
 	// @return true if a bloon spawned
-	void spawnBloon(int idx);
+	void spawnBloon(float timeScale, int idx);
 	// @return true if one or more bloons have reached the end of the track
-	bool update(float dTime);
+	bool update(float dTime, float timeScale);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_);
+	void reset();
 	Sprite& getSpr() { return spr; }
 	bool getIsActive(int idx) { return isActive[idx]; }
 	int getNumActiveBloons();

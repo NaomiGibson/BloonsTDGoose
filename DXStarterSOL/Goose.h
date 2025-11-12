@@ -16,11 +16,11 @@ private:
 	Collider coll_range; // collider for the shoot range
 public:
 	void setRange(float rad);
-	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(float dTime, Bloons& bloons, Projectiles& projectiles);
+	void init(ResourceManager& rm, MyD3D& d3d, Vector2 pos);
+	void update(float dTime, float timeScale, Bloons& bloons, Projectiles& projectiles);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
-	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
-	bool shoot(Bloons& bloons, Projectiles& projectiles);
+	void fire(float timeScale, Bloons& bloons, int idx, Projectiles& projectiles);
+	bool shoot(float timeScale, Bloons& bloons, Projectiles& projectiles);
 };

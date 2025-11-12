@@ -2,6 +2,7 @@
 
 Game::Game(MyD3D* d3d_) 
 :	p_d3d(d3d_) {
+	int a;
 }
 void Game::release() {
 	rm.release();
@@ -42,7 +43,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = placeMode.update(dTime * timeScale, mousePos, isLMBPressed);
 		break;
 	case defend:
-		mode = defendMode.update(rm, dTime * timeScale);
+		mode = defendMode.update(rm, dTime * timeScale, timeScale);
 		break;
 	case win:
 		mode = winMode.update(dTime * timeScale, mousePos, isLMBPressed);

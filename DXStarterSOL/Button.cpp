@@ -21,15 +21,17 @@ void Button::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		else
 			onUp();
 	}
-	else
+	else {
+		onUp();
 		onEndHover();
+	}
+
 }
 void Button::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	spr.render(d3d, rm, dTime, batch);
 }
 void Button::onBeginHover() {
 	spr.setScale({ hoverScale, hoverScale });
-
 }
 void Button::onEndHover() {
 	spr.setScale({ 1, 1 });

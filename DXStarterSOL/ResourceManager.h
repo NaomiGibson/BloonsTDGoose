@@ -50,4 +50,4 @@ private:
 	TexMap texCache;
 	SpritesheetMap spritesheetCache;
 	FontMap fontCache;
-}; 
+};
