@@ -2,17 +2,26 @@
 void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	reset();
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
+
+	spr_test.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 2, { 1700, 700 }, 0, { 1, 1 });
+	Vector2 source = { 0 , 0 };
+	Vector2 tgt = { 1, 0 };
+	Vector2 vec_direction = {  tgt.x - source.x, tgt.y - source.y };
+	float direction = atan2(vec_direction.y, vec_direction.x);
+	spr_test.setRotationRads(direction);
+
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet texName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
-	spr_bridge1.init(texName, 14, { 192, 312 }, 0, { 3, 3 });
-	spr_bridge2.init(texName, 13, { 672, 792 }, 0, { 3, 3 });
-	goose.init(rm, d3d, { 528, 260 });
-	goose2.init(rm, d3d, { 528, 164 });
-	goose3.init(rm, d3d, { 548, 708 });
+	spr_bridge1.init(texName, 14, { 192, 312 }, 0, { 1, 1 });
+	spr_bridge2.init(texName, 13, { 672, 792 }, 0, { 1, 1 });
+	goose.init(rm, d3d, { 432, 260 });
+	goose2.init(rm, d3d, { 336, 164 });
+	goose3.init(rm, d3d, { 644, 708 });
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
 	track.init();
+
 }
 void DefendMode::handleCollision(ResourceManager& rm) {
 	// BLOON V GOOSE COLLISION		 FOR DEBUG ONLY
@@ -49,6 +58,7 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
 	goose2.update(dTime, timeScale, bloons, projectiles);
 	goose3.update(dTime, timeScale, bloons, projectiles);
 	projectiles.update(dTime);
+
 	handleCollision(rm);
 
 	// After updating everything, decide final state
@@ -71,6 +81,8 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	goose2.render(d3d, rm, dTime, sprBatch);
 	goose3.render(d3d, rm, dTime, sprBatch);
 	ui_stats.render(d3d, rm, dTime, sprBatch);
+
+	spr_test.render(d3d, rm, dTime, sprBatch);
 }
 void DefendMode::reset() {
 	gameStats.resetGame();

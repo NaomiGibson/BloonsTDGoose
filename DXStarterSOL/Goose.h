@@ -12,7 +12,6 @@ private:
 	float shootSpeed{ 1 }; // minimum time between shots fired
 	float range{ 0 };
 	int bulletDurability{ 1 };
-
 	Collider coll_range; // collider for the shoot range
 public:
 	void setRange(float rad);
@@ -22,5 +21,5 @@ public:
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
 	void fire(float timeScale, Bloons& bloons, int idx, Projectiles& projectiles);
-	bool shoot(float timeScale, Bloons& bloons, Projectiles& projectiles);
+	bool findTarget(float timeScale, Bloons& bloons, Projectiles& projectiles);
 };

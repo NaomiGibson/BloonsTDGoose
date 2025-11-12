@@ -34,7 +34,7 @@ void Projectiles::activate(Vector2 startPos, float directionRads) {
 		if (!isActive[i]) {
 			isActive[i] = true;
 			position[i] = startPos;
-			direction[i] = { -(float)sin(directionRads), (float)cos(directionRads) };
+			direction[i] = { (float)cos(directionRads), (float)sin(directionRads) };
 			i = GC::MAX_PROJECTILES;
 		}
 	}

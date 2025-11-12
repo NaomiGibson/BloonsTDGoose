@@ -14,7 +14,7 @@ namespace GC {
 	const int MAX_ROUNDS = 10;
 	const int MAX_PROJECTILES = 4;
 
-	const int BLOONS_PER_ROUND = 10;
+	const int BLOONS_PER_ROUND = 20;
 }
 struct GameStats {
 private:

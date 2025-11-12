@@ -12,7 +12,7 @@ void Goose::init(ResourceManager& rm, MyD3D& d3d, Vector2 pos) {
 	isActive = true;
 }
 void Goose::update(float dTime, float timeScale, Bloons& bloons, Projectiles& projectiles) {
-	shoot(timeScale, bloons, projectiles);
+	findTarget(timeScale, bloons, projectiles);
 }
 void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	spr.render(d3d, rm, dTime, batch);
@@ -20,11 +20,12 @@ void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 }
 void Goose::fire(float timeScale, Bloons& bloons, int idx, Projectiles& projectiles) {
 	Vector2 tgt = bloons.getPos(idx);
-	float direction = atan2(abs(bloons.getPos(idx).x - spr.getPos().x), abs(bloons.getPos(idx).y - spr.getPos().y));
+	Vector2 vec_direction = { tgt.x - spr.getPos().x, tgt.y - spr.getPos().y};
+	float direction = atan2(vec_direction.y, vec_direction.x);
 	spr.setRotationRads(direction);
 	projectiles.activate(spr.getPos(), direction);
 }
-bool Goose::shoot(float timeScale, Bloons& bloons, Projectiles& projectiles) {
+bool Goose::findTarget(float timeScale, Bloons& bloons, Projectiles& projectiles) {
 	static float lastShot = -shootSpeed;
 	float time = GetClock();
 	if (time - lastShot >= shootSpeed / timeScale) {					// at the set shoot speed
