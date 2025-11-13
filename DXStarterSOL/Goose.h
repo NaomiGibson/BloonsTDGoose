@@ -15,7 +15,7 @@ private:
 	Collider coll_range; // collider for the shoot range
 public:
 	void setRange(float rad);
-	void init(ResourceManager& rm, MyD3D& d3d, Vector2 pos);
+	void init(ResourceManager& rm, MyD3D& d3d);
 	void update(float dTime, float timeScale, Bloons& bloons, Projectiles& projectiles);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }

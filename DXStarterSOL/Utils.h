@@ -13,8 +13,9 @@ namespace GC {
 	const float BLOON_SPAWN_RATE = 0.2f;
 	const int MAX_ROUNDS = 10;
 	const int MAX_PROJECTILES = 4;
+	const int MAX_GEESE = 20;
 
-	const int BLOONS_PER_ROUND = 20;
+	const int BLOONS_PER_ROUND = 50;
 };
 class GameStats {
 private:

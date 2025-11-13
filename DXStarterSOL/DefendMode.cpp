@@ -2,21 +2,14 @@
 void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	reset();
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
-
-	spr_test.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 2, { 1700, 700 }, 0, { 1, 1 });
-	Vector2 source = { 0 , 0 };
-	Vector2 tgt = { 1, 0 };
-	Vector2 vec_direction = {  tgt.x - source.x, tgt.y - source.y };
-	float direction = atan2(vec_direction.y, vec_direction.x);
-	spr_test.setRotationRads(direction);
-
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet texName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
 	spr_bridge1.init(texName, 14, { 192, 312 }, 0, { 1, 1 });
 	spr_bridge2.init(texName, 13, { 672, 792 }, 0, { 1, 1 });
-	goose.init(rm, d3d, { 432, 260 });
-	goose2.init(rm, d3d, { 336, 164 });
-	goose3.init(rm, d3d, { 644, 708 });
+	for (int i = 0; i < GC::MAX_GEESE; i++) {
+		geese[i].init(rm, d3d);
+	}
+	//goose.init{ 432, 260 }{ 336, 164 }{ 644, 708 };
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
@@ -25,24 +18,24 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 }
 void DefendMode::handleCollision(ResourceManager& rm) {
 	// BLOON V GOOSE COLLISION		 FOR DEBUG ONLY
-	bool isGooseColliding = false;
-	for (int i = 0; i < GC::MAX_BLOONS; i++) {
-		Collider& coll_bloon = bloons.getCollider(i);
-		bool isColliding = goose.getRangeCollider().isColliding(coll_bloon);
-		if (isColliding) isGooseColliding = true;
-	}
-	goose.getRangeCollider().onCollision(rm, isGooseColliding);
+	//bool isGooseColliding = false;
+	//for (int i = 0; i < GC::MAX_BLOONS; i++) {
+	//	Collider& coll_bloon = bloons.getCollider(i);
+	//	bool isColliding = goose.getRangeCollider().isColliding(coll_bloon);
+	//	if (isColliding) isGooseColliding = true;
+	//}
+	//goose.getRangeCollider().onCollision(rm, isGooseColliding);
 
 	// PROJECTILE V BLOON COLLISION
-	for (int b(0); b < GC::MAX_BLOONS; b++) {										//for each active
-		if (bloons.getIsActive(b)) {												//pair of bloons
-			for (int p(0); p < GC::MAX_PROJECTILES; p++) {							//and projectiles
-				if (projectiles.getIsActive(p)) {									//
-					Collider& coll_bloon = bloons.getCollider(b);
-					Collider& coll_projectile = projectiles.getCollider(p);
-					if (coll_bloon.isColliding(coll_projectile)) {					// if they are overlapping, call appropriate functions
-						bloons.onCollision_projectile(b);
-						projectiles.onCollision_bloon(p);
+	for (int i_bloon(0); i_bloon < GC::MAX_BLOONS; i_bloon++) {										//for each active
+		if (bloons.getIsActive(i_bloon)) {															//pair of bloons
+			for (int i_projectile(0); i_projectile < GC::MAX_PROJECTILES; i_projectile++) {			//and projectiles
+				if (projectiles.getIsActive(i_projectile)) {										//
+					Collider& coll_bloon = bloons.getCollider(i_bloon);
+					Collider& coll_projectile = projectiles.getCollider(i_projectile);
+					if (coll_bloon.isColliding(coll_projectile)) {									// if they are overlapping, call appropriate functions
+						bloons.onCollision_projectile(i_bloon);
+						projectiles.onCollision_bloon(i_projectile);
 						ui_stats.setCoins((*GameStats::GetInstance()).getCoins());					// update ui to reflect coins gained from popping bloon
 					}
 				}
@@ -51,14 +44,16 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 	}
 }
 Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
+	// Update Game Objects
 	if (bloons.update(dTime, timeScale)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
 	}
-	goose.update(dTime, timeScale, bloons, projectiles);
-	goose2.update(dTime, timeScale, bloons, projectiles);
-	goose3.update(dTime, timeScale, bloons, projectiles);
+	for (int i(0); i < GC::MAX_GEESE; i++) {
+		geese[i].update(dTime, timeScale, bloons, projectiles);
+	}
 	projectiles.update(dTime);
 
+	//handle collision
 	handleCollision(rm);
 
 	// After updating everything, decide final state
@@ -77,12 +72,10 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	spr_bridge1.render(d3d, rm, dTime, sprBatch);
 	bloons.render(d3d, rm, dTime, sprBatch, 0);
 	projectiles.render(d3d, rm, dTime, sprBatch);
-	goose.render(d3d, rm, dTime, sprBatch);
-	goose2.render(d3d, rm, dTime, sprBatch);
-	goose3.render(d3d, rm, dTime, sprBatch);
+	for (int i(0); i < GC::MAX_GEESE; i++) {
+		geese[i].render(d3d, rm, dTime, sprBatch);
+	}
 	ui_stats.render(d3d, rm, dTime, sprBatch);
-
-	spr_test.render(d3d, rm, dTime, sprBatch);
 }
 void DefendMode::reset() {
 	(*GameStats::GetInstance()).resetGame();

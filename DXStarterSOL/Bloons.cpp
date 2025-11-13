@@ -9,7 +9,6 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 }
 // Handles all bloon spawning logic
 // @param idx must be that of an inactive bloon
-// @return true if a bloon spawned
 void Bloons::spawnBloon(float timeScale, int idx) {
 	assert(!isActive[idx]);
 	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
@@ -17,7 +16,7 @@ void Bloons::spawnBloon(float timeScale, int idx) {
 	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE / timeScale) {			// at the set bloon spawn rate
 		if (bloonsSpawned < GC::BLOONS_PER_ROUND) {					// until all bloons for the round have been spawned
 			bloonsSpawned++;
-			activate(idx);											// activate an inactive bloon
+			activate(idx);											// activate an inactive bloon. idx must be that of an active bloon
 			lastBloonSpawn = GetClock();
 		}
 	}
@@ -48,11 +47,11 @@ bool Bloons::update(float dTime, float timeScale) {
 void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_) {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		if (isActive[i] && layer[i] == layer_) {
-			Vector2 pos = track.findPos(progress[i]);
-			position[i] = pos;
-			spr.setPos(pos);
-			spr.render(d3d, rm, dTime, batch);
-			collider.setPos(pos);
+			Vector2 pos = track.findPos(progress[i]);	// set sprite position to the
+			position[i] = pos;							// position of the bloon and 
+			spr.setPos(pos);							// render it for each bloon
+			spr.render(d3d, rm, dTime, batch);			
+			collider.setPos(pos);						// do the same for the collider debug sprite
 			collider.db_render(d3d, rm, dTime, batch);
 		}
 	}

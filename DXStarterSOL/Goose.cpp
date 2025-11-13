@@ -3,20 +3,23 @@ void Goose::setRange(float radius) {
 	range = radius;
 	coll_range.setRad(radius);
 }
-void Goose::init(ResourceManager& rm, MyD3D& d3d, Vector2 pos) {
-	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, pos, 0, { 1, 1 });
+void Goose::init(ResourceManager& rm, MyD3D& d3d) {
+	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 0, 0 }, 0, {1, 1});
 	range = 128;
 	coll_range.init(rm, d3d, spr.getPos(), range);
 	spr.setOrigin({ 0.5, 0.5 });
 	coll_range.getDbSpr().setOrigin({ 0.5, 0.5 });
-	isActive = true;
 }
 void Goose::update(float dTime, float timeScale, Bloons& bloons, Projectiles& projectiles) {
-	findTarget(timeScale, bloons, projectiles);
+	if (isActive) {
+		findTarget(timeScale, bloons, projectiles);
+	}
 }
 void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
-	spr.render(d3d, rm, dTime, batch);
-	coll_range.db_render(d3d, rm, dTime, batch);
+	if (isActive) {
+		spr.render(d3d, rm, dTime, batch);
+		coll_range.db_render(d3d, rm, dTime, batch);
+	}
 }
 void Goose::fire(float timeScale, Bloons& bloons, int idx, Projectiles& projectiles) {
 	Vector2 tgt = bloons.getPos(idx);

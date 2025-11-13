@@ -25,13 +25,10 @@ using namespace DirectX::SimpleMath;
 class DefendMode
 {
 private:
-	Sprite spr_test;
 	Sprite spr_bg;
 	Sprite spr_bridge1;
 	Sprite spr_bridge2;
-	Goose goose;
-	Goose goose2;
-	Goose goose3;
+	Goose geese[GC::MAX_GEESE];
 	Projectiles projectiles{};
 	Bloons bloons{ track };
 	Track track{ {

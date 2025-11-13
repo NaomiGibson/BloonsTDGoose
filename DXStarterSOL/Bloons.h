@@ -22,7 +22,7 @@ public:
 	Bloons(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	// Handles all bloon spawning logic
-	// @return true if a bloon spawned
+	// @param idx must be that of an inactive bloon
 	void spawnBloon(float timeScale, int idx);
 	// @return true if one or more bloons have reached the end of the track
 	bool update(float dTime, float timeScale);
