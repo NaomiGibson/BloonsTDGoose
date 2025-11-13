@@ -11,7 +11,6 @@
 #include "DDSTextureLoader.h"
 #include "CommonStates.h"
 #include "ResourceManager.h"
-#include "Utils.cpp"
 
 using namespace std;
 using namespace DirectX;

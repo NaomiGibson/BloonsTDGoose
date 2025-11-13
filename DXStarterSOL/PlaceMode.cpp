@@ -3,7 +3,7 @@
 void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
-	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
+	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
 	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
 	btn_play.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet sprsheet = rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12);

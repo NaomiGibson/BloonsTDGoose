@@ -14,7 +14,7 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-#include "Utils.cpp"
+//#include "Utils.h"
 #include "ResourceManager.h"
 #include "Sprite.h"
 #include "Bloons.h"

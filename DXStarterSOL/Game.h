@@ -14,8 +14,7 @@ using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
-#include "Utils.cpp"
+//#include "Utils.h"
 #include "StartMode.h"
 #include "PlaceMode.h"
 #include "DefendMode.h"

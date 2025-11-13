@@ -35,7 +35,7 @@ bool Bloons::update(float dTime, float timeScale) {
 				layer[i] = 2;
 			if (progress[i] > track.getLength()) {	// if bloon has reached the end of the track
 				isActive[i] = false;				// deactivate it and lose a life
-				gameStats.loseLife();
+				(*GameStats::GetInstance()).loseLife();
 				isLifeLost = true;
 			}
 		}
@@ -77,6 +77,6 @@ Collider& Bloons::getCollider(int idx) {
 	return collider;
 }
 void Bloons::onCollision_projectile(int idx) {
-	gameStats.addCoins(value[idx]);
+	(*GameStats::GetInstance()).addCoins(value[idx]);
 	isActive[idx] = false;
 }

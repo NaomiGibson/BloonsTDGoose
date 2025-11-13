@@ -19,7 +19,7 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	goose3.init(rm, d3d, { 644, 708 });
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
-	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
+	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
 	track.init();
 
 }
@@ -43,7 +43,7 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 					if (coll_bloon.isColliding(coll_projectile)) {					// if they are overlapping, call appropriate functions
 						bloons.onCollision_projectile(b);
 						projectiles.onCollision_bloon(p);
-						ui_stats.setCoins(gameStats.getCoins());					// update ui to reflect coins gained from popping bloon
+						ui_stats.setCoins((*GameStats::GetInstance()).getCoins());					// update ui to reflect coins gained from popping bloon
 					}
 				}
 			}
@@ -52,7 +52,7 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 }
 Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
 	if (bloons.update(dTime, timeScale)) {
-		ui_stats.setLives(gameStats.getLives());
+		ui_stats.setLives((*GameStats::GetInstance()).getLives());
 	}
 	goose.update(dTime, timeScale, bloons, projectiles);
 	goose2.update(dTime, timeScale, bloons, projectiles);
@@ -62,7 +62,7 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
 	handleCollision(rm);
 
 	// After updating everything, decide final state
-	if (gameStats.getLives() < 0)
+	if ((*GameStats::GetInstance()).getLives() < 0)
 		return Modes::lose;
 	else if (bloons.getBloonsSpawned() >= GC::BLOONS_PER_ROUND && bloons.getNumActiveBloons() == 0)
 		return Modes::win;
@@ -85,6 +85,6 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	spr_test.render(d3d, rm, dTime, sprBatch);
 }
 void DefendMode::reset() {
-	gameStats.resetGame();
+	(*GameStats::GetInstance()).resetGame();
 	bloons.reset();
 }

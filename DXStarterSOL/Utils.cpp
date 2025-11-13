@@ -1,45 +1,27 @@
 #pragma once
-enum Modes {
-	start,
-	place,
-	defend,
-	win,
-	lose
-};
-namespace GC {
-	const int START_LIVES = 200;
-	const int NUM_ROUNDS = 10;
-	const int MAX_BLOONS = 50;
-	const float BLOON_SPAWN_RATE = 0.2;
-	const int MAX_ROUNDS = 10;
-	const int MAX_PROJECTILES = 4;
+#include "Utils.h"
 
-	const int BLOONS_PER_ROUND = 20;
+int GameStats::getLives() { return lives; }
+void GameStats::resetLives() { lives = GC::START_LIVES; }
+void GameStats::loseLife() { lives--; }
+int GameStats::getCoins() { return coins; }
+void GameStats::addCoins(int coins_) { coins += coins_; }
+void GameStats::resetCoins() { coins = 0; }
+
+GameStats* GameStats::GetInstance() {
+	if (instance == nullptr) {
+		instance = new GameStats();
+	}
+	return instance;
 }
-struct GameStats {
-private:
-	int lives{ GC::START_LIVES };
-	int coins{ 0 };
-	int round{ 0 };
-public:
-	int getLives() { return lives; }
-	void resetLives() { lives = GC::START_LIVES; }
-	void loseLife() { lives--; }
-	int getCoins() { return coins; }
-	void addCoins(int coins_) { coins += coins_; }
-	void resetCoins() { coins = 0; }
-	int nextRound() { 
-		round++; 
-		return round; 
-	}
-	int getRound() { return round; }
-	void resetGame() {
-		resetLives();
-		resetCoins();
-		round = 0;
-	}
-	//static GameStats::GetSingleton() {
-	//
-	//}
-}; 
-static GameStats gameStats;
+int GameStats::nextRound() {
+	round++; 
+	return round; 
+}
+int GameStats::getRound() { return round; }
+void GameStats::resetGame() {
+	resetLives();
+	resetCoins();
+	round = 0;
+}
+GameStats* GameStats::instance = nullptr;

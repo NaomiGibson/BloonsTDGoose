@@ -12,7 +12,7 @@ void LoseMode::init(ResourceManager& rm, MyD3D& d3d) {
 	texName = rm.loadTexture(d3d, L"../bin/data/ExitIcon.dds", "ExitIcon");
 	btn_exit.init(d3d, rm, { 128, 128 }, texName, { 0, 0, 128, 128 }, { 84, 980 }, 0, { 1, 1 });
 
-	ui_stats.init(d3d, rm, gameStats.getLives(), gameStats.getCoins(), gameStats.getRound());
+	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
 }
 Modes LoseMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_reset.update(dTime, mousePos, isLMBPressed);
