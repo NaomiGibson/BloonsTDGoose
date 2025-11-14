@@ -1,6 +1,6 @@
 #include "DefendMode.h"
-void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
-	reset();
+void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& bloons) {
+	reset(bloons);
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
@@ -8,19 +8,15 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
 	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
 	spr_bridge2.init(sprsheetName, 13, { 672, 792 }, 0, { 1, 1 });
-	for (int i = 0; i < GC::MAX_GEESE; i++) {
-		geese[i].init(rm, d3d);
-	}
 	geese[0].activate({ 432, 260 });
 	geese[1].activate({ 336, 164 });
 	geese[2].activate({ 644, 708 });
 	projectiles.init(rm, d3d);
-	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
-	track.init();
+
 
 }
-void DefendMode::handleCollision(ResourceManager& rm) {
+void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 	// BLOON V GOOSE COLLISION		 FOR DEBUG ONLY
 	//bool isGooseColliding = false;
 	//for (int i = 0; i < GC::MAX_BLOONS; i++) {
@@ -47,7 +43,7 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
+Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[], Bloons& bloons) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
@@ -63,7 +59,7 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, boo
 		toggleTimeScale();
 
 	//handle collision
-	handleCollision(rm);
+	handleCollision(rm, bloons);
 
 	// After updating everything, decide final state
 	if ((*GameStats::GetInstance()).getLives() == 0)
@@ -73,7 +69,7 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, boo
 	else
 		return Modes::defend;
 }
-void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
+void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
 	bloons.render(d3d, rm, dTime, sprBatch, 2);
 	spr_bridge2.render(d3d, rm, dTime, sprBatch);
@@ -87,7 +83,7 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 	btn_gameSpeed.render(d3d, rm, dTime, sprBatch);
 }
-void DefendMode::reset() {
+void DefendMode::reset(Bloons& bloons) {
 	(*GameStats::GetInstance()).resetGame();
 	bloons.reset();
 }
@@ -97,7 +93,7 @@ void DefendMode::toggleTimeScale() {
 		isGameFast = false;
 	}
 	else {
-		(*GameStats::GetInstance()).setTimeScale(fastTimeScale);
+		(*GameStats::GetInstance()).setTimeScale(FAST_TIME_SCALE);
 		isGameFast = true;
 	}
 }

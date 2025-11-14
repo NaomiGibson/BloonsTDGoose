@@ -9,6 +9,11 @@ void Game::release() {
 }
 
 void Game::init() {
+	track.init();
+	bloons.init(rm, *p_d3d);
+	for (int i = 0; i < GC::MAX_GEESE; i++) {
+		geese[i].init(rm, *p_d3d);
+	}
 	switch (mode)
 	{
 	case start:
@@ -18,7 +23,7 @@ void Game::init() {
 		placeMode.init(rm, *p_d3d);
 		break;
 	case defend:
-		defendMode.init(rm, *p_d3d);
+		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
 		winMode.init(rm, *p_d3d);
@@ -43,7 +48,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = placeMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case defend:
-		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed);
+		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, geese, bloons);
 		break;
 	case win:
 		mode = winMode.update(dTime, mousePos, isLMBPressed);
@@ -72,7 +77,7 @@ void Game::render(float dTime) {
 		placeMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
 		break;
 	case defend:
-		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
+		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime, geese, bloons);
 		break;
 	case win:
 		winMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
@@ -96,7 +101,7 @@ void Game::changeState() {
 		placeMode.init(rm, *p_d3d);
 		break;
 	case defend:
-		defendMode.init(rm, *p_d3d);
+		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
 		winMode.init(rm, *p_d3d);

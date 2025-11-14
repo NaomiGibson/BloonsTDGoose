@@ -26,41 +26,22 @@ using namespace DirectX::SimpleMath;
 class DefendMode
 {
 private:
+	Stats ui_stats;
+	Projectiles projectiles{};
+	Button btn_gameSpeed;
 	Sprite spr_bg;
 	Sprite spr_bridge1;
 	Sprite spr_bridge2;
-	Goose geese[GC::MAX_GEESE];
-	Projectiles projectiles{};
-	Bloons bloons{ track };
-	Track track{ {
-		{-48, 360},
-		{528, 360},
-		{528, 648},
-		{240, 648},
-		{240, 68},
-		{1392, 68},
-		{1392, 452},
-		{1296, 452},
-		{1296, 1032},
-		{720, 1032},
-		{720, 552},
-		{1008, 552},
-		{1008, 840},
-		//{528, 840},
-		{-48, 840},
-		} };
-	Stats ui_stats;
-	Button btn_gameSpeed;
-	float fastTimeScale{ 3 };
+	const float FAST_TIME_SCALE{ 3 };
 	bool isGameFast;
 	bool isGameSpeedBtnDown;
 public:
 	DefendMode() {};
-	void init(ResourceManager& rm, MyD3D& d3d);
-	void handleCollision(ResourceManager& rm);
-	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed);
-	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
-	void reset();
+	void init(ResourceManager& rm, MyD3D& d3d, Goose geese[], Bloons& bloons);
+	void handleCollision(ResourceManager& rm, Bloons& bloons);
+	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[], Bloons& bloons);
+	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons);
+	void reset(Bloons& bloons);
 	void toggleTimeScale();
 };
 

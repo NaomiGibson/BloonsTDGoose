@@ -34,16 +34,39 @@ public:
 private:
 	MyD3D* p_d3d;
 	ResourceManager rm; // game's resource manager
-	DirectX::SpriteBatch* gpSpriteBatch = nullptr;
+	DirectX::SpriteBatch* gpSpriteBatch = nullptr; 
+	// timing
 	int gCycle = 0;
+	int gFrameCounter = 0;
 	float gTime = 0;
 	float gResTimer = 0;
-	int gFrameCounter = 0;
 	float gFrameTimer = 0;
+	// gamemodes
 	Modes mode{ Modes::place };
 	StartMode startMode;
 	PlaceMode placeMode;
 	DefendMode defendMode;
 	LoseMode loseMode;
 	WinMode winMode;
+	// widely used game objects
+	Bloons bloons{ track };
+	Goose geese[GC::MAX_GEESE];
+	Track track{ {
+		{-48, 360},
+		{528, 360},
+		{528, 648},
+		{240, 648},
+		{240, 68},
+		{1392, 68},
+		{1392, 452},
+		{1296, 452},
+		{1296, 1032},
+		{720, 1032},
+		{720, 552},
+		{1008, 552},
+		{1008, 840},
+		//{528, 840},
+		{-48, 840},
+		} };
+
 };
