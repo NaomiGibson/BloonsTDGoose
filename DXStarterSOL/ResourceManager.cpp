@@ -45,11 +45,6 @@ ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const 
 				c = 0;
 			}
 		}
-
-		//for (int r = 1; r < rows; r++) {
-		//	for (int c = 1; c < columns; c++) {
-		//	}
-		//}
 		addSprSheet(texName, sprSheet);
 		return sprSheet;
 	}

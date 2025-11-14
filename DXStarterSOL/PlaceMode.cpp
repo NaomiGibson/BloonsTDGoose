@@ -10,18 +10,23 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 800 }, 0, { 1, 1 });
 	ui_goosePlacer.init(rm, d3d);
 }
-Modes PlaceMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
+Modes PlaceMode::update(float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[]) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
-	if (btn_play.getIsBtnDown())
-		return Modes::defend;
 	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
 	if (btn_placeGoose.getIsBtnDown())
 		ui_goosePlacer.activate();
-	ui_goosePlacer.update(mousePos, isLMBPressed);
+	ui_goosePlacer.update(mousePos, isLMBPressed, geese);
+
+	//After updating everything, decide current state
+	if (btn_play.getIsBtnDown())
+		return Modes::defend;
 	return Modes::place;
 }
-void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
+void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
+	for (int i(0); i < GC::MAX_GEESE; i++) {
+		geese[i].render(d3d, rm, dTime, sprBatch);
+	}
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 	btn_play.render(d3d, rm, dTime, sprBatch);
 	btn_placeGoose.render(d3d, rm, dTime, sprBatch);

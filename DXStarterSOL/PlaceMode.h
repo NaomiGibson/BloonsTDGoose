@@ -31,6 +31,6 @@ private:
 	GoosePlacer ui_goosePlacer;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
-	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
+	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[]);
+	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]);
 };

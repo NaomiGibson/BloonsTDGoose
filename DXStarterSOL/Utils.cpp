@@ -6,7 +6,8 @@ void GameStats::resetLives() { lives = GC::START_LIVES; }
 void GameStats::loseLife() { lives--; }
 int GameStats::getCoins() { return coins; }
 void GameStats::addCoins(int coins_) { coins += coins_; }
-void GameStats::resetCoins() { coins = 0; }
+void GameStats::spendCoins(int coins_) { coins -= coins_; }
+void GameStats::resetCoins() { coins = GC::START_COINS; }
 
 GameStats* GameStats::GetInstance() {
 	if (instance == nullptr) {

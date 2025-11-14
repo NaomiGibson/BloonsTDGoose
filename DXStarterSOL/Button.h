@@ -26,7 +26,10 @@ public:
 	void Button::onClick();
 	void Button::onUp();
 	bool getIsBtnDown() { return isButtonDown; }
+	Sprite& getSpr() { return spr; }
 };
+
+
 class BtnWithTxt : public Button
 {
 private:

@@ -8,6 +8,8 @@ enum Modes {
 };
 namespace GC {
 	const int START_LIVES = 50;
+	const int START_COINS = 40;
+	const int GOOSE_COST = 30;
 	const int NUM_ROUNDS = 10;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
@@ -21,7 +23,7 @@ class GameStats {
 private:
 	static GameStats* instance;
 	int lives{ GC::START_LIVES };
-	int coins{ 0 };
+	int coins{ GC::START_COINS };
 	int round{ 0 };
 	float timeScale{ 1 };
 	GameStats() {}
@@ -34,6 +36,7 @@ public:
 	void loseLife();
 	int getCoins();
 	void addCoins(int coins_);
+	void spendCoins(int coins_);
 	void resetCoins();
 	int nextRound();
 	int getRound();

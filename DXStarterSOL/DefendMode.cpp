@@ -3,7 +3,8 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& b
 	reset(bloons);
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
-	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
+	string texName = rm.loadTexture(d3d, L"../bin/data/FastForwardIcon.dds", "fastForwardIcon");
+	rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
 	btn_gameSpeed.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
 	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
@@ -90,10 +91,12 @@ void DefendMode::reset(Bloons& bloons) {
 void DefendMode::toggleTimeScale() {
 	if (isGameFast) {
 		(*GameStats::GetInstance()).setTimeScale(1);
+		btn_gameSpeed.getSpr().setTexName("fastForwardIcon");
 		isGameFast = false;
 	}
 	else {
 		(*GameStats::GetInstance()).setTimeScale(FAST_TIME_SCALE);
+		btn_gameSpeed.getSpr().setTexName("playIcon64");
 		isGameFast = true;
 	}
 }

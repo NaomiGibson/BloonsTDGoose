@@ -23,5 +23,6 @@ public:
 	Collider& getRangeCollider() { return coll_range; }
 	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
 	bool findTarget(Bloons& bloons, Projectiles& projectiles);
+	bool getIsActive() { return isActive; }
 	void activate(Vector2 pos);
 };
