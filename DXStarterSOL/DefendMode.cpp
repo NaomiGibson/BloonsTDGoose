@@ -3,14 +3,17 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	reset();
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
-	ResourceManager::Spritesheet texName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
-	spr_bridge1.init(texName, 14, { 192, 312 }, 0, { 1, 1 });
-	spr_bridge2.init(texName, 13, { 672, 792 }, 0, { 1, 1 });
+	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
+	btn_gameSpeed.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
+	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
+	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
+	spr_bridge2.init(sprsheetName, 13, { 672, 792 }, 0, { 1, 1 });
 	for (int i = 0; i < GC::MAX_GEESE; i++) {
 		geese[i].init(rm, d3d);
 	}
 	geese[0].activate({ 432, 260 });
-	//goose.init{ 336, 164 }{ 644, 708 };
+	geese[1].activate({ 336, 164 });
+	geese[2].activate({ 644, 708 });
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
@@ -44,7 +47,7 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime) {
+Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
@@ -53,6 +56,11 @@ Modes DefendMode::update(ResourceManager& rm, float dTime) {
 		geese[i].update(dTime, bloons, projectiles);
 	}
 	projectiles.update(dTime);
+	// speed up button
+	isGameSpeedBtnDown = btn_gameSpeed.getIsBtnDown(); // hold last value so that speed is only togled once for each click
+	btn_gameSpeed.update(dTime, mousePos, isLMBPressed);
+	if (btn_gameSpeed.getIsBtnDown() && !isGameSpeedBtnDown)
+		toggleTimeScale();
 
 	//handle collision
 	handleCollision(rm);
@@ -77,8 +85,19 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 		geese[i].render(d3d, rm, dTime, sprBatch);
 	}
 	ui_stats.render(d3d, rm, dTime, sprBatch);
+	btn_gameSpeed.render(d3d, rm, dTime, sprBatch);
 }
 void DefendMode::reset() {
 	(*GameStats::GetInstance()).resetGame();
 	bloons.reset();
+}
+void DefendMode::toggleTimeScale() {
+	if (isGameFast) {
+		(*GameStats::GetInstance()).setTimeScale(1);
+		isGameFast = false;
+	}
+	else {
+		(*GameStats::GetInstance()).setTimeScale(fastTimeScale);
+		isGameFast = true;
+	}
 }

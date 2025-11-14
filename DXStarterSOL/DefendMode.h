@@ -21,6 +21,7 @@ using namespace DirectX::SimpleMath;
 #include "Bloons.h"
 #include "Projectiles.h"
 #include "Stats.h"
+#include "Button.h"
 
 class DefendMode
 {
@@ -49,12 +50,17 @@ private:
 		{-48, 840},
 		} };
 	Stats ui_stats;
+	Button btn_gameSpeed;
+	float fastTimeScale{ 3 };
+	bool isGameFast;
+	bool isGameSpeedBtnDown;
 public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void handleCollision(ResourceManager& rm);
-	Modes update(ResourceManager& rm, float dTime);
+	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 	void reset();
+	void toggleTimeScale();
 };
 

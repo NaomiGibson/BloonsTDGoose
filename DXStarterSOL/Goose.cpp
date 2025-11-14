@@ -30,7 +30,6 @@ void Goose::fire(Bloons& bloons, int idx, Projectiles& projectiles) {
 	projectiles.activate(spr.getPos(), direction);
 }
 bool Goose::findTarget(Bloons& bloons, Projectiles& projectiles) {
-	static float lastShot = -shootSpeed;
 	float time = GetClock();
 	if (time - lastShot >= shootSpeed / (*GameStats::GetInstance()).getTimeScale()) {					// at the set shoot speed
 		int closestIdx(0);
