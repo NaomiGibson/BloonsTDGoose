@@ -95,6 +95,7 @@ void Game::changeState() {
 	switch (mode)
 	{
 	case start:
+		defendMode.reset(bloons);
 		startMode.init(rm, *p_d3d);
 		break;
 	case place:
@@ -104,9 +105,11 @@ void Game::changeState() {
 		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
+		defendMode.reset(bloons);
 		winMode.init(rm, *p_d3d);
 		break;
 	case lose:
+		defendMode.reset(bloons);
 		loseMode.init(rm, *p_d3d);
 		break;
 	default:

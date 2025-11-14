@@ -42,7 +42,7 @@ private:
 	float gResTimer = 0;
 	float gFrameTimer = 0;
 	// gamemodes
-	Modes mode{ Modes::place };
+	Modes mode{ Modes::start };
 	StartMode startMode;
 	PlaceMode placeMode;
 	DefendMode defendMode;

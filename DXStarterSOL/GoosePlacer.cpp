@@ -22,9 +22,10 @@ void GoosePlacer::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBat
 void GoosePlacer::placeGoose(Vector2 pos, Goose geese[]) {
 	for (int i(0); i < GC::MAX_GEESE; i++) {
 		if (!geese[i].getIsActive()) {
-			geese[i].activate(pos);
-			(*GameStats::GetInstance()).spendCoins(GC::GOOSE_COST);
-			i = GC::MAX_GEESE;
+			if ((*GameStats::GetInstance()).spendCoins(GC::GOOSE_COST)) {
+				i = GC::MAX_GEESE;
+				geese[i].activate(pos);
+			}
 		}
 	}
 

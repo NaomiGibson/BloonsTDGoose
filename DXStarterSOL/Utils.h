@@ -36,7 +36,8 @@ public:
 	void loseLife();
 	int getCoins();
 	void addCoins(int coins_);
-	void spendCoins(int coins_);
+	// @return true if player can afford to spend the coins
+	bool spendCoins(int coins_);
 	void resetCoins();
 	int nextRound();
 	int getRound();

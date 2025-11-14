@@ -1,6 +1,5 @@
 #include "DefendMode.h"
 void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& bloons) {
-	reset(bloons);
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr_bg.init(rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground"), { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	string texName = rm.loadTexture(d3d, L"../bin/data/FastForwardIcon.dds", "fastForwardIcon");
@@ -9,9 +8,9 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& b
 	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
 	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
 	spr_bridge2.init(sprsheetName, 13, { 672, 792 }, 0, { 1, 1 });
-	geese[0].activate({ 432, 260 });
-	geese[1].activate({ 336, 164 });
-	geese[2].activate({ 644, 708 });
+	//geese[0].activate({ 432, 260 });
+	//geese[1].activate({ 336, 164 });
+	//geese[2].activate({ 644, 708 });
 	projectiles.init(rm, d3d);
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
 

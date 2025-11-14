@@ -10,7 +10,7 @@ void StartMode::init(ResourceManager& rm, MyD3D& d3d) {
 Modes StartMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	if (btn_play.getIsBtnDown())
-		return Modes::defend;
+		return Modes::place;
 	return Modes::start;
 }
 void StartMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
