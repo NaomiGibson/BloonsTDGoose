@@ -9,13 +9,13 @@ enum Modes {
 namespace GC {
 	const int START_LIVES = 50;
 	const int NUM_ROUNDS = 10;
-	const int MAX_BLOONS = 50;
+	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
 	const int MAX_ROUNDS = 10;
 	const int MAX_PROJECTILES = 4;
 	const int MAX_GEESE = 20;
 
-	const int BLOONS_PER_ROUND = 50;
+	const int BLOONS_PER_ROUND = 100;
 };
 class GameStats {
 private:
@@ -23,6 +23,7 @@ private:
 	int lives{ GC::START_LIVES };
 	int coins{ 0 };
 	int round{ 0 };
+	float timeScale{ 1 };
 	GameStats() {}
 public:
 	static GameStats* GetInstance();
@@ -37,4 +38,6 @@ public:
 	int nextRound();
 	int getRound();
 	void resetGame();
+	float getTimeScale();
+	void setTimeScale(float timeScale_);
 };

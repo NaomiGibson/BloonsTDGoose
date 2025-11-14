@@ -53,7 +53,7 @@ public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void handleCollision(ResourceManager& rm);
-	Modes update(ResourceManager& rm, float dTime, float timeScale);
+	Modes update(ResourceManager& rm, float dTime);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 	void reset();
 };

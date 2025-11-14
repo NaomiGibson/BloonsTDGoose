@@ -9,7 +9,8 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d) {
 	for (int i = 0; i < GC::MAX_GEESE; i++) {
 		geese[i].init(rm, d3d);
 	}
-	//goose.init{ 432, 260 }{ 336, 164 }{ 644, 708 };
+	geese[0].activate({ 432, 260 });
+	//goose.init{ 336, 164 }{ 644, 708 };
 	projectiles.init(rm, d3d);
 	bloons.init(rm, d3d);
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
@@ -43,13 +44,13 @@ void DefendMode::handleCollision(ResourceManager& rm) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
+Modes DefendMode::update(ResourceManager& rm, float dTime) {
 	// Update Game Objects
-	if (bloons.update(dTime, timeScale)) {
+	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
 	}
 	for (int i(0); i < GC::MAX_GEESE; i++) {
-		geese[i].update(dTime, timeScale, bloons, projectiles);
+		geese[i].update(dTime, bloons, projectiles);
 	}
 	projectiles.update(dTime);
 
@@ -57,7 +58,7 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, float timeScale) {
 	handleCollision(rm);
 
 	// After updating everything, decide final state
-	if ((*GameStats::GetInstance()).getLives() < 0)
+	if ((*GameStats::GetInstance()).getLives() == 0)
 		return Modes::lose;
 	else if (bloons.getBloonsSpawned() >= GC::BLOONS_PER_ROUND && bloons.getNumActiveBloons() == 0)
 		return Modes::win;

@@ -9,11 +9,11 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 }
 // Handles all bloon spawning logic
 // @param idx must be that of an inactive bloon
-void Bloons::spawnBloon(float timeScale, int idx) {
+void Bloons::spawnBloon(int idx) {
 	assert(!isActive[idx]);
 	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
 	float time = GetClock();
-	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE / timeScale) {			// at the set bloon spawn rate
+	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE / (*GameStats::GetInstance()).getTimeScale()) {			// at the set bloon spawn rate
 		if (bloonsSpawned < GC::BLOONS_PER_ROUND) {					// until all bloons for the round have been spawned
 			bloonsSpawned++;
 			activate(idx);											// activate an inactive bloon. idx must be that of an active bloon
@@ -21,11 +21,11 @@ void Bloons::spawnBloon(float timeScale, int idx) {
 		}
 	}
 }
-bool Bloons::update(float dTime, float timeScale) {
+bool Bloons::update(float dTime) {
 	bool isLifeLost = false;
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		if (isActive[i]) {
-			progress[i] += speed[i] * dTime;
+			progress[i] += speed[i] * dTime * (*GameStats::GetInstance()).getTimeScale();
 			if (progress[i] > track.getProgressAtPoint(1) && progress[i] < track.getProgressAtPoint(4)) // determing the layer for bloons that appear under / over bridges
 				layer[i] = 0;
 			else if (progress[i] > track.getProgressAtPoint(4) && progress[i] < track.getProgressAtPoint(13))
@@ -39,7 +39,7 @@ bool Bloons::update(float dTime, float timeScale) {
 			}
 		}
 		else {
-			spawnBloon(timeScale, i);
+			spawnBloon(i);
 		}
 	}
 	return isLifeLost;

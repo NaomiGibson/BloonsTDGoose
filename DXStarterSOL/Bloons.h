@@ -23,9 +23,9 @@ public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	// Handles all bloon spawning logic
 	// @param idx must be that of an inactive bloon
-	void spawnBloon(float timeScale, int idx);
+	void spawnBloon(int idx);
 	// @return true if one or more bloons have reached the end of the track
-	bool update(float dTime, float timeScale);
+	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_);
 	void reset();
 	Sprite& getSpr() { return spr; }

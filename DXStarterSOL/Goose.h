@@ -16,10 +16,11 @@ private:
 public:
 	void setRange(float rad);
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(float dTime, float timeScale, Bloons& bloons, Projectiles& projectiles);
+	void update(float dTime, Bloons& bloons, Projectiles& projectiles);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
-	void fire(float timeScale, Bloons& bloons, int idx, Projectiles& projectiles);
-	bool findTarget(float timeScale, Bloons& bloons, Projectiles& projectiles);
+	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
+	bool findTarget(Bloons& bloons, Projectiles& projectiles);
+	void activate(Vector2 pos);
 };

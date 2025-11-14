@@ -24,4 +24,8 @@ void GameStats::resetGame() {
 	resetCoins();
 	round = 0;
 }
+float GameStats::getTimeScale() { return timeScale; }
+void GameStats::setTimeScale(float timeScale_) {
+	timeScale = timeScale_;
+}
 GameStats* GameStats::instance = nullptr;
