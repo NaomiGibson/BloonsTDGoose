@@ -96,7 +96,7 @@ void Game::changeState() {
 	switch (mode)
 	{
 	case start:
-		defendMode.reset(bloons);
+		reset();
 		startMode.init(rm, *p_d3d);
 		break;
 	case place:
@@ -106,14 +106,20 @@ void Game::changeState() {
 		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
-		defendMode.reset(bloons);
+		reset();
 		winMode.init(rm, *p_d3d);
 		break;
 	case lose:
-		defendMode.reset(bloons);
+		reset();
 		loseMode.init(rm, *p_d3d);
 		break;
 	default:
 		break;
 	}
+}
+void Game::reset() {
+		defendMode.reset(bloons);
+		for (int i(0); i < GC::MAX_GEESE; i++) {
+			geese[i].deactivate();
+		}
 }

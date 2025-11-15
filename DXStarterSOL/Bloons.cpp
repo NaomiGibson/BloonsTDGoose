@@ -58,6 +58,9 @@ void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 }
 void Bloons::reset() {
 	bloonsSpawned = 0;
+	for (int i(0); i < GC::MAX_BLOONS; i++) {
+		isActive[i] = false;
+	}
 }
 int Bloons::getNumActiveBloons() {
 	int count(0);

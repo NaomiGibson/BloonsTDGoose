@@ -27,4 +27,5 @@ public:
 	bool findTarget(Bloons& bloons, Projectiles& projectiles);
 	bool getIsActive() { return isActive; }
 	void activate(Vector2 pos);
+	void deactivate() { isActive = false; }
 };

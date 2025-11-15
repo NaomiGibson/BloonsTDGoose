@@ -29,7 +29,8 @@ public:
 	void release();
 	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(float dTime);
-	void changeState();
+	void changeState(); 
+	void reset();
 	
 private:
 	MyD3D* p_d3d;
