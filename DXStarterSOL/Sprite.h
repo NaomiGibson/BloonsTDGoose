@@ -46,3 +46,29 @@ protected:
 	float rotation{ 0 };
 	Vector2 scale{ 1, 1 };
 };
+
+class SpriteAnimation
+{
+private:
+	//string texName;			// for looking up in resource manager
+	int mStart = 0, mStop = 0, mCurrent = 0; //start, stop and current frame of animation
+	float mRateSec = 0;		//how fast to play back
+	float mElapsedSec = 0;	//how long the current frame has been on screen
+	bool mLoop = false;		//loop at the end ?
+	bool mPlay = false;		//should we be playing right now
+	Sprite& mSpr;			//the parent sprite
+public:
+	SpriteAnimation(Sprite& spr_, int startFrame, int endFrame, float rateSec, bool loop) : mSpr(spr_) {
+		assert(endFrame > startFrame);
+		mStart = startFrame;
+		mStop = endFrame;
+		mCurrent = mStart;
+		mRateSec = rateSec;
+		mLoop = loop;
+	};
+	~SpriteAnimation() {
+	}
+	Sprite& getSpr() { return mSpr; }
+	void update(ResourceManager& rm, float dTime);
+	void play(bool play) { mPlay = play; }
+};

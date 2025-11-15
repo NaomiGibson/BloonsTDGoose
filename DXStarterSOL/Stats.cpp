@@ -6,6 +6,9 @@ void Stats::init(MyD3D& d3d, ResourceManager& rm, int lives, int coins, int roun
 	setLives(lives);
 	setCoins(coins);
 }
+void Stats::update(ResourceManager& rm, float dTime) {
+	anim_coinSpin.update(rm, dTime);
+}
 void Stats::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	txt_round.render(d3d, rm, dTime, batch);
 	spr_lives.render(d3d, rm, dTime, batch);
@@ -19,6 +22,7 @@ void Stats::setLives(int lives) {
 }
 void Stats::setCoins(int coins) {
 	string newMsg = to_string(coins);
+	anim_coinSpin.play(true);
 	txt_coins.setMsg(newMsg);
 }
 void Stats::setRound(int round) {

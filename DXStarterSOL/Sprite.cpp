@@ -66,3 +66,21 @@ void Sprite::setScale(const Vector2& scale_) {
 Vector2 Sprite::GetScreenSize() {
 	return { (texRect.right - texRect.left) * scale.x, (texRect.bottom - texRect.top) * scale.y };
 }
+
+// SPRITE ANIMATION
+
+void SpriteAnimation::update(ResourceManager& rm, float dTime) {
+	if (!mPlay)
+		return;
+	mElapsedSec += dTime;
+	if (mElapsedSec > (1.f / mRateSec)) {
+		mElapsedSec = 0;
+		mCurrent++;
+		if (mCurrent > mStop) {
+			mCurrent = mStart;
+			if (!mLoop)
+				mPlay = false;
+		}
+		mSpr.setTexRect(rm.findRect(mSpr.getTexName(), mCurrent)); // set sprite texture rect to current frame
+	}
+}

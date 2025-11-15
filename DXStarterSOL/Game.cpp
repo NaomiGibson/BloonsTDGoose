@@ -45,7 +45,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
-		mode = placeMode.update(dTime, mousePos, isLMBPressed, geese);
+		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, geese);
 		break;
 	case defend:
 		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, geese, bloons);

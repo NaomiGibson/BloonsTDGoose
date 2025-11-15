@@ -11,7 +11,6 @@ bool GameStats::spendCoins(int coins_) {
 		coins -= coins_; 
 		return true;
 	}
-	resetCoins();
 	return false;
 }
 void GameStats::resetCoins() { coins = GC::START_COINS; }

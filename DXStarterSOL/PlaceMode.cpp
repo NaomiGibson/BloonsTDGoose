@@ -10,12 +10,13 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 800 }, 0, { 1, 1 });
 	ui_goosePlacer.init(rm, d3d);
 }
-Modes PlaceMode::update(float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[]) {
+Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[]) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
 	if (btn_placeGoose.getIsBtnDown())
 		ui_goosePlacer.activate();
-	ui_goosePlacer.update(mousePos, isLMBPressed, geese);
+	ui_goosePlacer.update(mousePos, isLMBPressed, geese, ui_stats);
+	ui_stats.update(rm, dTime);
 
 	//After updating everything, decide current state
 	if (btn_play.getIsBtnDown())
