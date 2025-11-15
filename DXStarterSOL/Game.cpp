@@ -75,7 +75,7 @@ void Game::render(float dTime) {
 		break;
 	case place:
 		placeMode.render(rm, *p_d3d, *gpSpriteBatch, dTime, geese);
-		track.db_render(*p_d3d, rm, dTime, *gpSpriteBatch);
+		//track.db_render(*p_d3d, rm, dTime, *gpSpriteBatch);
 		break;
 	case defend:
 		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime, geese, bloons);

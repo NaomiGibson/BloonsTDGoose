@@ -7,9 +7,10 @@ void Goose::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 0, 0 }, 0, {1, 1});
 	range = 128;
 	coll_range.init(rm, d3d, spr.getPos(), range);
-	spr.setOrigin({ 0.5, 0.5 });
+	spr.setOrigin({ 0.42, 0.5 });
 	spr.setRotation(90);
 	coll_range.getDbSpr().setOrigin({ 0.5, 0.5 });
+	coll_goose.init(rm, d3d, spr.getPos() + spr.GetScreenSize() / 2, 24);
 }
 void Goose::update(float dTime, Bloons& bloons, Projectiles& projectiles) {
 	if (isActive) {
@@ -20,6 +21,7 @@ void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 	if (isActive) {
 		spr.render(d3d, rm, dTime, batch);
 		coll_range.db_render(d3d, rm, dTime, batch);
+		coll_goose.db_render(d3d, rm, dTime, batch);
 	}
 }
 void Goose::fire(Bloons& bloons, int idx, Projectiles& projectiles) {
@@ -56,5 +58,6 @@ void Goose::activate(Vector2 pos_) {
 	spr.setRotation(90);
 	spr.setPos(pos_);
 	coll_range.setPos(pos_);
+	coll_goose.setPos(pos_);
 	isActive = true;
 }

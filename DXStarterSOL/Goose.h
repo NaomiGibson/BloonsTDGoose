@@ -14,6 +14,7 @@ private:
 	float lastShot{ -shootSpeed };
 	int bulletDurability{ 1 };
 	Collider coll_range; // collider for the shoot range
+	Collider coll_goose; // collider for goose body
 public:
 	void setRange(float rad);
 	void init(ResourceManager& rm, MyD3D& d3d);
@@ -21,6 +22,7 @@ public:
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
+	Collider& getGooseCollider() { return coll_goose; }
 	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
 	bool findTarget(Bloons& bloons, Projectiles& projectiles);
 	bool getIsActive() { return isActive; }
