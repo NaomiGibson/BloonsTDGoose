@@ -10,12 +10,13 @@ class GoosePlacer
 private:
 	bool isActive = false;
 	Sprite spr;
+	Collider collider;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(Vector2 mousePos, bool isLMBPressed, Goose geese[], Stats& ui_stats);
+	void update(ResourceManager& rm, Vector2 mousePos, bool isLMBPressed, Goose geese[], Track& track, Stats& ui_stats);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	// spawn goose at pos
-	void placeGoose(Vector2 pos, Goose geese[], Stats& ui_stats);
+	void placeGoose(Vector2 pos, Goose geese[], Track& track, Stats& ui_stats);
 	void activate();
 };
 

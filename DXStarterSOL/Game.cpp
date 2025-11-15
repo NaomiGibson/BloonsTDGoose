@@ -9,7 +9,7 @@ void Game::release() {
 }
 
 void Game::init() {
-	track.init();
+	track.init(rm, *p_d3d);
 	bloons.init(rm, *p_d3d);
 	for (int i = 0; i < GC::MAX_GEESE; i++) {
 		geese[i].init(rm, *p_d3d);
@@ -45,7 +45,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
-		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, geese);
+		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, geese, track);
 		break;
 	case defend:
 		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, geese, bloons);
@@ -75,6 +75,7 @@ void Game::render(float dTime) {
 		break;
 	case place:
 		placeMode.render(rm, *p_d3d, *gpSpriteBatch, dTime, geese);
+		track.db_render(*p_d3d, rm, dTime, *gpSpriteBatch);
 		break;
 	case defend:
 		defendMode.render(rm, *p_d3d, *gpSpriteBatch, dTime, geese, bloons);

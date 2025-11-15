@@ -3,6 +3,7 @@ void Collider::init(ResourceManager& rm, MyD3D& d3d, Vector2 centre_, float rad_
 	centre = centre_;
 	db_spr.init(rm.loadSpritesheet(d3d, L"../bin/data/CollisionRadius.dds", "collisionRad", 2, 1, 2), 1, centre, 0, { 1, 1 });
 	setRad(rad_);
+	db_spr.setOrigin({ 0.5f, 0.5f });
 }
 void Collider::db_render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	db_spr.render(d3d, rm, dTime, batch);
