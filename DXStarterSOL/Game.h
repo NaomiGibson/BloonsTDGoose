@@ -27,7 +27,7 @@ public:
 	Game(MyD3D*);
 	void init();
 	void release();
-	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[]);
 	void render(float dTime);
 	void changeState(); 
 	void reset();

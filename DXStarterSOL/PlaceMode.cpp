@@ -6,12 +6,15 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
 	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
 	btn_play.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
+	texName = rm.loadTexture(d3d, L"../bin/data/ExitIcon.dds", "ExitIcon");
+	btn_exit.init(d3d, rm, { 128, 128 }, texName, { 0, 0, 128, 128 }, { 84, 980 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet sprsheet = rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12);
-	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 800 }, 0, { 1, 1 });
+	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 600 }, 0, { 1, 1 });
 	ui_goosePlacer.init(rm, d3d);
 }
-Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[], Track& track) {
+Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
+	btn_exit.update(dTime, mousePos, isLMBPressed);
 	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
 	if (btn_placeGoose.getIsBtnDown())
 		ui_goosePlacer.activate();
@@ -19,6 +22,8 @@ Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 	ui_stats.update(rm, dTime);
 
 	//After updating everything, decide current state
+	if (btn_exit.getIsBtnDown())
+		return Modes::start;
 	if (btn_play.getIsBtnDown())
 		return Modes::defend;
 	return Modes::place;
@@ -30,6 +35,7 @@ void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sp
 	}
 	ui_stats.render(d3d, rm, dTime, sprBatch);
 	btn_play.render(d3d, rm, dTime, sprBatch);
+	btn_exit.render(d3d, rm, dTime, sprBatch);
 	btn_placeGoose.render(d3d, rm, dTime, sprBatch);
 	ui_goosePlacer.render(d3d, rm, dTime, sprBatch);
 }

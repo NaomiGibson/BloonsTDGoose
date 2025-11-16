@@ -43,7 +43,7 @@ void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[], Bloons& bloons) {
+Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());

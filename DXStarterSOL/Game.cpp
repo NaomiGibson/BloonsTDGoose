@@ -37,7 +37,7 @@ void Game::init() {
 	gpSpriteBatch = new SpriteBatch(&(*p_d3d).GetDeviceCtx());
 	assert(gpSpriteBatch);
 }
-void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
+void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[]) {
 	Modes oldMode = mode;
 	switch (mode)
 	{
@@ -45,10 +45,10 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		mode = startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
-		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, geese, track);
+		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, track);
 		break;
 	case defend:
-		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, geese, bloons);
+		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, bloons);
 		break;
 	case win:
 		mode = winMode.update(dTime, mousePos, isLMBPressed);

@@ -110,14 +110,14 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		// Respond to a keyboard event.
 	case WM_CHAR:
-		switch (wParam)
-		{
-		case 27:
-		case 'q':
-		case 'Q':
-			PostQuitMessage(0);
-			break;
-		}
+		//switch (wParam)
+		//{
+		//case 27:
+		//case 'q':
+		//case 'Q':
+		//	PostQuitMessage(0);
+		//	break;
+		//}
 	case WM_INPUT:
 		//grab raw keyboard events
 		RawInputEvent((HRAWINPUT)lParam);
@@ -180,7 +180,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	{
 		if (canUpdateRender)
 		{
-			game.update(dTime, mMouseScreen, mButtons[LBUTTON]); // dTime, d3d
+			game.update(dTime, mMouseScreen, mButtons[LBUTTON], mButtons); // dTime, d3d
 			game.render(dTime); // dTime, d3d
 		}
 		dTime = WinUtil::Get().EndLoop(canUpdateRender);

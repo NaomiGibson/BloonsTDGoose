@@ -29,8 +29,9 @@ private:
 	Button btn_play;
 	Button btn_placeGoose;
 	GoosePlacer ui_goosePlacer;
+	Button btn_exit;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, Goose geese[], Track& track);
+	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]);
 };
