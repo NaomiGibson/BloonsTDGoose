@@ -7,17 +7,37 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	std::fill_n(speed, GC::MAX_BLOONS, 100);
 	std::fill_n(value, GC::MAX_BLOONS, 1);
 }
+
+void Bloons::endWave() {
+	currWave++;
+	bloonsSpawned = 0;
+	//if (currWave > rounds[currWave].size()) {
+	//	//currWave = 0;
+	//	//currRound++;
+	//}
+}
+void Bloons::endRound() {
+	currRound++;
+	currWave = 0;
+	(*GameStats::GetInstance()).nextRound();
+}
 // Handles all bloon spawning logic
 // @param idx must be that of an inactive bloon
 void Bloons::spawnBloon(int idx) {
 	assert(!isActive[idx]);
 	static float lastBloonSpawn = -GC::BLOON_SPAWN_RATE;
 	float time = GetClock();
-	if (time - lastBloonSpawn >= GC::BLOON_SPAWN_RATE / (*GameStats::GetInstance()).getTimeScale()) {			// at the set bloon spawn rate
-		if (bloonsSpawned < GC::BLOONS_PER_ROUND) {					// until all bloons for the round have been spawned
-			bloonsSpawned++;
-			activate(idx);											// activate an inactive bloon. idx must be that of an active bloon
-			lastBloonSpawn = GetClock();
+
+	if (!isRoundFinished()) {																		// until all waves are complete
+		if (time - lastBloonSpawn >= rounds[currRound][currWave].spawnRate / (*GameStats::GetInstance()).getTimeScale()) {	// at the set bloon spawn rate
+			if (bloonsSpawned < rounds[currRound][currWave].numBloons) {							// until all bloons for the wave have been spawned
+				bloonsSpawned++;
+				activate(idx);														// activate an inactive bloon. idx must be that of an active bloon
+				lastBloonSpawn = GetClock();
+			}
+			else {
+				endWave();
+			}
 		}
 	}
 }
@@ -69,6 +89,12 @@ int Bloons::getNumActiveBloons() {
 			count++;
 	}
 	return count;
+}
+bool Bloons::isRoundFinished() {
+	return (currWave >= rounds[currRound].size());
+}
+bool Bloons::areAllRoundsFinished() {
+	return currRound >= rounds->size();
 }
 void Bloons::activate(int idx) {
 	isActive[idx] = true;

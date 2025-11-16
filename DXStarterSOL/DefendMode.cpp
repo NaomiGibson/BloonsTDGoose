@@ -8,13 +8,8 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& b
 	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
 	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
 	spr_bridge2.init(sprsheetName, 13, { 672, 792 }, 0, { 1, 1 });
-	//geese[0].activate({ 432, 260 });
-	//geese[1].activate({ 336, 164 });
-	//geese[2].activate({ 644, 708 });
 	projectiles.init(rm, d3d);
-	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound());
-
-
+	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound(), GC::MAX_ROUNDS);
 }
 void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 	// BLOON V GOOSE COLLISION		 FOR DEBUG ONLY
@@ -64,8 +59,12 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, boo
 	// After updating everything, decide final state
 	if ((*GameStats::GetInstance()).getLives() == 0)
 		return Modes::lose;
-	else if (bloons.getBloonsSpawned() >= GC::BLOONS_PER_ROUND && bloons.getNumActiveBloons() == 0)
-		return Modes::win;
+	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
+		bloons.endRound();
+		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
+			return Modes::win;
+		return Modes::place;
+	}
 	else
 		return Modes::defend;
 }

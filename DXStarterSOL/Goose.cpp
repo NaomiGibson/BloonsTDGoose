@@ -21,7 +21,7 @@ void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 	if (isActive) {
 		spr.render(d3d, rm, dTime, batch);
 		coll_range.db_render(d3d, rm, dTime, batch);
-		coll_goose.db_render(d3d, rm, dTime, batch);
+		//coll_goose.db_render(d3d, rm, dTime, batch);
 	}
 }
 void Goose::fire(Bloons& bloons, int idx, Projectiles& projectiles) {

@@ -22,7 +22,8 @@ GameStats* GameStats::GetInstance() {
 	return instance;
 }
 int GameStats::nextRound() {
-	round++; 
+	if(round < GC::MAX_ROUNDS)
+		round++; 
 	return round; 
 }
 int GameStats::getRound() { return round; }

@@ -1,10 +1,11 @@
 #include "Stats.h"
 
-void Stats::init(MyD3D& d3d, ResourceManager& rm, int lives, int coins, int round) {
+void Stats::init(MyD3D& d3d, ResourceManager& rm, int lives, int coins, int round, int maxRounds) {
 	spr_lives.init(rm.loadTexture(d3d, L"../bin/data/LivesIcon.dds", "livesIcon"), { 0, 0, 32, 32 }, {txt_lives.getPos().x - 32, txt_lives.getPos().y}, 0, {1, 1});
 	spr_coins.init(rm.loadSpritesheet(d3d, L"../bin/data/CoinSpin.dds", "coinSpin", 4, 2, 6), 1, { txt_coins.getPos().x - 32, txt_coins.getPos().y }, 0, { 1, 1 });
 	setLives(lives);
 	setCoins(coins);
+	setRound(round, maxRounds);
 }
 void Stats::update(ResourceManager& rm, float dTime) {
 	anim_coinSpin.update(rm, dTime);
@@ -25,7 +26,7 @@ void Stats::setCoins(int coins) {
 	anim_coinSpin.play(true);
 	txt_coins.setMsg(newMsg);
 }
-void Stats::setRound(int round) {
-	string newMsg = "Round " + to_string(round) + " / 10";
-	txt_coins.setMsg(newMsg);
+void Stats::setRound(int round, int maxRounds) {
+	string newMsg = "Round " + to_string(round + 1) + " / " + to_string(maxRounds);
+	txt_round.setMsg(newMsg);
 }
