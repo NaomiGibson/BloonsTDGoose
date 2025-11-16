@@ -9,12 +9,11 @@ enum Modes {
 namespace GC {
 	const int START_LIVES = 50;
 	const int START_COINS = 40;
-	const int GOOSE_COST = 30;
-	const int NUM_ROUNDS = 10;
+	const int GOOSE_COST = 20;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
-	const int MAX_ROUNDS = 10;
-	const int MAX_PROJECTILES = 4;
+	const int MAX_ROUNDS = 4;
+	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
 
 	const int BLOONS_PER_ROUND = 100;

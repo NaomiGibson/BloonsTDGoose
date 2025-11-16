@@ -7,14 +7,13 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	std::fill_n(speed, GC::MAX_BLOONS, 100);
 	std::fill_n(value, GC::MAX_BLOONS, 1);
 }
-
+Bloons::Wave& Bloons::getWave() {
+	return rounds[currRound][currWave];
+}
 void Bloons::endWave() {
 	currWave++;
 	bloonsSpawned = 0;
-	//if (currWave > rounds[currWave].size()) {
-	//	//currWave = 0;
-	//	//currRound++;
-	//}
+	waveEndTime = GetClock();
 }
 void Bloons::endRound() {
 	currRound++;
@@ -29,15 +28,18 @@ void Bloons::spawnBloon(int idx) {
 	float time = GetClock();
 
 	if (!isRoundFinished()) {																		// until all waves are complete
-		if (time - lastBloonSpawn >= rounds[currRound][currWave].spawnRate / (*GameStats::GetInstance()).getTimeScale()) {	// at the set bloon spawn rate
-			if (bloonsSpawned < rounds[currRound][currWave].numBloons) {							// until all bloons for the wave have been spawned
-				bloonsSpawned++;
-				activate(idx);														// activate an inactive bloon. idx must be that of an active bloon
-				lastBloonSpawn = GetClock();
+		if (time - waveEndTime >= rounds[currRound][currWave].wait / (*GameStats::GetInstance()).getTimeScale()) { // wait inbetween waves
+			if (time - lastBloonSpawn >= getWave().spawnRate / (*GameStats::GetInstance()).getTimeScale()) {	// at the set bloon spawn rate
+				if (bloonsSpawned < getWave().numBloons) {							// until all bloons for the wave have been spawned
+					bloonsSpawned++;
+					activate(idx, getWave().bloonHealth[bloonsSpawned % getWave().bloonHealth.size()]);														// activate an inactive bloon. idx must be that of an active bloon
+					lastBloonSpawn = GetClock();
+				}
+				else {
+					endWave();
+				}
 			}
-			else {
-				endWave();
-			}
+
 		}
 	}
 }
@@ -46,7 +48,7 @@ bool Bloons::update(float dTime) {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		if (isActive[i]) {
 			progress[i] += speed[i] * dTime * (*GameStats::GetInstance()).getTimeScale();
-			if (progress[i] > track.getProgressAtPoint(1) && progress[i] < track.getProgressAtPoint(4)) // determing the layer for bloons that appear under / over bridges
+			if (progress[i] > track.getProgressAtPoint(1) && progress[i] < track.getProgressAtPoint(4)) // determing the layer for bloons to appear under / over bridges
 				layer[i] = 0;
 			else if (progress[i] > track.getProgressAtPoint(4) && progress[i] < track.getProgressAtPoint(13))
 				layer[i] = 1;
@@ -70,6 +72,7 @@ void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 			Vector2 pos = track.findPos(progress[i]);	// set sprite position to the
 			position[i] = pos;							// position of the bloon and 
 			spr.setPos(pos);							// render it for each bloon
+			spr.setTexRect(rm.findRect("bloons", health[i]));
 			spr.render(d3d, rm, dTime, batch);			
 			//collider.setPos(pos);						// do the same for the collider debug sprite
 			//collider.db_render(d3d, rm, dTime, batch);
@@ -94,11 +97,18 @@ bool Bloons::isRoundFinished() {
 	return (currWave >= rounds[currRound].size());
 }
 bool Bloons::areAllRoundsFinished() {
-	return currRound >= rounds->size();
+	return currRound >= GC::MAX_ROUNDS;
 }
-void Bloons::activate(int idx) {
+void Bloons::setHealth(int idx, int health_) {
+	health[idx] = health_;
+	if (health[idx] == 0) {
+		isActive[idx] = false;
+	}
+}
+void Bloons::activate(int idx, int health_) {
 	isActive[idx] = true;
 	progress[idx] = 0;
+	setHealth(idx, health_);
 }
 Collider& Bloons::getCollider(int idx) {
 	collider.setPos(position[idx]);
@@ -106,5 +116,5 @@ Collider& Bloons::getCollider(int idx) {
 }
 void Bloons::onCollision_projectile(int idx) {
 	(*GameStats::GetInstance()).addCoins(value[idx]);
-	isActive[idx] = false;
+	setHealth(idx, health[idx] - 1);
 }

@@ -9,7 +9,7 @@ class Goose
 private:
 	Sprite spr;
 	bool isActive{ false };
-	float shootSpeed{ 1 }; // minimum time between shots fired
+	float shootSpeed{ 2 }; // minimum time between shots fired
 	float range{ 0 };
 	float lastShot{ -shootSpeed };
 	int bulletDurability{ 1 };

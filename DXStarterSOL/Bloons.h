@@ -8,47 +8,59 @@
 class Bloons 
 {
 private:
+	// individual bloon data. Access a particular bloon using its index
+	int layer[GC::MAX_BLOONS] = { 0 };					// used to spawn some bloons underneath bridges and some over
+	bool isActive[GC::MAX_BLOONS] = { false };
+	int value[GC::MAX_BLOONS] = { 1 };					// how many coins popping bloons reward
+	int health[GC::MAX_BLOONS] = { 0 };					// how many shots it takes to destroy the bloon
+	float progress[GC::MAX_BLOONS] = { 100 };			// how far along the track bloons are
+	Vector2 position[GC::MAX_BLOONS] = { { 0, 0 } };
+	float speed[GC::MAX_BLOONS] = { 0 };
+
 	// Shared bloon data
 	Sprite spr;
 	Track& track;
 	Collider collider;
 
-	// individual bloon data. Access a particular bloon using its index
-	int layer[GC::MAX_BLOONS] = { 0 };					// used to spawn some bloons underneath bridges and some over
-	bool isActive[GC::MAX_BLOONS] = { false };
-	int value[GC::MAX_BLOONS] = { 1 };					// how many coins popping bloons reward
-	float progress[GC::MAX_BLOONS] = { 100 };			// how far along the track bloons are
-	Vector2 position[GC::MAX_BLOONS] = { { 0, 0 } };
-	float speed[GC::MAX_BLOONS] = { 0 };
-
 	// ROUNDS AND WAVES
 	int bloonsSpawned = 0; // number of bloons spawned from the current wave
 	struct Wave {
+		float wait;					// recovery time between the previous wave and this one
 		int numBloons;				// total number of bloons to spawn
 		float spawnRate;			// time between spawning bloons
 		vector<int> bloonHealth;	// health of bloons spawned rotates through the given values
-		float wait;					// recovery time between this wave and the next
-		Wave(int numBloons_, float spawnRate_, vector<int> bloonHealth_, float wait_)
-			: numBloons(numBloons_), spawnRate(spawnRate_),  bloonHealth(bloonHealth_), wait(wait_) 
+		Wave(float wait_, int numBloons_, float spawnRate_, vector<int> bloonHealth_)
+			: wait(wait_), numBloons(numBloons_), spawnRate(spawnRate_),  bloonHealth(bloonHealth_)
 		{};
 	};
 	typedef vector<Wave> round; // a round is a collection of waves
-	int currRound{ 0 };
-	int currWave{ 0 };
+	int currRound{ 0 }; // current round
+	int currWave{ 0 }; // current wave
+	float waveEndTime{ 0 };
 
 	// ~~~ DEFINE ROUNDS HERE ~~~
-	round rounds[2]{ 
+	round rounds[GC::MAX_ROUNDS]{ 
 		{ // round 1
-			{ 5, 2, { 1 }, 3 },
-			{ 10, 0.5, { 1 }, 3 } 
+			{ 0, 1, 0, { 1 }},
 		},
 		{ // round 2
-			{ 2, 0.1, { 1 }, 3 } 
-		}
+			{ 0, 5, 5, { 1 } },
+			{ 10, 10, 2, { 1 } },
+		}, 
+		{ // round 3
+			{ 0, 10, 2, { 1 } },
+			{ 4, 1, 0, { 2 } },
+			{ 4, 3, 2, { 1 } },
+			{ 4, 1, 0, { 2 } },
+		},
+		{ // round 4
+			{ 0, 10, 2, { 1, 2 } },
+		},
 	};
 public:
 	Bloons(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);
+	Wave& getWave();
 	void endWave();
 	void endRound();
 	// Handles all bloon spawning logic
@@ -65,7 +77,8 @@ public:
 	bool areAllRoundsFinished();
 	int getBloonsSpawned() { return bloonsSpawned; }
 	Vector2 getPos(int idx) { return position[idx]; }
-	void activate(int idx);
+	void setHealth(int idx, int health_);
+	void activate(int idx, int health_);
 	void setSpeed(float speed_, int idx) { speed[idx] = speed_; }
 	void setProgress(float progress_, int idx) { progress[idx] = progress_; }
 	Collider& getCollider(int idx);
