@@ -14,7 +14,7 @@ void WinMode::init(ResourceManager& rm, MyD3D& d3d) {
 
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound(), GC::MAX_ROUNDS);
 }
-Modes WinMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
+void WinMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_reset.update(dTime, mousePos, isLMBPressed);
 	if (btn_reset.getIsBtnDown())
 		(*GameStats::GetInstance()).setMode(Modes::place);

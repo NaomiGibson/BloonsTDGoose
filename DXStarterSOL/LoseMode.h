@@ -36,7 +36,7 @@ private:
 public:
 	LoseMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 	static void reset(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::place); }
 	static void exit(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::start); }

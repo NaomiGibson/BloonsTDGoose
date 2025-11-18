@@ -26,12 +26,15 @@ class PlaceMode
 private:
 	Sprite spr_bg;
 	Stats ui_stats;
-	Button btn_play;
-	Button btn_placeGoose;
+	Button btn_play{ play };
+	Button btn_placeGoose{ placeGoose };
 	GoosePlacer ui_goosePlacer;
-	Button btn_exit;
+	Button btn_exit{ exit };
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track);
+	void update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]);
+	static void play(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::defend); }
+	static void placeGoose(Button& btn) {};
+	static void exit(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::start); };
 };

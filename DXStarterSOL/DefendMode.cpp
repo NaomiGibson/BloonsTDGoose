@@ -38,7 +38,7 @@ void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
+void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
@@ -51,22 +51,20 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, boo
 	isGameSpeedBtnDown = btn_gameSpeed.getIsBtnDown(); // hold last value so that speed is only togled once for each click
 	btn_gameSpeed.update(dTime, mousePos, isLMBPressed);
 	if (btn_gameSpeed.getIsBtnDown() && !isGameSpeedBtnDown)
-		toggleTimeScale();
+		//toggleTimeScale();
 
 	//handle collision
 	handleCollision(rm, bloons);
 
 	// After updating everything, decide final state
 	if ((*GameStats::GetInstance()).getLives() == 0)
-		return Modes::lose;
+		(*GameStats::GetInstance()).setMode(Modes::lose);
 	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
 		bloons.endRound();
 		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
-			return Modes::win;
-		return Modes::place;
+			(*GameStats::GetInstance()).setMode(Modes::win);
+		(*GameStats::GetInstance()).setMode(Modes::place);
 	}
-	else
-		return Modes::defend;
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
@@ -89,12 +87,12 @@ void DefendMode::reset(Bloons& bloons) {
 static void DefendMode::toggleTimeScale(Button& btn) {
 	if (isGameFast) {
 		(*GameStats::GetInstance()).setTimeScale(1);
-		btn_gameSpeed.getSpr().setTexName("fastForwardIcon");
+		btn.getSpr().setTexName("fastForwardIcon");
 		isGameFast = false;
 	}
 	else {
 		(*GameStats::GetInstance()).setTimeScale(FAST_TIME_SCALE);
-		btn_gameSpeed.getSpr().setTexName("playIcon64");
+		btn.getSpr().setTexName("playIcon64");
 		isGameFast = true;
 	}
 }
