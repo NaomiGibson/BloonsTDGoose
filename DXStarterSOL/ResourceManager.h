@@ -58,14 +58,14 @@ public:
 
 	// FONTS
 
+	// load font into cache
+	// if font already exists, nothing is loaded and the pre-existing version is returned
+	DirectX::SpriteFont* loadFont(MyD3D& d3d, const wstring& fileName, const string& texName);
 	// find font already loaded in cache given its name
 	DirectX::SpriteFont* findFont(string fontName);
 	// find font already loaded in cache given a copy of the font
 	// - slow, prefer finding by key (fontName)
 	DirectX::SpriteFont* findFont(DirectX::SpriteFont* pFont);
-	// load font into cache
-	// if font already exists, nothing is loaded and the pre-existing version is returned
-	DirectX::SpriteFont* loadFont(MyD3D& d3d, const wstring& fileName, const string& texName);
 private:
 	void addFont(string texName, DirectX::SpriteFont* font);
 	void addTex(string texName, ID3D11ShaderResourceView* tex);

@@ -23,10 +23,9 @@ Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 
 	//After updating everything, decide current state
 	if (btn_exit.getIsBtnDown())
-		return Modes::start;
+		(*GameStats::GetInstance()).setMode(Modes::start);
 	if (btn_play.getIsBtnDown())
-		return Modes::defend;
-	return Modes::place;
+		(*GameStats::GetInstance()).setMode(Modes::defend)
 }
 void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);

@@ -14,7 +14,7 @@ void Game::init() {
 	for (int i = 0; i < GC::MAX_GEESE; i++) {
 		geese[i].init(rm, *p_d3d);
 	}
-	switch (mode)
+	switch ((*GameStats::GetInstance()).getMode())
 	{
 	case start:
 		startMode.init(rm, *p_d3d);
@@ -38,28 +38,28 @@ void Game::init() {
 	assert(gpSpriteBatch);
 }
 void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[]) {
-	Modes oldMode = mode;
-	switch (mode)
+	Modes oldMode = (*GameStats::GetInstance()).getMode();
+	switch (oldMode)
 	{
 	case start:
-		mode = startMode.update(dTime, mousePos, isLMBPressed);
+		startMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case place:
-		mode = placeMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, track);
+		placeMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, track);
 		break;
 	case defend:
-		mode = defendMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, bloons);
+		defendMode.update(rm, dTime, mousePos, isLMBPressed, keyboard, geese, bloons);
 		break;
 	case win:
-		mode = winMode.update(dTime, mousePos, isLMBPressed);
+		winMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	case lose:
-		mode = loseMode.update(dTime, mousePos, isLMBPressed);
+		loseMode.update(dTime, mousePos, isLMBPressed);
 		break;
 	default:
 		break;
 	}
-	if (mode != oldMode) {
+	if ((*GameStats::GetInstance()).getMode() != oldMode) {
 		changeState();
 	}
 }
@@ -68,7 +68,7 @@ void Game::render(float dTime) {
 	CommonStates dxstate(&(*p_d3d).GetDevice());
 	gpSpriteBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
 
-	switch (mode)
+	switch ((*GameStats::GetInstance()).getMode())
 	{
 	case start:
 		startMode.render(rm, *p_d3d, *gpSpriteBatch, dTime);
@@ -93,7 +93,7 @@ void Game::render(float dTime) {
 	p_d3d->EndRender();
 }
 void Game::changeState() {
-	switch (mode)
+	switch ((*GameStats::GetInstance()).getMode())
 	{
 	case start:
 		reset();

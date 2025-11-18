@@ -15,46 +15,49 @@ void Button::init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet 
 }
 void Button::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (collider.isColliding(mousePos)) {
-		onBeginHover();
-		if (isLMBPressed)
-			onClick();
+		*fp_onBeginHover;
+		if (isLMBPressed) {
+			*fp_onDown;
+			isButtonDown = true;
+		}
 		else
-			onUp();
+			if(fp_onUp)
+				*fp_onUp;
 	}
 	else {
-		onUp();
-		onEndHover();
+		isButtonDown = false;
+		if(fp_onUp)
+			*fp_onUp;
+		*fp_onEndHover;
 	}
 
 }
 void Button::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	spr.render(d3d, rm, dTime, batch);
 }
-void Button::onBeginHover() {
-	spr.setScale({ hoverScale, hoverScale });
-}
-void Button::onEndHover() {
-	spr.setScale({ 1, 1 });
-}
-void Button::onClick() {
-	isButtonDown = true;
-}
-void Button::onUp() {
-	isButtonDown = false;
-}
+//void Button::onBeginHover() {
+//	spr.setScale({ hoverScale, hoverScale });
+//}
+//void Button::onEndHover() {
+//	spr.setScale({ 1, 1 });
+//}
+//void Button::onClick() {
+//}
+//void Button::onUp() {
+//}
 
 void BtnWithTxt::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	Button::render(d3d, rm, dTime, batch);
 	txt.render(d3d, rm, dTime, batch);
 }
-void BtnWithTxt::onBeginHover() {
-	Button::onBeginHover();
-	txt.setScale(hoverScale);
-}
-void BtnWithTxt::onEndHover() {
-	Button::onEndHover();
-	txt.setScale(1);
-}
+//void BtnWithTxt::onBeginHover() {
+//	Button::onBeginHover();
+//	txt.setScale(hoverScale);
+//}
+//void BtnWithTxt::onEndHover() {
+//	Button::onEndHover();
+//	txt.setScale(1);
+//}
 void BtnWithTxt::initText(string fontName_, string msg_, Vector2 pos_, Vector4 colour_) {
 	txt = Text(fontName_, msg_, spr.getPos() + pos_, colour_);
 }

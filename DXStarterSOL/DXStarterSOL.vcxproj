@@ -115,6 +115,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="UI_Goose.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WindowUtils.cpp" />
     <ClCompile Include="WinMode.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="Stats.h" />
+    <ClInclude Include="UI_Goose.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="WindowUtils.h" />
     <ClInclude Include="WinMode.h" />

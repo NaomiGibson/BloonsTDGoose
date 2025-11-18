@@ -5,7 +5,7 @@ void Projectiles::init(ResourceManager& rm, MyD3D& d3d) {
 	collider.init(rm, d3d, { 0, 0 }, 4);
 	collider.getDbSpr().setOrigin({ 0.5, 0.5 });
 	spr.setOrigin({ 0.5, 0.5 });
-	std::fill_n(speed, GC::MAX_PROJECTILES, 1000);
+	std::fill_n(speed, GC::MAX_PROJECTILES, 2000);
 }
 void Projectiles::update(float dTime) {
 	for (int i(0); i < GC::MAX_PROJECTILES; i++) {

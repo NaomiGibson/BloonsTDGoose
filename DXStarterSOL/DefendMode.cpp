@@ -86,7 +86,7 @@ void DefendMode::reset(Bloons& bloons) {
 	(*GameStats::GetInstance()).resetGame();
 	bloons.reset();
 }
-void DefendMode::toggleTimeScale() {
+static void DefendMode::toggleTimeScale(Button& btn) {
 	if (isGameFast) {
 		(*GameStats::GetInstance()).setTimeScale(1);
 		btn_gameSpeed.getSpr().setTexName("fastForwardIcon");
