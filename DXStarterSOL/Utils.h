@@ -20,15 +20,15 @@ namespace GC {
 };
 class GameStats {
 private:
-	static GameStats* instance;
+	static GameStats* instance;					// important singleton thing
+	GameStats() {}								// important singleton thing
 	int lives{ GC::START_LIVES };
 	int coins{ GC::START_COINS };
 	int round{ 0 };
 	float timeScale{ 1 };
-	GameStats() {}
 public:
-	static GameStats* GetInstance();
-	GameStats(const GameStats& obj) = delete;
+	static GameStats* GetInstance();			 // important singleton thing
+	GameStats(const GameStats& obj) = delete;	 // important singleton thing
 
 	int getLives();
 	void resetLives();

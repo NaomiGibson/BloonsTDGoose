@@ -26,8 +26,8 @@ class StartMode
 private:
 	Sprite spr_bg;
 	Text txt_title;
-	Button btn_play;
-	Button btn_exit;
+	BasicBtn btn_play;
+	BasicBtn btn_exit;
 public:
 	StartMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);

@@ -16,10 +16,10 @@ void WinMode::init(ResourceManager& rm, MyD3D& d3d) {
 }
 Modes WinMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_reset.update(dTime, mousePos, isLMBPressed);
-	if (btn_reset.getIsBtnDown())
+	if (btn_reset.getButton().getIsBtnDown())
 		return Modes::place;
 	btn_exit.update(dTime, mousePos, isLMBPressed);
-	if (btn_exit.getIsBtnDown())
+	if (btn_exit.getButton().getIsBtnDown())
 		return Modes::start;
 	return win;
 }

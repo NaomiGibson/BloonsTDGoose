@@ -8,9 +8,8 @@ void StartMode::init(ResourceManager& rm, MyD3D& d3d) {
 	btn_play.init(d3d, rm, { 256, 256 }, texName, { 0, 0, 256, 256 }, { 1680, 744 }, 0, { 1, 1 });
 }
 Modes StartMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
-
 	btn_play.update(dTime, mousePos, isLMBPressed);
-	if (btn_play.getIsBtnDown())
+	if (btn_play.getButton().getIsBtnDown())
 		return Modes::place;
 	return Modes::start;
 }

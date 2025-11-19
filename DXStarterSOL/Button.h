@@ -12,32 +12,38 @@ using namespace DirectX::SimpleMath;
 class Button
 {
 protected:
-	Sprite spr;
 	Collider collider;
-	bool isButtonDown = false;
-	float hoverScale = 1.1f;
+	bool isButtonDown = false; // true if the button is being pressed currently
+	bool isHovered = false; // true if the mouse is overlapping button
+	bool triggerClick = false; // true for 1 frame after button is clicked
+	bool triggerBeginHover = false; // true for 1 frame after button is hovered
 public:
-	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);
-	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
+	void init(ResourceManager& rm, MyD3D& d3d, Vector2 pos_, float collisionRad);
 	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
-	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
-	virtual void onBeginHover();
-	virtual void onEndHover();
-	void Button::onClick();
-	void Button::onUp();
 	bool getIsBtnDown() { return isButtonDown; }
-	Sprite& getSpr() { return spr; }
+	bool getIsHovered() { return isHovered; }
+	bool getTriggerClick() { return triggerClick; }
+	bool getTriggerBeginHover() { return triggerBeginHover; }
+	void setPos(Vector2 pos);
 };
 
 
-class BtnWithTxt : public Button
+class BasicBtn
 {
 private:
+	Button btn;
+	Sprite spr;
 	Text txt;
+	float hoverScale = 1.1;
+	bool useTxt = false;
 public:
-	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
-	void onBeginHover() override;
-	void onEndHover() override;
+	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);
+	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
 	void initText(string fontName_, string msg_, Vector2 pos_, Vector4 colour_);
 	void initText(string fontName_, string msg_);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	void setPos(Vector2 pos);
+	Sprite& getSpr() { return spr; }
+	Button& getButton() { return btn; }
 };

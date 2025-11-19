@@ -16,7 +16,8 @@ void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_
 }
 
 void Sprite::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
-	batch.Draw(rm.findTex(texName), pos, &texRect, Vector4(1, 1, 1, 1), rotation, origin, scale, DirectX::SpriteEffects::SpriteEffects_None, 1);
+	if(isActive)
+		batch.Draw(rm.findTex(texName), pos, &texRect, Vector4(1, 1, 1, 1), rotation, origin, scale, DirectX::SpriteEffects::SpriteEffects_None, 1);
 }
 string Sprite::getTexName() {
 	return texName;
@@ -66,21 +67,29 @@ void Sprite::setScale(const Vector2& scale_) {
 Vector2 Sprite::GetScreenSize() {
 	return { (texRect.right - texRect.left) * scale.x, (texRect.bottom - texRect.top) * scale.y };
 }
+bool Sprite::getIsActive() {
+	return isActive;
+}
+void Sprite::setIsActive(bool isActive_) {
+	isActive = isActive_;
+}
 
 // SPRITE ANIMATION
 
 void SpriteAnimation::update(ResourceManager& rm, float dTime) {
-	if (!mPlay)
-		return;
-	mElapsedSec += dTime;
-	if (mElapsedSec > (1.f / mRateSec)) {
-		mElapsedSec = 0;
-		mCurrent++;
-		if (mCurrent > mStop) {
-			mCurrent = mStart;
-			if (!mLoop)
-				mPlay = false;
+	if (mSpr.getIsActive()) {
+		if (!mPlay)
+			return;
+		mElapsedSec += dTime;
+		if (mElapsedSec > (1.f / mRateSec)) {
+			mElapsedSec = 0;
+			mCurrent++;
+			if (mCurrent > mStop) {
+				mCurrent = mStart;
+				if (!mLoop)
+					mPlay = false;
+			}
+			mSpr.setTexRect(rm.findRect(mSpr.getTexName(), mCurrent)); // set sprite texture rect to current frame
 		}
-		mSpr.setTexRect(rm.findRect(mSpr.getTexName(), mCurrent)); // set sprite texture rect to current frame
 	}
 }

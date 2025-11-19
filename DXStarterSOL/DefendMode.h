@@ -28,7 +28,7 @@ class DefendMode
 private:
 	Stats ui_stats;
 	Projectiles projectiles{};
-	Button btn_gameSpeed;
+	BasicBtn btn_gameSpeed;
 	Sprite spr_bg;
 	Sprite spr_bridge1;
 	Sprite spr_bridge2;

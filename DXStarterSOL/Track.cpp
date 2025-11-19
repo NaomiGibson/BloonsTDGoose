@@ -3,8 +3,8 @@
 
 void Track::init(ResourceManager& rm, MyD3D& d3d) {
     length = calculateLength();
-    rm.loadTexture(d3d, L"../bin/data/IndicatorLine.dds", "indicatorLine");
-    db_spr.init(rm.loadTexture(d3d, L"../bin/data/Indicator.dds", "indicator"), { 0, 0, 4, 4 }, points[0], 0, { 1, 1 });
+    //rm.loadTexture(d3d, L"../bin/data/IndicatorLine.dds", "indicatorLine");
+    //db_spr.init(rm.loadTexture(d3d, L"../bin/data/Indicator.dds", "indicator"), { 0, 0, 4, 4 }, points[0], 0, { 1, 1 });
     db_spr.setOrigin({ 0.5, 0.5 });
 }
 void Track::db_render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
