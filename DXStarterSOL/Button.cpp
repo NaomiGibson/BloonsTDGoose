@@ -26,7 +26,6 @@ void Button::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		isButtonDown = false;
 		isHovered = false;
 	}
-
 }
 void Button::setPos(Vector2 pos) {
 	collider.setPos(pos);

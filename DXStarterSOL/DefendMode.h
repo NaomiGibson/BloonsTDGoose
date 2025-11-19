@@ -39,7 +39,7 @@ public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d, Goose geese[], Bloons& bloons);
 	void handleCollision(ResourceManager& rm, Bloons& bloons);
-	Modes update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons);
+	void update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons);
 	void reset(Bloons& bloons);
 	void toggleTimeScale();

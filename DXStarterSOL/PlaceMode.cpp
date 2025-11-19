@@ -12,7 +12,7 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 600 }, 0, { 1, 1 });
 	ui_goosePlacer.init(rm, d3d);
 }
-Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track) {
+void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track) {
 	for (int i(0); i < GC::MAX_GEESE; i++) {
 		geese[i].updatePlace(dTime, mousePos, isLMBPressed);
 	}
@@ -26,10 +26,9 @@ Modes PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 
 	//After updating everything, decide current state
 	if (btn_exit.getButton().getIsBtnDown())
-		return Modes::start;
+		(*GameStats::GetInstance()).setMode(Modes::start);
 	if (btn_play.getButton().getIsBtnDown())
-		return Modes::defend;
-	return Modes::place;
+		(*GameStats::GetInstance()).setMode(Modes::defend);
 }
 void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);

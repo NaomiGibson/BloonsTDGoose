@@ -38,7 +38,7 @@ void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 		}
 	}
 }
-Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
+void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
@@ -58,15 +58,13 @@ Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, boo
 
 	// After updating everything, decide final state
 	if ((*GameStats::GetInstance()).getLives() == 0)
-		return Modes::lose;
+		(*GameStats::GetInstance()).setMode(Modes::lose);
 	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
 		bloons.endRound();
 		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
-			return Modes::win;
-		return Modes::place;
+			(*GameStats::GetInstance()).setMode(Modes::win);
+		(*GameStats::GetInstance()).setMode(Modes::place);
 	}
-	else
-		return Modes::defend;
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);

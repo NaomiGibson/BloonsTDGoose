@@ -8,11 +8,11 @@ enum Modes {
 };
 namespace GC {
 	const int START_LIVES = 50;
-	const int START_COINS = 40;
+	const int START_COINS = 30;
 	const int GOOSE_COST = 20;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
-	const int MAX_ROUNDS = 4;
+	const int MAX_ROUNDS = 5;
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
 
@@ -26,6 +26,7 @@ private:
 	int coins{ GC::START_COINS };
 	int round{ 0 };
 	float timeScale{ 1 };
+	Modes mode{ Modes::start };
 public:
 	static GameStats* GetInstance();			 // important singleton thing
 	GameStats(const GameStats& obj) = delete;	 // important singleton thing
@@ -43,4 +44,6 @@ public:
 	void resetGame();
 	float getTimeScale();
 	void setTimeScale(float timeScale_);
+	Modes getMode() { return mode; }
+	void setMode(Modes mode_) { mode = mode_; }
 };

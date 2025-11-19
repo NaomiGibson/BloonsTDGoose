@@ -37,6 +37,6 @@ private:
 public:
 	WinMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 };

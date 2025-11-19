@@ -14,14 +14,13 @@ void WinMode::init(ResourceManager& rm, MyD3D& d3d) {
 
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound(), GC::MAX_ROUNDS);
 }
-Modes WinMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
+void WinMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_reset.update(dTime, mousePos, isLMBPressed);
 	if (btn_reset.getButton().getIsBtnDown())
-		return Modes::place;
+		(*GameStats::GetInstance()).setMode(Modes::place);
 	btn_exit.update(dTime, mousePos, isLMBPressed);
 	if (btn_exit.getButton().getIsBtnDown())
-		return Modes::start;
-	return win;
+		(*GameStats::GetInstance()).setMode(Modes::start);
 }
 void WinMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
