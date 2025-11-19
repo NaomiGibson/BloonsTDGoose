@@ -9,19 +9,38 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	texName = rm.loadTexture(d3d, L"../bin/data/ExitIcon.dds", "ExitIcon");
 	btn_exit.init(d3d, rm, { 128, 128 }, texName, { 0, 0, 128, 128 }, { 84, 980 }, 0, { 1, 1 });
 	ResourceManager::Spritesheet sprsheet = rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12);
-	btn_placeGoose.init(d3d, rm, sprsheet, 1, { 1680, 600 }, 0, { 1, 1 });
+	btn_placeGoose.init(d3d, rm, sprsheet.texName, 1, { 1680, 600 }, 90, 20);
 	ui_goosePlacer.init(rm, d3d);
+	ui_gooseUpgrades.init(d3d, rm);
 }
 void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track) {
+	// update geese and tower selection
+	static bool lastIsLMBPressed = false;
+	bool newGooseSelected = false;
 	for (int i(0); i < GC::MAX_GEESE; i++) {
 		geese[i].updatePlace(dTime, mousePos, isLMBPressed);
+		if (geese[i].getTriggerClick()) { // select goose when it is clicked
+			ui_gooseUpgrades.activate();
+			selectedGoose = i;
+			geese[i].select();
+			newGooseSelected = true;
+		}
 	}
+	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed) { // deselect goose on first frame of a click, not on a goose
+		ui_gooseUpgrades.deactivate();
+		geese[selectedGoose].deselect();
+		selectedGoose = -1;
+		lastIsLMBPressed = true;
+	}
+	lastIsLMBPressed = isLMBPressed;
+
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	btn_exit.update(dTime, mousePos, isLMBPressed);
-	btn_placeGoose.update(dTime, mousePos, isLMBPressed);
-	if (btn_placeGoose.getButton().getIsBtnDown())
+	btn_placeGoose.update(rm, dTime, mousePos, isLMBPressed);
+	if (btn_placeGoose.getTriggerClick())
 		ui_goosePlacer.activate();
 	ui_goosePlacer.update(rm, mousePos, isLMBPressed, geese, track, ui_stats);
+	ui_gooseUpgrades.update(rm, dTime, mousePos, isLMBPressed);
 	ui_stats.update(rm, dTime);
 
 	//After updating everything, decide current state
@@ -40,4 +59,5 @@ void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sp
 	btn_exit.render(d3d, rm, dTime, sprBatch);
 	btn_placeGoose.render(d3d, rm, dTime, sprBatch);
 	ui_goosePlacer.render(d3d, rm, dTime, sprBatch);
+	ui_gooseUpgrades.render(d3d, rm, dTime, sprBatch);
 }

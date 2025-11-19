@@ -23,7 +23,7 @@ void Goose::updatePlace(float dTime, Vector2 mousePos, bool isLMBPressed) {
 		btn_selectGoose.update(dTime, mousePos, isLMBPressed);
 		if (btn_selectGoose.getIsHovered())
 			spr_rangeIndicator.setIsActive(true);
-		else
+		else if(!isSelected)
 			spr_rangeIndicator.setIsActive(false);
 	}
 }

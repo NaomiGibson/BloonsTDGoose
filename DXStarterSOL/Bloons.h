@@ -41,7 +41,7 @@ private:
 	// ~~~ DEFINE ROUNDS HERE ~~~
 	round rounds[GC::MAX_ROUNDS]{ 
 		{ // round 1
-			{ 0, 100, 0.2, { 2 }},
+			{ 0, 1, 0, { 1 }},
 		},
 		{ // round 2
 			{ 0, 5, 3, { 1 } },

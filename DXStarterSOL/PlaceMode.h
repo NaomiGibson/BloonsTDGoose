@@ -20,6 +20,7 @@ using namespace DirectX::SimpleMath;
 #include "Stats.h"
 #include "Button.h"
 #include "GoosePlacer.h"
+#include "UI_GooseUpgrades.h"
 
 class PlaceMode
 {
@@ -27,9 +28,11 @@ private:
 	Sprite spr_bg;
 	Stats ui_stats;
 	BasicBtn btn_play;
-	BasicBtn btn_placeGoose;
+	UI_PurchaseBtn btn_placeGoose;
+	UI_GooseUpgrades ui_gooseUpgrades; 
 	GoosePlacer ui_goosePlacer;
 	BasicBtn btn_exit;
+	int selectedGoose = -1;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track);

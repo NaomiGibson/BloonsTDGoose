@@ -10,6 +10,7 @@ class Goose
 private:
 	Sprite spr;
 	bool isActive{ false };
+	bool isSelected{ false };
 	float shootSpeed{ 2 }; // minimum time between shots fired
 	//float range{ 0 };
 	float lastShot{ -shootSpeed };
@@ -27,9 +28,12 @@ public:
 	Sprite& getSpr() { return spr; }
 	Collider& getRangeCollider() { return coll_range; }
 	Collider& getGooseCollider() { return coll_goose; }
+	bool getTriggerClick() { return btn_selectGoose.getTriggerClick(); }
 	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
 	bool findTarget(Bloons& bloons, Projectiles& projectiles);
 	bool getIsActive() { return isActive; }
 	void activate(Vector2 pos);
 	void deactivate() { isActive = false; }
+	void select() { isSelected = true; }
+	void deselect() { isSelected = false; }
 };
