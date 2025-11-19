@@ -36,6 +36,7 @@ bool mButtons[MAX_BUTTONS];		//button presses
 Vector2 mMouseScreen;			//absolute position on screen
 Vector2 mMouseMove;				//amount the mouse moved last update
 
+
 //get the absolute mouse position, not raw input, just standard windows is fine
 void GetMousePosAbsolute(Vector2& pos)
 {

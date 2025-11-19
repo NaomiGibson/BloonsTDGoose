@@ -12,53 +12,38 @@ using namespace DirectX::SimpleMath;
 class Button
 {
 protected:
-	Sprite spr;
 	Collider collider;
-	bool isButtonDown = false;
-	float focusedScale = 1.1f;
-	void (*fp_onBeginHover)(Button&) = &focusScale;
-	void (*fp_onEndHover)(Button&) = &unfocusScale;
-	void (*fp_onDown)(Button&) = nullptr;
-	void (*fp_onUp)(Button&) = nullptr;
-	//void (*fp_onClick)();
-	//void (*fp_onRelease)();
+	bool isButtonDown = false; // true if the button is being pressed currently
+	bool isHovered = false; // true if the mouse is overlapping button
+	bool triggerClick = false; // true for 1 frame after button is clicked
+	bool triggerBeginHover = false; // true for 1 frame after button is hovered
 public:
-	Button(void(*fp_onBeginHover_)(Button&), void(*fp_onEndHover_)(Button&), void (*fp_onDown_)(Button&), void (*fp_onUp_)(Button&))
-		: fp_onBeginHover(fp_onBeginHover_), fp_onEndHover(fp_onEndHover_), fp_onDown(fp_onDown_), fp_onUp(fp_onUp_)
-	{}
-	Button(void (*fp_onDown_)(Button&), void (*fp_onUp_)(Button&))
-		: fp_onDown(fp_onDown_), fp_onUp(fp_onUp_)
-	{}
-	Button(void (*fp_onDown_)(Button&))
-		: fp_onDown(fp_onDown_)
-	{}
-
-	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);
-	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
+	void init(ResourceManager& rm, MyD3D& d3d, Vector2 pos_, float collisionRad);
 	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
-	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	bool getIsBtnDown() { return isButtonDown; }
-	Sprite& getSpr() { return spr; }
-	static void focusScale(Button& btn) { btn.getSpr().setScale({ btn.focusedScale, btn.focusedScale }); };
-	static void unfocusScale(Button& btn) { btn.getSpr().setScale({ 1, 1 }); };
+	bool getIsHovered() { return isHovered; }
+	bool getTriggerClick() { return triggerClick; }
+	bool getTriggerBeginHover() { return triggerBeginHover; }
+	void setPos(Vector2 pos);
 };
 
 
-class BtnWithTxt : public Button
+class BasicBtn
 {
 private:
+	Button btn;
+	Sprite spr;
 	Text txt;
+	float hoverScale = 1.1;
+	bool useTxt = false;
 public:
-	//BtnWithTxt(void(*fp_onBeginHover_)(Button&), void(*fp_onEndHover_)(Button&), void (*fp_onDown_)(Button&), void (*fp_onUp_)(Button&))
-	//	: fp_onBeginHover(fp_onBeginHover_), fp_onEndHover(fp_onEndHover_), fp_onDown(fp_onDown_), fp_onUp(fp_onUp_)
-	//{}
-	//BtnWithTxt(void (*fp_onDown_)(Button&), void (*fp_onUp_)(Button&))
-	//	: fp_onDown(fp_onDown_), fp_onUp(fp_onUp_)
-	//{}
-	//BtnWithTxt(void (*fp_onDown_)(Button&))
-	//	: fp_onDown(fp_onDown_)
-	//{}
-	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);
+	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
 	void initText(string fontName_, string msg_, Vector2 pos_, Vector4 colour_);
 	void initText(string fontName_, string msg_);
+	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
+	void setPos(Vector2 pos);
+	Sprite& getSpr() { return spr; }
+	Button& getButton() { return btn; }
 };

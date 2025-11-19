@@ -36,4 +36,4 @@ float GameStats::getTimeScale() { return timeScale; }
 void GameStats::setTimeScale(float timeScale_) {
 	timeScale = timeScale_;
 }
-GameStats* GameStats::instance = nullptr;
+GameStats* GameStats::instance = nullptr; // important singleton thing

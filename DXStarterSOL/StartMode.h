@@ -26,13 +26,11 @@ class StartMode
 private:
 	Sprite spr_bg;
 	Text txt_title;
-	Button btn_play{play};
-	Button btn_exit{exit};
+	BasicBtn btn_play;
+	BasicBtn btn_exit;
 public:
 	StartMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
-	static void play(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::place); }
-	static void exit(Button& btn) { /*(*GameStats::GetInstance()).setMode(Modes::place);*/ }
 };

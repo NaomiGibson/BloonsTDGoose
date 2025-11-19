@@ -37,6 +37,8 @@ public:
 	Vector2 getScale();
 	void setScale(const Vector2& scale_);
 	Vector2 GetScreenSize();
+	bool getIsActive();
+	void setIsActive(bool isActive_);
 
 protected:
 	string texName{ "default" };
@@ -45,6 +47,7 @@ protected:
 	Vector2 pos{ 0, 0 };
 	float rotation{ 0 };
 	Vector2 scale{ 1, 1 };
+	bool isActive{ true };
 };
 
 class SpriteAnimation

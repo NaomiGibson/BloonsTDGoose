@@ -38,33 +38,35 @@ void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 		}
 	}
 }
-void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
+Modes DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Bloons& bloons) {
 	// Update Game Objects
 	if (bloons.update(dTime)) {
 		ui_stats.setLives((*GameStats::GetInstance()).getLives());
 	}
 	for (int i(0); i < GC::MAX_GEESE; i++) {
-		geese[i].update(dTime, bloons, projectiles);
+		geese[i].updateDefend(dTime, bloons, projectiles, mousePos, isLMBPressed);
 	}
 	projectiles.update(dTime);
 	// speed up button
-	isGameSpeedBtnDown = btn_gameSpeed.getIsBtnDown(); // hold last value so that speed is only togled once for each click
+	isGameSpeedBtnDown = btn_gameSpeed.getButton().getIsBtnDown(); // hold last value so that speed is only togled once for each click
 	btn_gameSpeed.update(dTime, mousePos, isLMBPressed);
-	if (btn_gameSpeed.getIsBtnDown() && !isGameSpeedBtnDown)
-		//toggleTimeScale();
+	if (btn_gameSpeed.getButton().getIsBtnDown() && !isGameSpeedBtnDown)
+		toggleTimeScale();
 
 	//handle collision
 	handleCollision(rm, bloons);
 
 	// After updating everything, decide final state
 	if ((*GameStats::GetInstance()).getLives() == 0)
-		(*GameStats::GetInstance()).setMode(Modes::lose);
+		return Modes::lose;
 	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
 		bloons.endRound();
 		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
-			(*GameStats::GetInstance()).setMode(Modes::win);
-		(*GameStats::GetInstance()).setMode(Modes::place);
+			return Modes::win;
+		return Modes::place;
 	}
+	else
+		return Modes::defend;
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
@@ -84,15 +86,15 @@ void DefendMode::reset(Bloons& bloons) {
 	(*GameStats::GetInstance()).resetGame();
 	bloons.reset();
 }
-static void DefendMode::toggleTimeScale(Button& btn) {
+void DefendMode::toggleTimeScale() {
 	if (isGameFast) {
 		(*GameStats::GetInstance()).setTimeScale(1);
-		btn.getSpr().setTexName("fastForwardIcon");
+		btn_gameSpeed.getSpr().setTexName("fastForwardIcon");
 		isGameFast = false;
 	}
 	else {
 		(*GameStats::GetInstance()).setTimeScale(FAST_TIME_SCALE);
-		btn.getSpr().setTexName("playIcon64");
+		btn_gameSpeed.getSpr().setTexName("playIcon64");
 		isGameFast = true;
 	}
 }

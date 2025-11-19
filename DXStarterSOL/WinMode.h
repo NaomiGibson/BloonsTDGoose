@@ -29,16 +29,14 @@ private:
 	Text txt_winMsg;
 	Sprite spr_bg;
 
-	 Button btn_reset{ reset }; // BtnWithTxt
+	BasicBtn btn_reset;
 	//Text txt_reset;
-	Button btn_exit{ exit };
+	BasicBtn btn_exit;
 
 	Stats ui_stats;
 public:
 	WinMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d);
-	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
+	Modes update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
-	static void exit(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::start); }
-	static void reset(Button& btn) { (*GameStats::GetInstance()).setMode(Modes::place); }
 };
