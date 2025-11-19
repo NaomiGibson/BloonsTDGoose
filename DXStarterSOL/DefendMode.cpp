@@ -63,7 +63,8 @@ void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 		bloons.endRound();
 		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
 			(*GameStats::GetInstance()).setMode(Modes::win);
-		(*GameStats::GetInstance()).setMode(Modes::place);
+		else
+			(*GameStats::GetInstance()).setMode(Modes::place);
 	}
 }
 void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[], Bloons& bloons) {

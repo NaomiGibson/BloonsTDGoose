@@ -22,8 +22,8 @@ GameStats* GameStats::GetInstance() {
 	return instance;
 }
 int GameStats::nextRound() {
-	if(round < GC::MAX_ROUNDS)
-		round++; 
+	//if(round + 1 < GC::MAX_ROUNDS)
+	round++; 
 	return round; 
 }
 int GameStats::getRound() { return round; }
@@ -36,4 +36,4 @@ float GameStats::getTimeScale() { return timeScale; }
 void GameStats::setTimeScale(float timeScale_) {
 	timeScale = timeScale_;
 }
-GameStats* GameStats::instance = nullptr; // important singleton thing
+GameStats* GameStats::instance = nullptr;
