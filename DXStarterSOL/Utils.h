@@ -1,4 +1,8 @@
 #pragma once
+#include <unordered_map>
+#include <string>
+using namespace std;
+
 enum Modes {
 	start,
 	place,
@@ -6,30 +10,54 @@ enum Modes {
 	win,
 	lose
 };
+enum upgrades {
+	projectileReinforcement_1,
+	projectileReinforcement_2,
+	quickFire_1,
+	quickFire_2,
+	longDistance_1,
+	longDistance_2,
+};
 namespace GC {
 	const int START_LIVES = 50;
 	const int START_COINS = 30;
 	const int GOOSE_COST = 20;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
+	const int BLOONS_PER_ROUND = 100;
 	const int MAX_ROUNDS = 5;
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
 
-	const int BLOONS_PER_ROUND = 100;
+	const unordered_map<upgrades, string> UPGRADE_NAMES = {
+		{ projectileReinforcement_1,	"Projectile Reinforcement 1" },
+		{ projectileReinforcement_2,	"Projectile Reinforcement 2" },
+		{ quickFire_1,					"Quick Fire 1" },
+		{ quickFire_2,					"Quick Fire 2" },
+		{ longDistance_1,				"Long Distance 1" },
+		{ longDistance_2,				"Long Distance 2" },
+	};
+	const unordered_map<upgrades, int> UPGRADE_PRICES = {
+		{ projectileReinforcement_1,	10 },
+		{ projectileReinforcement_2,	15 },
+		{ quickFire_1,					15 },
+		{ quickFire_2,					20 },
+		{ longDistance_1,				5 },
+		{ longDistance_2,				10 },
+	};
 };
 class GameStats {
 private:
-	static GameStats* instance;					// important singleton thing
-	GameStats() {}								// important singleton thing
+	static GameStats* instance;					
+	GameStats() {}								
 	int lives{ GC::START_LIVES };
 	int coins{ GC::START_COINS };
 	int round{ 0 };
 	float timeScale{ 1 };
 	Modes mode{ Modes::start };
 public:
-	static GameStats* GetInstance();			 // important singleton thing
-	GameStats(const GameStats& obj) = delete;	 // important singleton thing
+	static GameStats* GetInstance();			
+	GameStats(const GameStats& obj) = delete;	
 
 	int getLives();
 	void resetLives();

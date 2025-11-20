@@ -20,16 +20,12 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 	for (int i(0); i < GC::MAX_GEESE; i++) {
 		geese[i].updatePlace(dTime, mousePos, isLMBPressed);
 		if (geese[i].getTriggerClick()) { // select goose when it is clicked
-			ui_gooseUpgrades.activate();
-			selectedGoose = i;
-			geese[i].select();
+			selectGoose(rm, geese, i);
 			newGooseSelected = true;
 		}
 	}
 	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed) { // deselect goose on first frame of a click, not on a goose
-		ui_gooseUpgrades.deactivate();
-		geese[selectedGoose].deselect();
-		selectedGoose = -1;
+		deselectGoose(rm, geese);
 		lastIsLMBPressed = true;
 	}
 	lastIsLMBPressed = isLMBPressed;
@@ -60,4 +56,14 @@ void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sp
 	btn_placeGoose.render(d3d, rm, dTime, sprBatch);
 	ui_goosePlacer.render(d3d, rm, dTime, sprBatch);
 	ui_gooseUpgrades.render(d3d, rm, dTime, sprBatch);
+}
+void PlaceMode::selectGoose(ResourceManager& rm, Goose geese[], int idx) {
+	ui_gooseUpgrades.activate(rm, upgrades::longDistance_1, upgrades::projectileReinforcement_1, upgrades::quickFire_1);
+	selectedGoose = idx;
+	geese[idx].select();
+}
+void PlaceMode::deselectGoose(ResourceManager& rm, Goose geese[]) {
+	ui_gooseUpgrades.deactivate();
+	geese[selectedGoose].deselect();
+	selectedGoose = -1;
 }

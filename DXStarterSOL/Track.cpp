@@ -8,7 +8,7 @@ void Track::init(ResourceManager& rm, MyD3D& d3d) {
     db_spr.setOrigin({ 0.5, 0.5 });
 }
 void Track::db_render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
-    for (int i(1); i < points.size(); i++) {
+    for (unsigned int i(1); i < points.size(); i++) {
         db_spr.setTexName("indicatorLine");
         float length = getLength(points[i - 1], points[i]);
         if (points[i].x > points[i - 1].x) { // if the x is bigger than the last, it is a horizontal line going right

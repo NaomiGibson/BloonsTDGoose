@@ -3,7 +3,7 @@ void Goose::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 0, 0 }, 0, {1, 1});
 	float range = 128;
 	coll_range.init(rm, d3d, spr.getPos(), range);
-	spr.setOrigin({ 0.42, 0.5 });
+	spr.setOrigin({ 0.42f, 0.5 });
 	spr.setRotation(90);
 	coll_range.getDbSpr().setOrigin({ 0.5, 0.5 });
 	coll_goose.init(rm, d3d, spr.getPos() + spr.GetScreenSize() / 2, 24);

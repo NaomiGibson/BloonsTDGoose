@@ -19,6 +19,16 @@ private:
 	Collider coll_goose; // collider for goose body
 	Button btn_selectGoose;
 	Sprite spr_rangeIndicator;
+	// true if the upgrade has been purchased for this goose
+	unordered_map<upgrades, bool> appliedUpgrades = {
+	{ projectileReinforcement_1,	false },
+	{ projectileReinforcement_2,	false },
+	{ quickFire_1,					false },
+	{ quickFire_2,					false },
+	{ longDistance_1,				false },
+	{ longDistance_2,				false },
+	};
+
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);
 	void updateDefend(float dTime, Bloons& bloons, Projectiles& projectiles, Vector2 mousePos, bool isLMBPressed);

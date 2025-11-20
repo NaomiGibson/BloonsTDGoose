@@ -34,7 +34,7 @@ private:
 	Button btn;
 	Sprite spr;
 	Text txt;
-	float hoverScale = 1.1;
+	float hoverScale = 1.1f;
 	bool useTxt = false;
 public:
 	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);

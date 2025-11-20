@@ -129,7 +129,6 @@ DirectX::SpriteFont* ResourceManager::findFont(DirectX::SpriteFont* pFont) {
 }
 DirectX::SpriteFont* ResourceManager::loadFont(MyD3D& d3d, const wstring& fileName, const string& fontName) {
 	if (!findTex(fontName)) {// if it is not already loaded
-		DDS_ALPHA_MODE alpha; // load the texture
 		DirectX::SpriteFont* font = new SpriteFont(&d3d.GetDevice(), fileName.c_str());
 		if (!font) {
 			WDBOUT(L"Cannot load " << fileName.c_str() << L"\n");

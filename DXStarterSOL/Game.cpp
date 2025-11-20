@@ -2,7 +2,6 @@
 
 Game::Game(MyD3D* d3d_) 
 :	p_d3d(d3d_) {
-	int a;
 }
 void Game::release() {
 	rm.release();

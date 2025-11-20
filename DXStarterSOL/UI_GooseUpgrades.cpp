@@ -20,7 +20,7 @@ void UI_PurchaseBtn::init(MyD3D& d3d, ResourceManager& rm, string purchaseIconSp
 	spr_purchaseIcon.init(purchaseIconSprsheetName, rm.findRect(purchaseIconSprsheetName, purchaseIconIdx), pos_, rotation_, {1, 1});
 	spr_purchaseIcon.setOrigin({ 0.5f, 0.5f });
 	btn.init(rm, d3d, pos_, spr_base.GetScreenSize().x / 2);
-	txt_cost = Text{ "Moghul", "$ " + to_string(cost), { pos_.x - spr_base.GetScreenSize().y / 2 + 5, pos_.y + spr_base.GetScreenSize().y / 2 + 5 }, { 0, 0, 0, 1 } };
+	txt_cost = Text{ "Moghul", "$" + to_string(cost), { pos_.x - spr_base.GetScreenSize().y / 2 + 5, pos_.y + spr_base.GetScreenSize().y / 2 + 5 }, { 0, 0, 0, 1 } };
 }
 void UI_PurchaseBtn::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn.update(dTime, mousePos, isLMBPressed);
@@ -34,6 +34,17 @@ void UI_PurchaseBtn::render(MyD3D& d3d, ResourceManager& rm, float dTime, Sprite
 	spr_base.render(d3d, rm, dTime, batch);
 	spr_purchaseIcon.render(d3d, rm, dTime, batch);
 }
+void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_) {
+	cost = cost_;
+	txt_cost.setMsg("$" + to_string(cost));
+	spr_purchaseIcon.setTexName(purchaseIconTexName);
+	spr_purchaseIcon.setTexRect(rm.findRect(purchaseIconTexName, texIdx));
+}
+void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int cost_) {
+	cost = cost_;
+	txt_cost.setMsg("$" + to_string(cost));
+	spr_purchaseIcon.setTexName(purchaseIconTexName);
+}
 
 // GOOSE UPGRADES INTERFACE
 
@@ -41,6 +52,7 @@ void UI_GooseUpgrades::init(MyD3D& d3d, ResourceManager& rm) {
 	btn_upgrade1.init(d3d, rm, rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6).texName, 1, { 1640, 850 }, 0, 10);
 	btn_upgrade2.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, {1740, 850 }, 0, 10);
 	btn_upgrade3.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, { 1840, 850 }, 0, 10);
+	txt_focusedName = Text{ "Moghul", "Upgrade Name", { 1600, 750 }, { 0, 0, 0, 1 } };
 }
 void UI_GooseUpgrades::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (isActive) {
@@ -54,5 +66,12 @@ void UI_GooseUpgrades::render(MyD3D& d3d, ResourceManager& rm, float dTime, Spri
 		btn_upgrade1.render(d3d, rm, dTime, batch);
 		btn_upgrade2.render(d3d, rm, dTime, batch);
 		btn_upgrade3.render(d3d, rm, dTime, batch);
+		txt_focusedName.render(d3d, rm, dTime, batch);
 	}
+}
+void UI_GooseUpgrades::activate(ResourceManager& rm, upgrades upgrade_1, upgrades upgrade_2, upgrades upgrade_3) {
+	btn_upgrade1.activate(rm, "upgradeIcons", (int)upgrade_1 + 1, GC::UPGRADE_PRICES.at(upgrade_1));
+	btn_upgrade2.activate(rm, "upgradeIcons", (int)upgrade_2 + 1, GC::UPGRADE_PRICES.at(upgrade_2));
+	btn_upgrade3.activate(rm, "upgradeIcons", (int)upgrade_3 + 1, GC::UPGRADE_PRICES.at(upgrade_3));
+	isActive = true;
 }

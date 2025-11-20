@@ -28,7 +28,7 @@ private:
 public:
 	Track(float width_, vector<Vector2> points_) { 
 		width = width_, points = points_; 
-		for (int i(1); i < points.size(); i++) {
+		for (unsigned int i(1); i < points.size(); i++) {
 			assert(points[i].x == points[i - 1].x || points[i].y == points[i - 1].y); // track only supports 90 degree turns
 		}
 	};

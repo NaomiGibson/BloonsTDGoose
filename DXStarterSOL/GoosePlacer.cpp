@@ -2,7 +2,7 @@
 
 void GoosePlacer::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 5), 1, { 0, 0 }, 90, { 1, 1 });
-	spr.setOrigin({ 0.42, 0.5 });
+	spr.setOrigin({ 0.42f, 0.5 });
 	collider.init(rm, d3d, spr.getPos() + spr.GetScreenSize() / 2, 24);
 }
 void GoosePlacer::update(ResourceManager& rm, Vector2 mousePos, bool isLMBPressed, Goose geese[], Track& track, Stats& ui_stats) {
