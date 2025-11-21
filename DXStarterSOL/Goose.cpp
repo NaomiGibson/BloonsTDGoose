@@ -21,9 +21,9 @@ void Goose::updateDefend(float dTime, Bloons& bloons, Projectiles& projectiles, 
 void Goose::updatePlace(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (isActive) {
 		btn_selectGoose.update(dTime, mousePos, isLMBPressed);
-		if (btn_selectGoose.getIsHovered())
+		if (!isSelected && btn_selectGoose.getIsHovered())
 			spr_rangeIndicator.setIsActive(true);
-		else if(!isSelected)
+		else if(!isSelected && !btn_selectGoose.getIsHovered())
 			spr_rangeIndicator.setIsActive(false);
 	}
 }
@@ -37,14 +37,14 @@ void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& ba
 }
 void Goose::setRange(float rad) {
 	coll_range.setRad(rad);
-	spr_rangeIndicator.setScale({ (rad * 2) / spr_rangeIndicator.GetScreenSize().x, (rad * 2) / spr_rangeIndicator.GetScreenSize().y });
+	spr_rangeIndicator.setScale({ (rad * 2) / spr_rangeIndicator.getTexSize().x, (rad * 2) / spr_rangeIndicator.getTexSize().y });
 }
 void Goose::fire(Bloons& bloons, int idx, Projectiles& projectiles) {
 	Vector2 tgt = bloons.getPos(idx);
 	Vector2 vec_direction = { tgt.x - spr.getPos().x, tgt.y - spr.getPos().y};
 	float direction = atan2(vec_direction.y, vec_direction.x);
 	spr.setRotationRads(direction);
-	projectiles.activate(spr.getPos(), direction);
+	projectiles.activate(spr.getPos(), direction, bulletDurability);
 }
 bool Goose::findTarget(Bloons& bloons, Projectiles& projectiles) {
 	float time = GetClock();
@@ -76,7 +76,26 @@ void Goose::activate(Vector2 pos_) {
 	coll_goose.setPos(pos_);
 	btn_selectGoose.setPos(pos_);
 	spr_rangeIndicator.setPos(pos_);
+
+	appliedUpgrades.at(projectileReinforcement_1) = false;
+	appliedUpgrades.at(projectileReinforcement_2) = false;
+	appliedUpgrades.at(quickFire_1) = false;
+	appliedUpgrades.at(quickFire_2) = false;
+	appliedUpgrades.at(longDistance_1) = false;
+	appliedUpgrades.at(longDistance_2) = false;
+	setRange(128);
+	bulletDurability = 1;
+	shootSpeed = 2;
+
 	isActive = true;
+}
+void Goose::select() {
+	spr_rangeIndicator.setIsActive(true);
+	isSelected = true;
+}
+void Goose::deselect() {
+	spr_rangeIndicator.setIsActive(false);
+	isSelected = false;
 }
 void Goose::applyUpgrade(ResourceManager& rm, upgrades upgrade) {
 	if (upgrade != none) {
@@ -96,7 +115,7 @@ void Goose::applyUpgrade(ResourceManager& rm, upgrades upgrade) {
 			shootSpeed = 0.5f;
 			break;
 		case longDistance_1:
-			setRange(192);
+			setRange(196);
 			break;
 		case longDistance_2:
 			setRange(256);

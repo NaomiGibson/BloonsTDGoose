@@ -45,8 +45,8 @@ public:
 	bool getIsActive() { return isActive; }
 	void activate(Vector2 pos);
 	void deactivate() { isActive = false; }
-	void select() { isSelected = true; }
-	void deselect() { isSelected = false; }
+	void select();
+	void deselect();
 	void applyUpgrade(ResourceManager& rm, upgrades upgrade);
 	// @return the next tier not already applied of upgrades for each path.
 	// returns none if the path is complete

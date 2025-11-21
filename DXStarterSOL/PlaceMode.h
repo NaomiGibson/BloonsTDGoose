@@ -39,4 +39,6 @@ public:
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]);
 	void selectGoose(ResourceManager& rm, Goose geese[], int idx);
 	void deselectGoose(ResourceManager& rm, Goose geese[]);
+	// purchase an upgrade if the player has requested to
+	void purchaseUpgrade(ResourceManager& rm, Goose geese[]);
 };

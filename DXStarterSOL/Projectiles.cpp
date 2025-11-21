@@ -6,15 +6,18 @@ void Projectiles::init(ResourceManager& rm, MyD3D& d3d) {
 	collider.getDbSpr().setOrigin({ 0.5, 0.5 });
 	spr.setOrigin({ 0.5, 0.5 });
 	std::fill_n(speed, GC::MAX_PROJECTILES, 2000);
+	std::fill_n(health, GC::MAX_PROJECTILES, 1);
 }
 void Projectiles::update(float dTime) {
 	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
 		
 		if (position[i].x > 0 &&
-			position[i].x < WinUtil::Get().GetData().clientWidth &&
-			position[i].y > 0 &&
-			position[i].y < WinUtil::Get().GetData().clientHeight)
+		position[i].x < WinUtil::Get().GetData().clientWidth &&
+		position[i].y > 0 &&
+		position[i].y < WinUtil::Get().GetData().clientHeight) 
+		{
 			position[i] += direction[i] * speed[i] * dTime;
+		}
 		else
 			isActive[i] = false;
 	}
@@ -29,12 +32,13 @@ void Projectiles::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBat
 		}
 	}
 }
-void Projectiles::activate(Vector2 startPos, float directionRads) {
+void Projectiles::activate(Vector2 startPos, float directionRads, int health_) {
 	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
 		if (!isActive[i]) {
 			isActive[i] = true;
 			position[i] = startPos;
 			direction[i] = { (float)cos(directionRads), (float)sin(directionRads) };
+			health[i] = health_;
 			i = GC::MAX_PROJECTILES;
 		}
 	}
@@ -44,5 +48,8 @@ Collider& Projectiles::getCollider(int idx) {
 	return collider;
 }
 void Projectiles::onCollision_bloon(int idx) {
-	isActive[idx] = false;
+	health[idx]--;
+	if (health[idx] == 0) {
+		isActive[idx] = false;
+	}
 }

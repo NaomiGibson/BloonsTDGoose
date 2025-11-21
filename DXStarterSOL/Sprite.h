@@ -37,6 +37,7 @@ public:
 	Vector2 getScale();
 	void setScale(const Vector2& scale_);
 	Vector2 GetScreenSize();
+	Vector2 getTexSize();
 	bool getIsActive();
 	void setIsActive(bool isActive_);
 

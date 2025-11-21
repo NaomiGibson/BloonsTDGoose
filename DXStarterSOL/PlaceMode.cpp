@@ -25,6 +25,7 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 		}
 	}
 
+	//update game objects
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	btn_exit.update(dTime, mousePos, isLMBPressed);
 	btn_placeGoose.update(rm, dTime, mousePos, isLMBPressed);
@@ -34,25 +35,23 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 	ui_gooseUpgrades.update(rm, dTime, mousePos, isLMBPressed);
 	ui_stats.update(rm, dTime);
 
-	if (selectedGoose != -1) { // if a goose is selected
-		geese[selectedGoose].applyUpgrade(rm, ui_gooseUpgrades.getUpgradePurchased()); // apply any upgrades that may have been purchased
-		upgrades u1, u2, u3; 
-		geese[selectedGoose].selectPurchasableUpgrades(u1, u2, u3);
-		ui_gooseUpgrades.activate(rm, u1, u2, u3);
-	}
+	purchaseUpgrade(rm, geese);
 
-	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed) { // deselect goose on first frame of a click, not on a goose
+	// tower deselection
+	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed && !btn_placeGoose.getTriggerClick() && ui_gooseUpgrades.getUpgradePurchased() == none) { // deselect goose on first frame of a click, not on a goose or button
 		deselectGoose(rm, geese);
 		lastIsLMBPressed = true;
 	}
 	lastIsLMBPressed = isLMBPressed;
 
-
 	//After updating everything, decide current state
 	if (btn_exit.getButton().getIsBtnDown())
 		(*GameStats::GetInstance()).setMode(Modes::start);
-	if (btn_play.getButton().getIsBtnDown())
+	if (btn_play.getButton().getIsBtnDown()) {
+		deselectGoose(rm, geese);
 		(*GameStats::GetInstance()).setMode(Modes::defend);
+
+	}
 }
 void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]) {
 	spr_bg.render(d3d, rm, dTime, sprBatch);
@@ -80,4 +79,18 @@ void PlaceMode::deselectGoose(ResourceManager& rm, Goose geese[]) {
 	ui_gooseUpgrades.deactivate();
 	geese[selectedGoose].deselect();
 	selectedGoose = -1;
+}
+void PlaceMode::purchaseUpgrade(ResourceManager& rm, Goose geese[]) {
+	if (selectedGoose != -1) {									// if a goose is selected
+		upgrades upgradePurchased = ui_gooseUpgrades.getUpgradePurchased();
+		if (upgradePurchased != none) {							// and there is an upgrade to purchase
+			if ((*GameStats::GetInstance()).spendCoins(GC::UPGRADE_PRICES.at(upgradePurchased))) { // and the player can afford to buy it
+				ui_stats.setCoins((*GameStats::GetInstance()).getCoins());						// apply the upgrade
+				geese[selectedGoose].applyUpgrade(rm, upgradePurchased);					
+				upgrades u1, u2, u3;
+				geese[selectedGoose].selectPurchasableUpgrades(u1, u2, u3);
+				ui_gooseUpgrades.activate(rm, u1, u2, u3);
+			}
+		}
+	}
 }

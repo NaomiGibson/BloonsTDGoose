@@ -67,6 +67,9 @@ void Sprite::setScale(const Vector2& scale_) {
 Vector2 Sprite::GetScreenSize() {
 	return { (texRect.right - texRect.left) * scale.x, (texRect.bottom - texRect.top) * scale.y };
 }
+Vector2 Sprite::getTexSize() {
+	return { (float)texRect.right - (float)texRect.left, (float)texRect.bottom - (float)texRect.top };
+}
 bool Sprite::getIsActive() {
 	return isActive;
 }
