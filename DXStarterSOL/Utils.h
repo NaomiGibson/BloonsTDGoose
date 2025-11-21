@@ -17,6 +17,7 @@ enum upgrades {
 	quickFire_2,
 	longDistance_1,
 	longDistance_2,
+	none
 };
 namespace GC {
 	const int START_LIVES = 50;
@@ -36,6 +37,7 @@ namespace GC {
 		{ quickFire_2,					"Quick Fire 2" },
 		{ longDistance_1,				"Long Distance 1" },
 		{ longDistance_2,				"Long Distance 2" },
+		{ none,							"End of Path" }
 	};
 	const unordered_map<upgrades, int> UPGRADE_PRICES = {
 		{ projectileReinforcement_1,	10 },
@@ -44,6 +46,7 @@ namespace GC {
 		{ quickFire_2,					20 },
 		{ longDistance_1,				5 },
 		{ longDistance_2,				10 },
+		{ none,							0	}
 	};
 };
 class GameStats {

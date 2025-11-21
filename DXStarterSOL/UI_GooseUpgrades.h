@@ -31,6 +31,9 @@ class UI_GooseUpgrades
 	UI_PurchaseBtn btn_upgrade2;
 	UI_PurchaseBtn btn_upgrade3;
 	Text txt_focusedName; // the name of the focused upgrade
+	upgrades upgrade1 = none;
+	upgrades upgrade2 = none;
+	upgrades upgrade3 = none;
 	bool isActive{ false };
 public:
 	void init(MyD3D& d3d, ResourceManager& rm);
@@ -38,5 +41,7 @@ public:
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	void activate(ResourceManager& rm, upgrades upgrade_1, upgrades upgrade_2, upgrades upgrade_3);
 	void deactivate() { isActive = false; }
+	// @return upgrade of button currently clicked, if any
+	upgrades getUpgradePurchased();
 };
 

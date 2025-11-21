@@ -38,5 +38,5 @@ public:
 	void update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboard[], Goose geese[], Track& track);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime, Goose geese[]);
 	void selectGoose(ResourceManager& rm, Goose geese[], int idx);
-	void PlaceMode::deselectGoose(ResourceManager& rm, Goose geese[]);
+	void deselectGoose(ResourceManager& rm, Goose geese[]);
 };

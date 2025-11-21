@@ -19,8 +19,9 @@ private:
 	Collider coll_goose; // collider for goose body
 	Button btn_selectGoose;
 	Sprite spr_rangeIndicator;
+	typedef unordered_map<upgrades, bool> upgradeInfo;
 	// true if the upgrade has been purchased for this goose
-	unordered_map<upgrades, bool> appliedUpgrades = {
+	upgradeInfo appliedUpgrades = {
 	{ projectileReinforcement_1,	false },
 	{ projectileReinforcement_2,	false },
 	{ quickFire_1,					false },
@@ -46,4 +47,9 @@ public:
 	void deactivate() { isActive = false; }
 	void select() { isSelected = true; }
 	void deselect() { isSelected = false; }
+	void applyUpgrade(ResourceManager& rm, upgrades upgrade);
+	// @return the next tier not already applied of upgrades for each path.
+	// returns none if the path is complete
+	void selectPurchasableUpgrades(upgrades& u1, upgrades& u2, upgrades& u3);
+	const upgradeInfo& getAppliedUpgrades() { return appliedUpgrades; }
 };

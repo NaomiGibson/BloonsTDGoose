@@ -37,13 +37,22 @@ void UI_PurchaseBtn::render(MyD3D& d3d, ResourceManager& rm, float dTime, Sprite
 void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_) {
 	cost = cost_;
 	txt_cost.setMsg("$" + to_string(cost));
-	spr_purchaseIcon.setTexName(purchaseIconTexName);
-	spr_purchaseIcon.setTexRect(rm.findRect(purchaseIconTexName, texIdx));
+	if (cost != 0) {
+		spr_purchaseIcon.setTexName(purchaseIconTexName);
+		spr_purchaseIcon.setTexRect(rm.findRect(purchaseIconTexName, texIdx));
+		spr_purchaseIcon.setIsActive(true);
+	}
+	else
+		spr_purchaseIcon.setIsActive(false);
 }
 void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int cost_) {
 	cost = cost_;
 	txt_cost.setMsg("$" + to_string(cost));
-	spr_purchaseIcon.setTexName(purchaseIconTexName);
+	if (cost != 0)
+		spr_purchaseIcon.setTexName(purchaseIconTexName);
+	else
+		spr_purchaseIcon.setIsActive(false);
+
 }
 
 // GOOSE UPGRADES INTERFACE
@@ -73,5 +82,17 @@ void UI_GooseUpgrades::activate(ResourceManager& rm, upgrades upgrade_1, upgrade
 	btn_upgrade1.activate(rm, "upgradeIcons", (int)upgrade_1 + 1, GC::UPGRADE_PRICES.at(upgrade_1));
 	btn_upgrade2.activate(rm, "upgradeIcons", (int)upgrade_2 + 1, GC::UPGRADE_PRICES.at(upgrade_2));
 	btn_upgrade3.activate(rm, "upgradeIcons", (int)upgrade_3 + 1, GC::UPGRADE_PRICES.at(upgrade_3));
+	upgrade1 = upgrade_1;
+	upgrade2 = upgrade_2;
+	upgrade3 = upgrade_3;
 	isActive = true;
+}
+upgrades UI_GooseUpgrades::getUpgradePurchased() {
+	if (btn_upgrade1.getTriggerClick())
+		return upgrade1;
+	if (btn_upgrade2.getTriggerClick())
+		return upgrade2;
+	if (btn_upgrade3.getTriggerClick())
+		return upgrade3;
+	return upgrades::none;
 }

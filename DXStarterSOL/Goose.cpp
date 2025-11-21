@@ -78,3 +78,51 @@ void Goose::activate(Vector2 pos_) {
 	spr_rangeIndicator.setPos(pos_);
 	isActive = true;
 }
+void Goose::applyUpgrade(ResourceManager& rm, upgrades upgrade) {
+	if (upgrade != none) {
+			appliedUpgrades.at(upgrade) = true;
+		switch (upgrade)
+		{
+		case projectileReinforcement_1:
+			bulletDurability = 2;
+			break;
+		case projectileReinforcement_2:
+			bulletDurability = 3;
+			break;
+		case quickFire_1:
+			shootSpeed = 1.f;
+			break;
+		case quickFire_2:
+			shootSpeed = 0.5f;
+			break;
+		case longDistance_1:
+			setRange(192);
+			break;
+		case longDistance_2:
+			setRange(256);
+			break;
+		default:
+			break;
+		}
+	}
+}
+void Goose::selectPurchasableUpgrades(upgrades& u1, upgrades& u2, upgrades& u3) {
+	if (!appliedUpgrades.at(projectileReinforcement_1))
+		u1 = projectileReinforcement_1;
+	else if (!appliedUpgrades.at(projectileReinforcement_2))
+		u1 = projectileReinforcement_2;
+	else
+		u1 = none;
+	if (!appliedUpgrades.at(quickFire_1))
+		u2 = quickFire_1;
+	else if (!appliedUpgrades.at(quickFire_2))
+		u2 = quickFire_2;
+	else
+		u2 = none;
+	if (!appliedUpgrades.at(longDistance_1))
+		u3 = longDistance_1;
+	else if (!appliedUpgrades.at(longDistance_2))
+		u3 = longDistance_2;
+	else
+		u3 = none;
+}

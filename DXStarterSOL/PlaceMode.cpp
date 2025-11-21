@@ -24,11 +24,6 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 			newGooseSelected = true;
 		}
 	}
-	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed) { // deselect goose on first frame of a click, not on a goose
-		deselectGoose(rm, geese);
-		lastIsLMBPressed = true;
-	}
-	lastIsLMBPressed = isLMBPressed;
 
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	btn_exit.update(dTime, mousePos, isLMBPressed);
@@ -38,6 +33,20 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 	ui_goosePlacer.update(rm, mousePos, isLMBPressed, geese, track, ui_stats);
 	ui_gooseUpgrades.update(rm, dTime, mousePos, isLMBPressed);
 	ui_stats.update(rm, dTime);
+
+	if (selectedGoose != -1) { // if a goose is selected
+		geese[selectedGoose].applyUpgrade(rm, ui_gooseUpgrades.getUpgradePurchased()); // apply any upgrades that may have been purchased
+		upgrades u1, u2, u3; 
+		geese[selectedGoose].selectPurchasableUpgrades(u1, u2, u3);
+		ui_gooseUpgrades.activate(rm, u1, u2, u3);
+	}
+
+	if(!newGooseSelected && isLMBPressed && !lastIsLMBPressed) { // deselect goose on first frame of a click, not on a goose
+		deselectGoose(rm, geese);
+		lastIsLMBPressed = true;
+	}
+	lastIsLMBPressed = isLMBPressed;
+
 
 	//After updating everything, decide current state
 	if (btn_exit.getButton().getIsBtnDown())
@@ -57,8 +66,13 @@ void PlaceMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sp
 	ui_goosePlacer.render(d3d, rm, dTime, sprBatch);
 	ui_gooseUpgrades.render(d3d, rm, dTime, sprBatch);
 }
+
 void PlaceMode::selectGoose(ResourceManager& rm, Goose geese[], int idx) {
-	ui_gooseUpgrades.activate(rm, upgrades::longDistance_1, upgrades::projectileReinforcement_1, upgrades::quickFire_1);
+	upgrades u1 = none;
+	upgrades u2 = none;
+	upgrades u3 = none;
+	geese[idx].selectPurchasableUpgrades(u1, u2, u3);
+	ui_gooseUpgrades.activate(rm, u1, u2, u3);
 	selectedGoose = idx;
 	geese[idx].select();
 }
