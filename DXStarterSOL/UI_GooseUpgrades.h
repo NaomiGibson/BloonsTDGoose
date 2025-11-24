@@ -13,16 +13,18 @@ private:
 	Sprite spr_purchaseIcon;
 	string unfocusedTexName{ "buttonBase" };
 	string focusedTexName{ "filledButtonBase" };
+	string disabledTexName{ "disabledButtonBase" };
 	int cost{ 0 };
+	bool isEnabled = true;
 public:
 	// purchase icon sprite must be loaded before purchase button initialisation
-	void init(MyD3D& d3d, ResourceManager& rm, string purcahseIconTexName, RECT texRect, Vector2 pos_, float rotation_, int cost);
+	void init(MyD3D& d3d, ResourceManager& rm, string purcahseIconTexName, RECT texRect, Vector2 pos_, float rotation_, int cost_);
 	void init(MyD3D& d3d, ResourceManager& rm, string purchaseIconSprsheetName, int purchaseIconIdx, Vector2 pos_, float rotation_, int cost_);
 	void update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
-	void activate(ResourceManager& rm, string purchaseIconTexName, int cost_);
-	void activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_);
-	bool getTriggerClick() { return btn.getTriggerClick(); }
+	void activate(ResourceManager& rm, string purchaseIconTexName, int cost_, bool isEnabled_);
+	void activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_, bool isEnabled_);
+	bool getTriggerClick() { return (isEnabled && btn.getTriggerClick()); }
 };
 
 class UI_GooseUpgrades

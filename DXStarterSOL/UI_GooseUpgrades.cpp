@@ -6,6 +6,7 @@ void UI_PurchaseBtn::init(MyD3D& d3d, ResourceManager& rm, string purchaseIconTe
 	int cost = cost_;
 	spr_base.init(rm.loadTexture(d3d, L"../bin/data/buttonBase.dds", "buttonBase"), { 0, 0, 96, 96 }, pos_, rotation_, { 1.f, 1.f });
 	rm.loadTexture(d3d, L"../bin/data/filledButtonBase.dds", "filledButtonBase");
+	rm.loadTexture(d3d, L"../bin/data/disabledButtonBase.dds", "disabledButtonBase");
 	spr_base.setOrigin({ 0.5f, 0.5f });
 	spr_purchaseIcon.init(purchaseIconTexName, purchaseIconTexRect, pos_, rotation_, { 1, 1 });
 	spr_purchaseIcon.setOrigin({ 0.5f, 0.5f });
@@ -16,6 +17,7 @@ void UI_PurchaseBtn::init(MyD3D& d3d, ResourceManager& rm, string purchaseIconSp
 	int cost = cost_;
 	spr_base.init(rm.loadTexture(d3d, L"../bin/data/buttonBase.dds", "buttonBase"), { 0, 0, 96, 96 }, pos_, rotation_, { 1.f, 1.f });
 	rm.loadTexture(d3d, L"../bin/data/filledButtonBase.dds", "filledButtonBase");
+	rm.loadTexture(d3d, L"../bin/data/disabledButtonBase.dds", "disabledButtonBase");
 	spr_base.setOrigin({ 0.5f, 0.5f });
 	spr_purchaseIcon.init(purchaseIconSprsheetName, rm.findRect(purchaseIconSprsheetName, purchaseIconIdx), pos_, rotation_, {1, 1});
 	spr_purchaseIcon.setOrigin({ 0.5f, 0.5f });
@@ -24,9 +26,9 @@ void UI_PurchaseBtn::init(MyD3D& d3d, ResourceManager& rm, string purchaseIconSp
 }
 void UI_PurchaseBtn::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn.update(dTime, mousePos, isLMBPressed);
-	if (btn.getTriggerBeginHover())
+	if (isEnabled && btn.getTriggerBeginHover())
 		spr_base.setTexName(focusedTexName);
-	else if (!btn.getIsHovered())
+	else if (isEnabled && !btn.getIsHovered())
 		spr_base.setTexName(unfocusedTexName);
 }
 void UI_PurchaseBtn::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
@@ -34,24 +36,33 @@ void UI_PurchaseBtn::render(MyD3D& d3d, ResourceManager& rm, float dTime, Sprite
 	spr_base.render(d3d, rm, dTime, batch);
 	spr_purchaseIcon.render(d3d, rm, dTime, batch);
 }
-void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_) {
+void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int texIdx, int cost_, bool isEnabled_) {
 	cost = cost_;
 	txt_cost.setMsg("$" + to_string(cost));
-	if (cost != 0) {
+	isEnabled = isEnabled_;
+	if (isEnabled) {
 		spr_purchaseIcon.setTexName(purchaseIconTexName);
 		spr_purchaseIcon.setTexRect(rm.findRect(purchaseIconTexName, texIdx));
 		spr_purchaseIcon.setIsActive(true);
+		spr_base.setTexName(unfocusedTexName);
 	}
-	else
-		spr_purchaseIcon.setIsActive(false);
+	else {
+		spr_purchaseIcon.setIsActive(false);		
+		spr_base.setTexName(disabledTexName);
+	}
 }
-void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int cost_) {
+void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, int cost_, bool isEnabled_) {
 	cost = cost_;
 	txt_cost.setMsg("$" + to_string(cost));
-	if (cost != 0)
-		spr_purchaseIcon.setTexName(purchaseIconTexName);
-	else
+	isEnabled = isEnabled_;
+	if (isEnabled) {
+		spr_purchaseIcon.setTexName(purchaseIconTexName);		
+		spr_base.setTexName(unfocusedTexName);
+	}
+	else {
 		spr_purchaseIcon.setIsActive(false);
+		spr_base.setTexName(disabledTexName);
+	}
 
 }
 
@@ -79,9 +90,9 @@ void UI_GooseUpgrades::render(MyD3D& d3d, ResourceManager& rm, float dTime, Spri
 	}
 }
 void UI_GooseUpgrades::activate(ResourceManager& rm, upgrades upgrade_1, upgrades upgrade_2, upgrades upgrade_3) {
-	btn_upgrade1.activate(rm, "upgradeIcons", (int)upgrade_1 + 1, GC::UPGRADE_PRICES.at(upgrade_1));
-	btn_upgrade2.activate(rm, "upgradeIcons", (int)upgrade_2 + 1, GC::UPGRADE_PRICES.at(upgrade_2));
-	btn_upgrade3.activate(rm, "upgradeIcons", (int)upgrade_3 + 1, GC::UPGRADE_PRICES.at(upgrade_3));
+	btn_upgrade1.activate(rm, "upgradeIcons", (int)upgrade_1 + 1, GC::UPGRADE_PRICES.at(upgrade_1), upgrade_1 != none);
+	btn_upgrade2.activate(rm, "upgradeIcons", (int)upgrade_2 + 1, GC::UPGRADE_PRICES.at(upgrade_2), upgrade_2 != none);
+	btn_upgrade3.activate(rm, "upgradeIcons", (int)upgrade_3 + 1, GC::UPGRADE_PRICES.at(upgrade_3), upgrade_3 != none);
 	upgrade1 = upgrade_1;
 	upgrade2 = upgrade_2;
 	upgrade3 = upgrade_3;
