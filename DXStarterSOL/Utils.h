@@ -48,6 +48,7 @@ namespace GC {
 		{ longDistance_2,				10 },
 		{ none,							0	}
 	};
+	typedef unordered_map<upgrades, bool> upgradeInfo;
 };
 class GameStats {
 private:

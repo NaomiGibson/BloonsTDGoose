@@ -84,12 +84,14 @@ void PlaceMode::purchaseUpgrade(ResourceManager& rm, Goose geese[]) {
 	if (selectedGoose != -1) {									// if a goose is selected
 		upgrades upgradePurchased = ui_gooseUpgrades.getUpgradePurchased();
 		if (upgradePurchased != none) {							// and there is an upgrade to purchase
-			if ((*GameStats::GetInstance()).spendCoins(GC::UPGRADE_PRICES.at(upgradePurchased))) { // and the player can afford to buy it
-				ui_stats.setCoins((*GameStats::GetInstance()).getCoins());						// apply the upgrade
-				geese[selectedGoose].applyUpgrade(rm, upgradePurchased);					
-				upgrades u1, u2, u3;
-				geese[selectedGoose].selectPurchasableUpgrades(u1, u2, u3);
-				ui_gooseUpgrades.activate(rm, u1, u2, u3);
+			if ((*GameStats::GetInstance()).getCoins() >= GC::UPGRADE_PRICES.at(upgradePurchased)) { // and the player can afford to buy it
+				if (geese[selectedGoose].applyUpgrade(rm, upgradePurchased)) {		// and the new upgrade is compatible with those already applied
+					(*GameStats::GetInstance()).spendCoins(GC::UPGRADE_PRICES.at(upgradePurchased)); // apply the upgrade
+					ui_stats.setCoins((*GameStats::GetInstance()).getCoins());						
+					upgrades u1, u2, u3;
+					geese[selectedGoose].selectPurchasableUpgrades(u1, u2, u3);
+					ui_gooseUpgrades.activate(rm, u1, u2, u3);
+				}
 			}
 		}
 	}

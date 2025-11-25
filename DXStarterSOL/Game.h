@@ -51,7 +51,7 @@ private:
 	// widely used game objects
 	Bloons bloons{ track };
 	Goose geese[GC::MAX_GEESE];
-	Track track{ 80.f, { // points follow bottom and right edges of the water
+	Track track{ 80.f, { // points are at every corner of the path
 		{-48, 360},
 		{528, 360},
 		{528, 648},
