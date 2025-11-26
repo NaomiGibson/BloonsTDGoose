@@ -16,7 +16,7 @@ void Game::init() {
 	switch ((*GameStats::GetInstance()).getMode())
 	{
 	case start:
-		startMode.init(rm, *p_d3d);
+		startMode.init(rm, *p_d3d, track);
 		break;
 	case place:
 		placeMode.init(rm, *p_d3d);
@@ -25,10 +25,10 @@ void Game::init() {
 		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
-		winMode.init(rm, *p_d3d);
+		winMode.init(rm, *p_d3d, track);
 		break;
 	case lose:
-		loseMode.init(rm, *p_d3d);
+		loseMode.init(rm, *p_d3d, track);
 		break;
 	default:
 		break;
@@ -96,7 +96,7 @@ void Game::changeState() {
 	{
 	case start:
 		reset();
-		startMode.init(rm, *p_d3d);
+		startMode.init(rm, *p_d3d, track);
 		break;
 	case place:
 		placeMode.init(rm, *p_d3d);
@@ -106,11 +106,11 @@ void Game::changeState() {
 		break;
 	case win:
 		reset();
-		winMode.init(rm, *p_d3d);
+		winMode.init(rm, *p_d3d, track);
 		break;
 	case lose:
 		reset();
-		loseMode.init(rm, *p_d3d);
+		loseMode.init(rm, *p_d3d, track);
 		break;
 	default:
 		break;

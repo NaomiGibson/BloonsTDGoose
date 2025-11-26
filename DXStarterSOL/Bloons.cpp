@@ -9,7 +9,7 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	rounds.resize(GC::MAX_ROUNDS);
 	rounds = {
 		{ // round 1
-				{ 0, 1, 1.f, { 1 }},
+			{ 0, 1, 1.f, { 1 }},
 		},
 		{ // round 2
 			{ 0, 5, 3.f, { 1 } },
