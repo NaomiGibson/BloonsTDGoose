@@ -16,7 +16,7 @@ public:
 	void update(ResourceManager& rm, Vector2 mousePos, bool isLMBPressed, Goose geese[], Track& track, Stats& ui_stats);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch);
 	// spawn goose at pos
-	void placeGoose(Vector2 pos, Goose geese[], Track& track, Stats& ui_stats);
+	void placeGoose(ResourceManager& rm, Vector2 pos, Goose geese[], Track& track, Stats& ui_stats);
 	void activate();
 };
 

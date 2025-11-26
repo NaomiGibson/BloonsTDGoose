@@ -56,7 +56,7 @@ void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 	//handle collision
 	handleCollision(rm, bloons);
 
-	// After updating everything, decide final state
+	// After updating everything, decide final state#
 	if ((*GameStats::GetInstance()).getLives() == 0)
 		(*GameStats::GetInstance()).setMode(Modes::lose);
 	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {

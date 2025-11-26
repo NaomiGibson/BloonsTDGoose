@@ -69,16 +69,22 @@ void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, i
 // GOOSE UPGRADES INTERFACE
 
 void UI_GooseUpgrades::init(MyD3D& d3d, ResourceManager& rm) {
-	btn_upgrade1.init(d3d, rm, rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6).texName, 1, { 1640, 850 }, 0, 10);
-	btn_upgrade2.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, {1740, 850 }, 0, 10);
-	btn_upgrade3.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, { 1840, 850 }, 0, 10);
-	txt_focusedName = Text{ "Moghul", "Upgrade Name", { 1600, 750 }, { 0, 0, 0, 1 } };
+	btn_upgrade1.init(d3d, rm, rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6).texName, 1, pos + Vector2{ 48, 85 }, 0, 10);
+	btn_upgrade2.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 148, 85 }, 0, 10);
+	btn_upgrade3.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 248, 85 }, 0, 10);
+	txt_focusedName = Text{ "Moghul", "Upgrade Name", pos, { 0, 0, 0, 1 } };
 }
 void UI_GooseUpgrades::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (isActive) {
 		btn_upgrade1.update(rm, dTime, mousePos, isLMBPressed);
 		btn_upgrade2.update(rm, dTime, mousePos, isLMBPressed);
 		btn_upgrade3.update(rm, dTime, mousePos, isLMBPressed);
+		if (btn_upgrade1.getIsHovered())
+			focusUpgrade(upgrade1);
+		else if (btn_upgrade2.getIsHovered())
+			focusUpgrade(upgrade2);
+		else if (btn_upgrade3.getIsHovered())
+			focusUpgrade(upgrade3);
 	}
 }
 void UI_GooseUpgrades::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
@@ -106,4 +112,10 @@ upgrades UI_GooseUpgrades::getUpgradePurchased() {
 	if (btn_upgrade3.getTriggerClick())
 		return upgrade3;
 	return upgrades::none;
+}
+void UI_GooseUpgrades::focusUpgrade(upgrades focusedUpgrade) {
+	txt_focusedName.setMsg(GC::UPGRADE_NAMES.at(focusedUpgrade));
+}
+void UI_GooseUpgrades::unfocusUpgrade() {
+	txt_focusedName.setMsg("Purchase Upgrade");
 }

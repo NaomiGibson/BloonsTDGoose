@@ -20,6 +20,8 @@ void PlaceMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool 
 	for (int i(0); i < GC::MAX_GEESE; i++) {
 		geese[i].updatePlace(dTime, mousePos, isLMBPressed);
 		if (geese[i].getTriggerClick()) { // select goose when it is clicked
+			if (selectedGoose != -1)
+				deselectGoose(rm, geese);
 			selectGoose(rm, geese, i);
 			newGooseSelected = true;
 		}

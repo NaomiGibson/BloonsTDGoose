@@ -69,7 +69,7 @@ bool Goose::findTarget(Bloons& bloons, Projectiles& projectiles) {
 	}
 	return false;
 }
-void Goose::activate(Vector2 pos_) {
+void Goose::activate(ResourceManager& rm, Vector2 pos_) {
 	spr.setRotation(90);
 	spr.setPos(pos_);
 	coll_range.setPos(pos_);
@@ -83,6 +83,8 @@ void Goose::activate(Vector2 pos_) {
 	appliedUpgrades.at(quickFire_2) = false;
 	appliedUpgrades.at(longDistance_1) = false;
 	appliedUpgrades.at(longDistance_2) = false;
+	spr.setTexRect(rm.findRect("goose", 1));
+
 	setRange(128);
 	bulletDurability = 1;
 	shootSpeed = 2;

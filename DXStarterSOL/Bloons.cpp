@@ -32,7 +32,7 @@ void Bloons::spawnBloon(int idx) {
 			if (time - lastBloonSpawn >= getWave().spawnRate / (*GameStats::GetInstance()).getTimeScale()) {	// at the set bloon spawn rate
 				if (bloonsSpawned < getWave().numBloons) {							// until all bloons for the wave have been spawned
 					bloonsSpawned++;
-					activate(idx, getWave().bloonHealth[bloonsSpawned % getWave().bloonHealth.size()]);														// activate an inactive bloon. idx must be that of an active bloon
+					activate(idx, getWave().bloonHealth[bloonsSpawned % getWave().bloonHealth.size()]);		// activate an inactive bloon. idx must be that of an active bloon
 					lastBloonSpawn = GetClock();
 				}
 				else {

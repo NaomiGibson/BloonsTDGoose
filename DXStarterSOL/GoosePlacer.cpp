@@ -11,7 +11,7 @@ void GoosePlacer::update(ResourceManager& rm, Vector2 mousePos, bool isLMBPresse
 			spr.setPos(mousePos);
 		}
 		else  {
-			placeGoose(mousePos, geese, track, ui_stats);
+			placeGoose(rm, mousePos, geese, track, ui_stats);
 		}
 		collider.setPos({ mousePos });
 		collider.onCollision(rm, track.isOverlappingSection(collider.getCentre(), collider.getRad()));
@@ -23,7 +23,7 @@ void GoosePlacer::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBat
 		//collider.db_render(d3d, rm, dTime, batch);
 	}
 }
-void GoosePlacer::placeGoose(Vector2 pos, Goose geese[], Track& track, Stats& ui_stats) {
+void GoosePlacer::placeGoose(ResourceManager& rm, Vector2 pos, Goose geese[], Track& track, Stats& ui_stats) {
 	bool canPlace = true;
 	if (track.isOverlappingSection(pos, collider.getRad()))
 		canPlace = false;
@@ -35,7 +35,7 @@ void GoosePlacer::placeGoose(Vector2 pos, Goose geese[], Track& track, Stats& ui
 		for (int i(0); i < GC::MAX_GEESE; i++) {
 			if (!geese[i].getIsActive()) {
 				if ((*GameStats::GetInstance()).spendCoins(GC::GOOSE_COST)) {
-					geese[i].activate(pos);
+					geese[i].activate(rm, pos);
 				}
 				ui_stats.setCoins((*GameStats::GetInstance()).getCoins());
 				break;

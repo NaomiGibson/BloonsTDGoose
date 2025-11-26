@@ -25,6 +25,8 @@ void Button::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	else {
 		isButtonDown = false;
 		isHovered = false;
+		triggerClick = false;
+		triggerBeginHover = false;
 	}
 }
 void Button::setPos(Vector2 pos) {

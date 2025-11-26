@@ -44,7 +44,7 @@ public:
 	void fire(Bloons& bloons, int idx, Projectiles& projectiles);
 	bool findTarget(Bloons& bloons, Projectiles& projectiles);
 	bool getIsActive() { return isActive; }
-	void activate(Vector2 pos);
+	void activate(ResourceManager& rm, Vector2 pos);
 	void deactivate() { isActive = false; }
 	void select();
 	void deselect();
