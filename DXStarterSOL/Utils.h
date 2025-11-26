@@ -21,7 +21,7 @@ enum upgrades {
 };
 namespace GC {
 	const int START_LIVES = 50;
-	const int START_COINS = 200;
+	const int START_COINS = 30;
 	const int GOOSE_COST = 20;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
