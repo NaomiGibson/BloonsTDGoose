@@ -30,8 +30,10 @@ void MyD3D::EndRender()
 
 
 // Resize the swap chain and recreate the render target view.
-void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight)
+void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight, bool isFullscreen)
 {
+	if (isFullscreen)
+		mpSwapChain->SetFullscreenState(false, nullptr);
 	HR(mpSwapChain->ResizeBuffers(2, screenWidth, screenHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ID3D11Texture2D* backBuffer;
 	HR(mpSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
@@ -221,7 +223,7 @@ void MyD3D::CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd)
 }
 
 
-void MyD3D::OnResize_Default(int clientWidth, int clientHeight)
+void MyD3D::OnResize_Default(int clientWidth, int clientHeight, bool isFullscreen)
 {
 	assert(mpd3dImmediateContext);
 	assert(mpd3dDevice);
@@ -235,7 +237,7 @@ void MyD3D::OnResize_Default(int clientWidth, int clientHeight)
 	ReleaseCOM(mpDepthStencilBuffer);
 
 
-	ResizeSwapChain(clientWidth, clientHeight);
+	ResizeSwapChain(clientWidth, clientHeight, isFullscreen);
 
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	CreateDepthStencilDescription(depthStencilDesc, clientWidth, clientHeight, mEnable4xMsaa, m4xMsaaQuality - 1);
@@ -248,7 +250,7 @@ void MyD3D::OnResize_Default(int clientWidth, int clientHeight)
 }
 
 
-bool MyD3D::InitDirect3D(void(*pOnResize)(int,int,MyD3D&))
+bool MyD3D::InitDirect3D(void(*pOnResize)(int,int,MyD3D&,bool))
 {
 	assert(pOnResize);
 	mpOnResize = pOnResize;
@@ -270,7 +272,7 @@ bool MyD3D::InitDirect3D(void(*pOnResize)(int,int,MyD3D&))
 	// also need to be executed every time the window is resized.  So
 	// just call the OnResize method here to avoid code duplication.
 
-	mpOnResize(w, h, *this);
+	mpOnResize(w, h, *this, true);
 
 	return true;
 }

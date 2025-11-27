@@ -20,10 +20,10 @@ using namespace DirectX::SimpleMath;
 //if ALT+ENTER or resize or drag window we might want do
 //something like pause the game perhaps, but we definitely
 //need to let D3D know what's happened (OnResize_Default).
-void OnResize(int screenWidth, int screenHeight, MyD3D& d3d)
+void OnResize(int screenWidth, int screenHeight, MyD3D& d3d, bool isFullscreen)
 {
 	//gResTimer = GetClock() + 2;
-	d3d.OnResize_Default(screenWidth, screenHeight);
+	d3d.OnResize_Default(screenWidth, screenHeight, isFullscreen);
 }
 /*
 Intercept and process raw input data events

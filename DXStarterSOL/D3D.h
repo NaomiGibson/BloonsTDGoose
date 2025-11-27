@@ -14,10 +14,10 @@ class MyD3D
 public:
 
 	//main start up function
-	bool InitDirect3D(void(*pOnResize)(int, int, MyD3D&));
+	bool InitDirect3D(void(*pOnResize)(int, int, MyD3D&, bool));
 	//default minimum behaviour when ALT+ENTER or drag or resize
 	//parameters are new width and height of window
-	void OnResize_Default(int clientWidth, int clientHeight);
+	void OnResize_Default(int clientWidth, int clientHeight, bool isFullscreen);
 	//main shutdown function, don't forget to call it
 	//extraReporting gives a bit more information about any objects
 	//that we haven't released properly
@@ -46,9 +46,9 @@ public:
 		return *mpd3dImmediateContext;
 	}
 	//see mpOnResize
-	void OnResize(int sw, int sh, MyD3D& d3d) {
+	void OnResize(int sw, int sh, MyD3D& d3d, bool isFullscreen) {
 		assert(mpOnResize);
-		mpOnResize(sw, sh, d3d);
+		mpOnResize(sw, sh, d3d, isFullscreen);
 	}
 	const std::wstring& GetGPUDesc() const {
 		return mGPUDesc;
@@ -79,14 +79,14 @@ private:
 	D3D11_VIEWPORT mScreenViewport;
 	//a function to call when we ALT+ENTER or drag the window
 	//two parameters are width/height of the new window and this
-	void(*mpOnResize)(int, int, MyD3D&) = nullptr;
+	void(*mpOnResize)(int, int, MyD3D&, bool) = nullptr;
 	//gpu description
 	std::wstring mGPUDesc;
 
 	//heavy lifting to start D3D11
 	void CreateD3D(D3D_FEATURE_LEVEL desiredFeatureLevel = D3D_FEATURE_LEVEL_11_0);
 	//buffers in the swap chain must match the screen resolution
-	void ResizeSwapChain(int screenWidth, int screenHeight);
+	void ResizeSwapChain(int screenWidth, int screenHeight, bool isFullscreen);
 	//the kind of depth stencil we want
 	void CreateDepthStencilDescription(D3D11_TEXTURE2D_DESC& dsd, int screenWidth, int screenHeight, bool msaa4X, int maxQuality);
 	//create all render buffers

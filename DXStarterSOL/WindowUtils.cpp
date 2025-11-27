@@ -44,7 +44,7 @@ LRESULT WinUtil::DefaultMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 				mWinData.appPaused = false;
 				mWinData.minimized = false;
 				mWinData.maximized = true;
-				mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D);
+				mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D, false);
 			}
 			else if (wParam == SIZE_RESTORED)
 			{
@@ -54,7 +54,7 @@ LRESULT WinUtil::DefaultMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 				{
 					mWinData.appPaused = false;
 					mWinData.minimized = false;
-					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight,*mpMyD3D);
+					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight,*mpMyD3D, false);
 				}
 
 				// Restoring from maximized state?
@@ -62,7 +62,7 @@ LRESULT WinUtil::DefaultMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 				{
 					mWinData.appPaused = false;
 					mWinData.maximized = false;
-					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight,*mpMyD3D);
+					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight,*mpMyD3D, false);
 				}
 				else if (mWinData.resizing)
 				{
@@ -77,7 +77,7 @@ LRESULT WinUtil::DefaultMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 				}
 				else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
 				{
-					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D);
+					mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D, false);
 				}
 			}
 		}
@@ -95,7 +95,7 @@ LRESULT WinUtil::DefaultMssgHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 		mWinData.appPaused = false;
 		mWinData.resizing = false;
 		if(mpMyD3D)
-			mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D);
+			mpMyD3D->OnResize(mWinData.clientWidth, mWinData.clientHeight, *mpMyD3D, false);
 		return 0;
 
 		// WM_DESTROY is sent when the window is being destroyed.
@@ -171,6 +171,8 @@ bool WinUtil::InitMainWindow(int width, int height, HINSTANCE hInstance, const s
 		MessageBox(0, "CreateWindow Failed.", 0, 0);
 		return false;
 	}
+
+	// mpSwapChain->SetFullscreenState(false, nullptr)
 
 	ShowWindow(mWinData.hMainWnd, SW_SHOW);
 	UpdateWindow(mWinData.hMainWnd);
