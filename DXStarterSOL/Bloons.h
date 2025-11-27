@@ -39,29 +39,7 @@ private:
 	float waveEndTime{ 0 };
 
 	// ~~~ DEFINE ROUNDS HERE ~~~
-	round rounds[GC::MAX_ROUNDS]{ 
-		{ // round 1
-			{ 0, 1, 1, { 1 }},
-		},
-		{ // round 2
-			{ 0, 5, 3, { 1 } },
-		},
-		{ // round 3
-			{ 0, 2, 0.5, { 1 } },
-			{ 4, 2, 0.5, { 1 } },
-			{ 4, 2, 0.5, { 1 } },
-			{ 4, 2, 0.5, { 1 } },
-			{ 4, 2, 0.5, { 1 } },
-		}, 
-		{ // round 4
-			{ 0, 5, 2.1f, { 1 } },
-			{ 4, 1, 0, { 2 } },
-		},	
-		{ // round 5
-			{ 0, 4, 2.1f, { 1, 2 } },
-			{ 10, 4, 2.1f, { 1, 2 } },
-		},
-	};
+	std::vector<round> rounds;
 public:
 	Bloons(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);

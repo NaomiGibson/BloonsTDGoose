@@ -17,6 +17,7 @@ private:
 	string fontName{ "default" };
 	string msg{ "msg" };
 	Vector2 pos{ 0, 0 };
+	Vector2 origin{ 0, 0 };
 	Vector4 colour{ 0, 0, 0, 0 };
 	float scale{ 1 };
 public:
@@ -34,6 +35,8 @@ public:
 	void setMsg(string msg_) { msg = msg_; }
 	Vector2 getPos() { return pos; }
 	void setPos(Vector2 pos_) { pos = pos_; }
+	Vector2 getOrigin() { return origin; }
+	void setOrigin(Vector2 origin_) { origin = origin_; }
 	Vector4 getColour() { return colour; }
 	void setColour(Vector4 colour_) { colour = colour_; }
 	float getScale() { return scale; }

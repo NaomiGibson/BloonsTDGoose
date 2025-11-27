@@ -20,23 +20,23 @@ using namespace DirectX::SimpleMath;
 #include "Bloons.h"
 #include "Stats.h"
 #include "Button.h"
+#include "Msg_Bloon.h"
 
 class WinMode
 {
 private:
-	//vector<Sprite> spr_bloons;
-	//vector<Text> txt_loseMsgs;
-	Text txt_winMsg;
-	Sprite spr_bg;
+	vector<Msg_Bloon> bloons;
+	string loseMsg = "YOUWIN!";
+	float msgBloonProgress[7]{ 288, 384, 480, 4992, 5088, 5184, 5280 };
 
+	Sprite spr_bg;
 	BasicBtn btn_reset;
-	//Text txt_reset;
 	BasicBtn btn_exit;
 
 	Stats ui_stats;
 public:
 	WinMode() {};
-	void init(ResourceManager& rm, MyD3D& d3d);
+	void init(ResourceManager& rm, MyD3D& d3d, Track& track);
 	void update(float dTime, Vector2 mousePos, bool isLMBPressed);
 	void render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime);
 };

@@ -6,6 +6,30 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.setOrigin({ 0.5, 0.5 });
 	std::fill_n(speed, GC::MAX_BLOONS, 100);
 	std::fill_n(value, GC::MAX_BLOONS, 1);
+	rounds.resize(GC::MAX_ROUNDS);
+	rounds = {
+		{ // round 1
+			{ 0, 1, 1.f, { 1 }},
+		},
+		{ // round 2
+			{ 0, 5, 3.f, { 1 } },
+		},
+		{ // round 3
+			{ 0, 2, 0.5f, { 1 } },
+			{ 4, 2, 0.5f, { 1 } },
+			{ 4, 2, 0.5f, { 1 } },
+			{ 4, 2, 0.5f, { 1 } },
+			{ 4, 2, 0.5f, { 1 } },
+		},
+		{ // round 4
+			{ 0, 5, 2.1f, { 1 } },
+			{ 4, 1, 0, { 2 } },
+		},
+		{ // round 5
+			{ 0, 4, 2.1f, { 1, 2 } },
+			{ 10, 4, 2.1f, { 1, 2 } },
+		},
+	};
 }
 Bloons::Wave& Bloons::getWave() {
 	return rounds[currRound][currWave];
@@ -36,6 +60,7 @@ void Bloons::spawnBloon(int idx) {
 					lastBloonSpawn = GetClock();
 				}
 				else {
+
 					endWave();
 				}
 			}
