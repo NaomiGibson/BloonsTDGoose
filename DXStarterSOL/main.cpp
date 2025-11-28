@@ -157,9 +157,6 @@ void RegisterForRawInput()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 				   PSTR cmdLine, int showCmd)
 {
-	//Input input;
-	//input.RegisterForRawInput();
-
 	int w(1920), h(1080);
 	if (!WinUtil::Get().InitMainWindow(w, h, hInstance, "Bloons TD Goose", MainWndProc, true))
 		assert(false);

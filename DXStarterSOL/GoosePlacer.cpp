@@ -28,7 +28,7 @@ void GoosePlacer::placeGoose(ResourceManager& rm, Vector2 pos, Goose geese[], Tr
 	if (track.isOverlappingSection(pos, collider.getRad()))
 		canPlace = false;
 	for (int i(0); i < GC::MAX_GEESE; i++) {
-		if (collider.isColliding(geese[i].getGooseCollider()))
+		if (geese[i].getIsActive() && collider.isColliding(geese[i].getGooseCollider()))
 			canPlace = false;
 	}
 	if (canPlace) {

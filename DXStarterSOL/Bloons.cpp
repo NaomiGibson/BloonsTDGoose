@@ -109,6 +109,8 @@ void Bloons::reset() {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		isActive[i] = false;
 	}
+	currRound = 0;
+	currWave = 0;
 }
 int Bloons::getNumActiveBloons() {
 	int count(0);
