@@ -164,8 +164,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	MyD3D d3d;
 	if (!d3d.InitDirect3D(OnResize))
 		assert(false);
-	if (!d3d.InitDirect3D(OnResize))
-		assert(false);
 	WinUtil::Get().SetD3D(d3d);
 	Game game(&d3d);
 	game.init();

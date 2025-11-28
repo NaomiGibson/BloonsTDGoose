@@ -33,7 +33,7 @@ void MyD3D::EndRender()
 void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight, bool isFullscreen)
 {
 	if (isFullscreen)
-		mpSwapChain->SetFullscreenState(false, nullptr);
+		mpSwapChain->SetFullscreenState(true, nullptr);
 	HR(mpSwapChain->ResizeBuffers(2, screenWidth, screenHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ID3D11Texture2D* backBuffer;
 	HR(mpSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
@@ -191,11 +191,11 @@ void MyD3D::CreateSwapChainDescription(DXGI_SWAP_CHAIN_DESC& sd, HWND hMainWnd, 
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.BufferCount = 1;
 	sd.OutputWindow = hMainWnd;
-	sd.Windowed = windowed;
+	sd.Windowed = false;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
-	mWindowed = windowed;
+	mWindowed = false;
 }
 
 void MyD3D::CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd)
@@ -264,7 +264,7 @@ bool MyD3D::InitDirect3D(void(*pOnResize)(int,int,MyD3D&,bool))
 	WinUtil& wu = WinUtil::Get();
 	int w = wu.GetData().clientWidth, h = wu.GetData().clientHeight;
 	DXGI_SWAP_CHAIN_DESC sd;
-	CreateSwapChainDescription(sd, wu.GetData().hMainWnd, true, w, h);
+	CreateSwapChainDescription(sd, wu.GetData().hMainWnd, false, w, h);
 	CreateSwapChain(sd);
 
 

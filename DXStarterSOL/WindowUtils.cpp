@@ -135,6 +135,8 @@ bool WinUtil::InitMainWindow(int width, int height, HINSTANCE hInstance, const s
 	mWinData.clientWidth = width;
 	mWinData.clientHeight = height;
 
+	const UINT style = WS_CAPTION | WS_THICKFRAME | WS_SYSMENU; //Fullscreen compatible? 
+
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = mssgHandler;
@@ -155,7 +157,7 @@ bool WinUtil::InitMainWindow(int width, int height, HINSTANCE hInstance, const s
 
 	// Compute window rectangle dimensions based on requested client area dimensions.
 	RECT R = { 0, 0, mWinData.clientWidth, mWinData.clientHeight };
-	AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
+	AdjustWindowRect(&R, style, false);
 	int w = R.right - R.left;
 	int h = R.bottom - R.top;
 
@@ -164,8 +166,9 @@ bool WinUtil::InitMainWindow(int width, int height, HINSTANCE hInstance, const s
 		offsetY = (GetSystemMetrics(SM_CYSCREEN) - h) / 2;
 		offsetX = (GetSystemMetrics(SM_CXSCREEN) - w) / 2;
 	}
+
 	mWinData.hMainWnd = CreateWindow("D3DWndClassName", mWinData.mainWndCaption.c_str(),
-		WS_OVERLAPPEDWINDOW, offsetX, offsetY, w, h, 0, 0, mWinData.hAppInst, 0);
+		style, offsetX, offsetY, w, h, 0, 0, mWinData.hAppInst, 0);
 	if (!mWinData.hMainWnd)
 	{
 		MessageBox(0, "CreateWindow Failed.", 0, 0);

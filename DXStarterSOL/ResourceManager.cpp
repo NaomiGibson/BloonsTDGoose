@@ -10,6 +10,7 @@ void ResourceManager::release() {
 	spritesheetCache.clear();
 }
 
+
 // SPRITESHEETS
 
 ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
@@ -61,6 +62,7 @@ RECT ResourceManager::findRect(string spritesheet, int spriteID) {
 	assert(spriteID <= sprSheet.texRects.size());
 	return sprSheet.texRects[spriteID - 1];
 }
+
 
 // TEXTURES
 
