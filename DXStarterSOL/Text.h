@@ -17,8 +17,9 @@ private:
 	string fontName{ "default" };
 	string msg{ "msg" };
 	Vector2 pos{ 0, 0 };
+	float rotation{ 0 };
 	Vector2 origin{ 0, 0 };
-	Vector4 colour{ 0, 0, 0, 0 };
+	Vector4 colour{ 0, 0, 0, 1 };
 	float scale{ 1 };
 public:
 	Text() {};
@@ -27,7 +28,7 @@ public:
 
 	Text(string fontName_, string msg_)
 		: fontName(fontName_), msg(msg_) {
-		pos = { 0, 0 }, colour = { 0, 0, 0, 0 };
+		pos = { 0, 0 }, colour = { 0, 0, 0, 1 };
 	};
 	string getFontName() { return fontName; }
 	void setFontName(string fontName_) { fontName = fontName_; }

@@ -1,7 +1,13 @@
 #pragma once
 #include <unordered_map>
 #include <string>
-using namespace std;
+#include <d3d11.h>
+#include "SimpleMath.h"
+
+using namespace std; 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 
 enum Modes {
 	start,
@@ -29,6 +35,7 @@ namespace GC {
 	const int MAX_ROUNDS = 5;
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
+	const Vector4 DARK_GREEN = { 23, 47, 23, 1 };
 
 	const unordered_map<upgrades, string> UPGRADE_NAMES = {
 		{ projectileReinforcement_1,	"Projectile Reinforcement 1" },
