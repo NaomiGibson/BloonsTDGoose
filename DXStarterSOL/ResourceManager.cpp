@@ -13,26 +13,13 @@ void ResourceManager::release() {
 
 // SPRITESHEETS
 
-ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
+ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, UINT width, UINT height, DXGI_FORMAT format, int columns, int rows, int numSprites) {
 	Spritesheet sheet = findSpritesheet(texName);
 	string name = sheet.texName;
 	if (!(findSpritesheet(texName).texName == texName)) {
-		ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
+		ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName, width, height, format));
 		Spritesheet sprSheet;
 		sprSheet.texName = texName;
-
-		ID3D11Resource* pResource = nullptr;
-		ID3D11Texture2D* pTexture2D = nullptr;
-		unsigned int width;
-		unsigned int height;
-
-		tex->GetResource(&pResource);
-		pResource->QueryInterface<ID3D11Texture2D>(&pTexture2D);
-		D3D11_TEXTURE2D_DESC desc;
-		pTexture2D->GetDesc(&desc);
-		width = desc.Width;
-		height = desc.Height;
-
 		int sprW = width / columns;
 		int sprH = height / rows;
 
@@ -90,8 +77,42 @@ ID3D11ShaderResourceView* ResourceManager::findTex(ID3D11ShaderResourceView* pTe
 void ResourceManager::addTex(string texName, ID3D11ShaderResourceView* tex) {
 	texCache.insert(TexMap::value_type(texName, tex));
 }
-string ResourceManager::loadTexture(MyD3D& d3d, const wstring& fileName, const string& texName) {
+string ResourceManager::loadTexture(MyD3D& d3d, const wstring& fileName, const string& texName, UINT width, UINT height, DXGI_FORMAT format) {
 	if (!findTex(texName)) {// if it is not already loaded
+
+		// Create texture
+
+		REFCLSID  rclsid;
+		LPUNKNOWN pUnkOuter;
+		DWORD     dwClsContext;
+		REFIID    riid;
+		LPVOID*   ppv;
+		CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid, ppv);
+
+		D3D11_TEXTURE2D_DESC desc;
+		desc.Width = width;
+		desc.Height = height;
+		desc.MipLevels = 1;
+		desc.ArraySize = 1;
+		desc.Format = format;
+		desc.SampleDesc.Count = 1;
+		desc.SampleDesc.Quality = 0;
+		desc.Usage = D3D11_USAGE_DEFAULT;
+		desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		desc.CPUAccessFlags = 0;
+		desc.MiscFlags = 0;
+
+		D3D11_SUBRESOURCE_DATA initData;
+		initData.pSysMem = temp.get();
+		initData.SysMemPitch = static_cast<UINT>(rowPitch);
+		initData.SysMemSlicePitch = static_cast<UINT>(imageSize);
+
+		ID3D11Texture2D* tex = nullptr;
+		hr = d3dDevice->CreateTexture2D(&desc, &initData, &tex);
+
+
+
+
 		DDS_ALPHA_MODE alpha; // load the texture
 		ID3D11ShaderResourceView* tex;
 		if (CreateDDSTextureFromFile(&d3d.GetDevice(), fileName.c_str(), nullptr, &tex, 0, &alpha) != S_OK) {
