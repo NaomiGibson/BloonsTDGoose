@@ -48,9 +48,8 @@ void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 	}
 	projectiles.update(dTime);
 	// speed up button
-	isGameSpeedBtnDown = btn_gameSpeed.getButton().getIsBtnDown(); // hold last value so that speed is only togled once for each click
 	btn_gameSpeed.update(dTime, mousePos, isLMBPressed);
-	if (btn_gameSpeed.getButton().getIsBtnDown() && !isGameSpeedBtnDown)
+	if (btn_gameSpeed.getButton().getTriggerClick())
 		toggleTimeScale();
 
 	//handle collision

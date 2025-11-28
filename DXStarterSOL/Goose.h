@@ -14,7 +14,6 @@ private:
 	bool isActive{ false };
 	bool isSelected{ false };
 	float shootSpeed{ 2 }; // minimum time between shots fired
-	//float range{ 0 };
 	float lastShot{ -shootSpeed };
 	int bulletDurability{ 1 };
 	Collider coll_range; // collider for the shoot range

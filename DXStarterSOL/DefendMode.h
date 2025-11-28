@@ -34,7 +34,6 @@ private:
 	Sprite spr_bridge2;
 	const float FAST_TIME_SCALE{ 3 };
 	bool isGameFast{ false };
-	bool isGameSpeedBtnDown{ false };
 public:
 	DefendMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d, Goose geese[], Bloons& bloons);
