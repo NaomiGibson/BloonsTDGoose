@@ -166,11 +166,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	{
 		if (canUpdateRender)
 		{
-			game.update(dTime, mMouseScreen, mButtons[LBUTTON], mButtons); // dTime, d3d
-			game.render(dTime); // dTime, d3d
+			game.update(dTime, mMouseScreen, mButtons[LBUTTON], mButtons);
+			game.render(dTime);
 		}
 		dTime = WinUtil::Get().EndLoop(canUpdateRender);
-		// gFrameCounter++;
 	}
 
 	game.release();

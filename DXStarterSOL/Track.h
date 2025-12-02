@@ -46,7 +46,7 @@ public:
 	// @return true if the given circle is overlapping the given section 
 	// circle is treated like a square the size of the circle
 	// (the line between points[section] and points[section + 1] including width)
-	bool Track::isOverlappingSection(Vector2 otherCentre, float otherRad, int section = 11);
+	bool Track::isOverlappingSection(Vector2 otherCentre, float otherRad);
 	// @return true if the given point is overlapping the track
 	bool Track::isOverlapping(Vector2 pos, float rad);
 };

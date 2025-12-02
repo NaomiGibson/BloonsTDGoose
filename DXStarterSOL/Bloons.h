@@ -38,8 +38,7 @@ private:
 	int currWave{ 0 }; // current wave
 	float waveEndTime{ 0 };
 
-	// ~~~ DEFINE ROUNDS HERE ~~~
-	std::vector<round> rounds;
+	std::vector<round> rounds; // define rounds in init
 public:
 	Bloons(Track& track_) : track(track_) {};
 	void init(ResourceManager& rm, MyD3D& d3d);

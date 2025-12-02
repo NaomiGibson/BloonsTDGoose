@@ -27,11 +27,12 @@ enum upgrades {
 };
 namespace GC {
 	const int START_LIVES = 50;
-	const int START_COINS = 30;
+	const int START_COINS = 500;
 	const int GOOSE_COST = 20;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
 	const int BLOONS_PER_ROUND = 100;
+	const int MAX_BLOON_HEALTH = 5;
 	const int MAX_ROUNDS = 5;
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
@@ -73,6 +74,7 @@ public:
 	int getLives();
 	void resetLives();
 	void loseLife();
+	void loseLives(int livesLost);
 	int getCoins();
 	void addCoins(int coins_);
 	// @return true if player can afford to spend the coins

@@ -72,7 +72,7 @@ void UI_GooseUpgrades::init(MyD3D& d3d, ResourceManager& rm) {
 	btn_upgrade1.init(d3d, rm, rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6).texName, 1, pos + Vector2{ 48, 85 }, 0, 10);
 	btn_upgrade2.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 148, 85 }, 0, 10);
 	btn_upgrade3.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 248, 85 }, 0, 10);
-	txt_focusedName = Text{ "Moghul", "Upgrade Name", pos, { 0, 0, 0, 1 } };
+	txt_focusedName = Text{ "Moghul", "Upgrades", pos, { 0, 0, 0, 1 } };
 }
 void UI_GooseUpgrades::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {
 	if (isActive) {
@@ -102,6 +102,7 @@ void UI_GooseUpgrades::activate(ResourceManager& rm, upgrades upgrade_1, upgrade
 	upgrade1 = upgrade_1;
 	upgrade2 = upgrade_2;
 	upgrade3 = upgrade_3;
+	txt_focusedName.setMsg("Upgrades");
 	isActive = true;
 }
 upgrades UI_GooseUpgrades::getUpgradePurchased() {

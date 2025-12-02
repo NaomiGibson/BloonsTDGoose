@@ -83,23 +83,29 @@ float Track::calculateLength() {
     }
     return len;
 }
-bool Track::isOverlappingSection(Vector2 otherCentre, float otherRad, int section) {
-    Vector2 rectPos; // top left of this track section
-    rectPos.x = (points[section].x < points[section - 1].x) ? points[section].x - (width / 2) : points[section - 1].x - (width / 2);
-    rectPos.y = (points[section].y < points[section - 1].y) ? points[section].y - (width / 2) : points[section - 1].y - (width / 2);
-    Vector2 rectSize; // width and height of this track section
-    rectSize.x = abs((points[section].x - points[section - 1].x + width));
-    rectSize.y = abs((points[section].y - points[section - 1].y + width));
-    Vector2 dist; // distance between the other circle and this track section
-    Vector2 otherPos = { otherCentre.x - otherRad, otherCentre.y - otherRad };
-    Vector2 otherSize = { otherRad * 2, otherRad * 2 };
+bool Track::isOverlappingSection(Vector2 otherCentre, float otherRad) {
+    bool isOverlapping{ false };
+    for (int section(1); section < points.size(); section++) {
+        Vector2 rectPos; // top left of this track section
+        rectPos.x = (points[section].x < points[section - 1].x) ? points[section].x - (width / 2) : points[section - 1].x - (width / 2);
+        rectPos.y = (points[section].y < points[section - 1].y) ? points[section].y - (width / 2) : points[section - 1].y - (width / 2);
+        Vector2 rectSize; // width and height of this track section
+        rectSize.x = abs((points[section].x - points[section - 1].x + width));
+        rectSize.y = abs((points[section].y - points[section - 1].y + width));
+        Vector2 dist; // distance between the other circle and this track section
+        Vector2 otherPos = { otherCentre.x - otherRad, otherCentre.y - otherRad };
+        Vector2 otherSize = { otherRad * 2, otherRad * 2 };
+        if (
+            rectPos.x < otherPos.x + otherSize.x &&
+            rectPos.x + rectSize.x > otherPos.x &&
+            rectPos.y < otherPos.y + otherSize.y &&
+            rectPos.y + rectSize.y > otherPos.y
+            ) {
+            isOverlapping = true;
+        }
+    }
 
-    return (
-        rectPos.x < otherPos.x + otherSize.x &&
-        rectPos.x + rectSize.x > otherPos.x &&
-        rectPos.y < otherPos.y + otherSize.y &&
-        rectPos.y + rectSize.y > otherPos.y
-        );
+    return isOverlapping;
 }
 bool Track::isOverlapping(Vector2 centre, float rad) {
     return false;

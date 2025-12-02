@@ -9,10 +9,10 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	rounds.resize(GC::MAX_ROUNDS);
 	rounds = {
 		{ // round 1
-			{ 0, 1, 1.f, { 1 }},
+			{ 0, 5, 0.5f, { 1, 2, 3, 4, 5 }},
 		},
 		{ // round 2
-			{ 0, 5, 3.f, { 1 } },
+			{ 0, 5, 3.f, { 2 } },
 		},
 		{ // round 3
 			{ 0, 2, 0.5f, { 1 } },
@@ -55,8 +55,8 @@ void Bloons::spawnBloon(int idx) {
 		if (time - waveEndTime >= rounds[currRound][currWave].wait / (*GameStats::GetInstance()).getTimeScale()) { // wait inbetween waves
 			if (time - lastBloonSpawn >= getWave().spawnRate / (*GameStats::GetInstance()).getTimeScale()) {	// at the set bloon spawn rate
 				if (bloonsSpawned < getWave().numBloons) {							// until all bloons for the wave have been spawned
-					bloonsSpawned++;
 					activate(idx, getWave().bloonHealth[bloonsSpawned % getWave().bloonHealth.size()]);		// activate an inactive bloon. idx must be that of an active bloon
+					bloonsSpawned++;
 					lastBloonSpawn = GetClock();
 				}
 				else {
@@ -81,7 +81,7 @@ bool Bloons::update(float dTime) {
 				layer[i] = 2;
 			if (progress[i] > track.getLength()) {	// if bloon has reached the end of the track
 				isActive[i] = false;				// deactivate it and lose a life
-				(*GameStats::GetInstance()).loseLife();
+				(*GameStats::GetInstance()).loseLives(health[i]);
 				isLifeLost = true;
 			}
 		}
@@ -133,6 +133,7 @@ void Bloons::setHealth(int idx, int health_) {
 	}
 }
 void Bloons::activate(int idx, int health_) {
+	assert(health_ > 0, <= GC::MAX_BLOON_HEALTH); // invalid bloon health
 	isActive[idx] = true;
 	progress[idx] = 0;
 	setHealth(idx, health_);

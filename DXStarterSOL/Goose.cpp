@@ -188,10 +188,10 @@ void Goose::setTex(ResourceManager& rm, upgrades newUpgrade) {
 	{
 	case projectileReinforcement_1:
 		if (appliedUpgrades.at(quickFire_2)) {
-			texIdx = 9;
+			texIdx = 13;
 		}
 		else if (appliedUpgrades.at(quickFire_1)) {
-			texIdx = 13;
+			texIdx = 9;
 		}
 		else {
 			texIdx = 6;
@@ -199,10 +199,10 @@ void Goose::setTex(ResourceManager& rm, upgrades newUpgrade) {
 		break;
 	case projectileReinforcement_2:
 		if (appliedUpgrades.at(quickFire_2)) {
-			texIdx = 12;
+			texIdx = 15;
 		}
 		else if (appliedUpgrades.at(quickFire_1)) {
-			texIdx = 15;
+			texIdx = 12;
 		}
 		else {
 			texIdx = 7;
