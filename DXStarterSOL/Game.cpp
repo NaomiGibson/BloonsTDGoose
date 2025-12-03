@@ -59,7 +59,7 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboar
 		break;
 	}
 	if ((*GameStats::GetInstance()).getMode() != oldMode) {
-		changeState();
+		changeState(oldMode);
 	}
 }
 void Game::render(float dTime) {
@@ -91,34 +91,29 @@ void Game::render(float dTime) {
 	gpSpriteBatch->End();
 	p_d3d->EndRender();
 }
-void Game::changeState() {
+void Game::changeState(Modes oldMode) {
 	switch ((*GameStats::GetInstance()).getMode())
 	{
 	case start:
-		reset();
 		startMode.init(rm, *p_d3d, track);
 		break;
 	case place:
+		if (oldMode != defend) {
+			defendMode.destroyGameObjects(bloons, geese);
+			defendMode.reset(bloons);
+		}
 		placeMode.init(rm, *p_d3d);
 		break;
 	case defend:
 		defendMode.init(rm, *p_d3d, geese, bloons);
 		break;
 	case win:
-		reset();
 		winMode.init(rm, *p_d3d, track);
 		break;
 	case lose:
-		reset();
 		loseMode.init(rm, *p_d3d, track);
 		break;
 	default:
 		break;
 	}
-}
-void Game::reset() {
-		defendMode.reset(bloons);
-		for (int i(0); i < GC::MAX_GEESE; i++) {
-			geese[i].deactivate();
-		}
 }

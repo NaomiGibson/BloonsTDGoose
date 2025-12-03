@@ -4,7 +4,10 @@
 int GameStats::getLives() { return lives; }
 void GameStats::resetLives() { lives = GC::START_LIVES; }
 void GameStats::loseLife() { lives--; }
-void GameStats::loseLives(int livesLost) { lives -= livesLost; };
+void GameStats::loseLives(int livesLost) { 
+	lives -= livesLost; 
+	if (lives < 0) lives = 0;
+};
 int GameStats::getCoins() { return coins; }
 void GameStats::addCoins(int coins_) { coins += coins_; }
 bool GameStats::spendCoins(int coins_) {
@@ -23,7 +26,6 @@ GameStats* GameStats::GetInstance() {
 	return instance;
 }
 int GameStats::nextRound() {
-	//if(round + 1 < GC::MAX_ROUNDS)
 	round++; 
 	return round; 
 }

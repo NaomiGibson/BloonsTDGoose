@@ -9,10 +9,10 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 	rounds.resize(GC::MAX_ROUNDS);
 	rounds = {
 		{ // round 1
-			{ 0, 5, 0.5f, { 1, 2, 3, 4, 5 }},
+			{ 0, 1, 0.1f, { 1 }},
 		},
 		{ // round 2
-			{ 0, 5, 3.f, { 2 } },
+			{ 0, 100, 3.f, { 5 } },
 		},
 		{ // round 3
 			{ 0, 2, 0.5f, { 1 } },
@@ -30,6 +30,7 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 			{ 10, 4, 2.1f, { 1, 2 } },
 		},
 	};
+	resetRounds();
 }
 Bloons::Wave& Bloons::getWave() {
 	return rounds[currRound][currWave];
@@ -104,13 +105,15 @@ void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 		}
 	}
 }
-void Bloons::reset() {
+void Bloons::resetRounds() {
 	bloonsSpawned = 0;
+	currRound = 0;
+	currWave = 0;
+}
+void Bloons::destroyAllBloons() {
 	for (int i(0); i < GC::MAX_BLOONS; i++) {
 		isActive[i] = false;
 	}
-	currRound = 0;
-	currWave = 0;
 }
 int Bloons::getNumActiveBloons() {
 	int count(0);

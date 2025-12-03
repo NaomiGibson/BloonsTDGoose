@@ -56,12 +56,14 @@ void DefendMode::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool
 	handleCollision(rm, bloons);
 
 	// After updating everything, decide final state
-	if ((*GameStats::GetInstance()).getLives() == 0)
+	if ((*GameStats::GetInstance()).getLives() <= 0) {
 		(*GameStats::GetInstance()).setMode(Modes::lose);
-	if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
+	}
+	else if (bloons.isRoundFinished() && bloons.getNumActiveBloons() == 0) {
 		bloons.endRound();
-		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0)
+		if (bloons.areAllRoundsFinished() && bloons.getNumActiveBloons() == 0) {
 			(*GameStats::GetInstance()).setMode(Modes::win);
+		}
 		else
 			(*GameStats::GetInstance()).setMode(Modes::place);
 	}
@@ -82,7 +84,13 @@ void DefendMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& s
 }
 void DefendMode::reset(Bloons& bloons) {
 	(*GameStats::GetInstance()).resetGame();
-	bloons.reset();
+	bloons.resetRounds();
+}
+void DefendMode::destroyGameObjects(Bloons& bloons, Goose geese[]) {
+	for (int i(0); i < GC::MAX_GEESE; i++) {
+		geese[i].deactivate();
+	}
+	bloons.destroyAllBloons();
 }
 void DefendMode::toggleTimeScale() {
 	if (isGameFast) {

@@ -25,7 +25,7 @@ private:
 	// ROUNDS AND WAVES
 	int bloonsSpawned = 0; // number of bloons spawned from the current wave
 	struct Wave {
-		float wait;					// recovery time between the previous wave and this one
+		float wait;					// recovery time between the previous wave and this one.
 		int numBloons;				// total number of bloons to spawn
 		float spawnRate;			// time between spawning bloons
 		vector<int> bloonHealth;	// health of bloons spawned rotates through the given values
@@ -51,7 +51,8 @@ public:
 	// @return true if one or more bloons have reached the end of the track
 	bool update(float dTime);
 	void render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch, int layer_);
-	void reset();
+	void resetRounds();
+	void destroyAllBloons();
 	Sprite& getSpr() { return spr; }
 	bool getIsActive(int idx) { return isActive[idx]; }
 	int getNumActiveBloons();
