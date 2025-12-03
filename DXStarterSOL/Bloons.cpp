@@ -12,7 +12,7 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 			{ 0, 1, 0.1f, { 1 }},
 		},
 		{ // round 2
-			{ 0, 100, 3.f, { 5 } },
+			{ 0, 5, 3.f, { 1 } },
 		},
 		{ // round 3
 			{ 0, 2, 0.5f, { 1 } },
