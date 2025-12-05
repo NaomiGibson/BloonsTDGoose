@@ -39,7 +39,7 @@ void Projectiles::activate(Vector2 startPos, float directionRads, int health_) {
 			position[i] = startPos;
 			direction[i] = { (float)cos(directionRads), (float)sin(directionRads) };
 			health[i] = health_;
-			bloonHit[i] == -1;
+			bloonHit[i] = -1;
 			i = GC::MAX_PROJECTILES;
 		}
 	}
@@ -51,7 +51,6 @@ Collider& Projectiles::getCollider(int idx) {
 void Projectiles::onCollision_bloon(int idx, int bloonIdx) {
 	health[idx]--;
 	if (health[idx] == 0) {
-		bloonHit[idx] = -1;
 		isActive[idx] = false;
 	}
 	else
