@@ -13,6 +13,7 @@ private:
 	Vector2 direction[GC::MAX_PROJECTILES] = { { 0, 0 } };
 	int health[GC::MAX_PROJECTILES] = { 1 };
 	float speed[GC::MAX_PROJECTILES] = { 0 };
+	int bloonHit[GC::MAX_PROJECTILES]{};
 public:
 	Projectiles(){};
 	void init(ResourceManager& rm, MyD3D& d3d);
@@ -23,6 +24,7 @@ public:
 	bool getIsActive(int idx) { return isActive[idx]; }
 	void activate(Vector2 startPos, float directionRads, int health_);
 	void setSpeed(float speed_, int idx) { speed[idx] = speed_; }
+	int getBloonHit(int idx) { return bloonHit[idx]; }
 	Collider& getCollider(int idx);
-	void onCollision_bloon(int idx);
+	void onCollision_bloon(int idx, int bloonIdx);
 };

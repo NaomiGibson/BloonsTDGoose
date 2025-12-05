@@ -7,10 +7,10 @@ void Projectiles::init(ResourceManager& rm, MyD3D& d3d) {
 	spr.setOrigin({ 0.5, 0.5 });
 	std::fill_n(speed, GC::MAX_PROJECTILES, 3000);
 	std::fill_n(health, GC::MAX_PROJECTILES, 1);
+	std::fill_n(bloonHit, GC::MAX_PROJECTILES, -1);
 }
 void Projectiles::update(float dTime) {
 	for (int i(0); i < GC::MAX_PROJECTILES; i++) {
-		
 		if (position[i].x > 0 &&
 		position[i].x < WinUtil::Get().GetData().clientWidth &&
 		position[i].y > 0 &&
@@ -39,6 +39,7 @@ void Projectiles::activate(Vector2 startPos, float directionRads, int health_) {
 			position[i] = startPos;
 			direction[i] = { (float)cos(directionRads), (float)sin(directionRads) };
 			health[i] = health_;
+			bloonHit[i] == -1;
 			i = GC::MAX_PROJECTILES;
 		}
 	}
@@ -47,9 +48,12 @@ Collider& Projectiles::getCollider(int idx) {
 	collider.setPos(position[idx]);
 	return collider;
 }
-void Projectiles::onCollision_bloon(int idx) {
+void Projectiles::onCollision_bloon(int idx, int bloonIdx) {
 	health[idx]--;
 	if (health[idx] == 0) {
+		bloonHit[idx] = -1;
 		isActive[idx] = false;
 	}
+	else
+		bloonHit[idx] = bloonIdx;
 }

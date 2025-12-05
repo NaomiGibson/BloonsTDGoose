@@ -49,8 +49,8 @@ namespace GC {
 		{ none,							"End of Path" }
 	};
 	const unordered_map<upgrades, int> UPGRADE_PRICES = {
-		{ projectileReinforcement_1,	15 },
-		{ projectileReinforcement_2,	20 },
+		{ projectileReinforcement_1,	10 },
+		{ projectileReinforcement_2,	15 },
 		{ quickFire_1,					10 },
 		{ quickFire_2,					15 },
 		{ longDistance_1,				5 },

@@ -22,16 +22,19 @@ void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
 	//goose.getRangeCollider().onCollision(rm, isGooseColliding);
 
 	// PROJECTILE V BLOON COLLISION
-	for (int i_bloon(0); i_bloon < GC::MAX_BLOONS; i_bloon++) {										//for each active
-		if (bloons.getIsActive(i_bloon)) {															//pair of bloons
-			for (int i_projectile(0); i_projectile < GC::MAX_PROJECTILES; i_projectile++) {			//and projectiles
-				if (projectiles.getIsActive(i_projectile)) {										//
-					Collider& coll_bloon = bloons.getCollider(i_bloon);
-					Collider& coll_projectile = projectiles.getCollider(i_projectile);
-					if (coll_bloon.isColliding(coll_projectile)) {									// if they are overlapping, call appropriate functions
-						bloons.onCollision_projectile(i_bloon);
-						projectiles.onCollision_bloon(i_projectile);
-						ui_stats.setCoins((*GameStats::GetInstance()).getCoins());					// update ui to reflect coins gained from popping bloon
+	for (int i_bloon(0); i_bloon < GC::MAX_BLOONS; i_bloon++) {										// for each active  //
+		if (bloons.getIsActive(i_bloon)) {															// pair of bloons   //
+			for (int i_projectile(0); i_projectile < GC::MAX_PROJECTILES; i_projectile++) {			// and projectiles  //
+				if (projectiles.getIsActive(i_projectile))	{										// which have not   //
+					if (projectiles.getBloonHit(i_projectile) != i_bloon)							// already collided //
+					{
+						Collider& coll_bloon = bloons.getCollider(i_bloon);
+						Collider& coll_projectile = projectiles.getCollider(i_projectile);
+						if (coll_bloon.isColliding(coll_projectile)) {								// if they are overlapping, call appropriate functions
+							bloons.onCollision_projectile(i_bloon);
+							projectiles.onCollision_bloon(i_projectile, i_bloon);
+							ui_stats.setCoins((*GameStats::GetInstance()).getCoins());				// update ui to reflect coins gained from popping bloon
+						}
 					}
 				}
 			}
