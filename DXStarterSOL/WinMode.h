@@ -31,7 +31,6 @@ private:
 
 	Sprite spr_bg;
 	BasicBtn btn_reset;
-	BasicBtn btn_exit;
 
 	Stats ui_stats;
 public:

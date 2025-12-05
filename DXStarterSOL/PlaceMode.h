@@ -31,7 +31,6 @@ private:
 	UI_PurchaseBtn btn_placeGoose;
 	UI_GooseUpgrades ui_gooseUpgrades; 
 	GoosePlacer ui_goosePlacer;
-	BasicBtn btn_exit;
 	int selectedGoose = -1;
 public:
 	void init(ResourceManager& rm, MyD3D& d3d);

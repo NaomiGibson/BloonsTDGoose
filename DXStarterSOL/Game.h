@@ -48,6 +48,7 @@ private:
 	LoseMode loseMode;
 	WinMode winMode;
 	// widely used game objects
+	BasicBtn btn_exit;
 	Bloons bloons{ track };
 	Goose geese[GC::MAX_GEESE];
 	Track track{ 80.f, { // points are at every corner of the path

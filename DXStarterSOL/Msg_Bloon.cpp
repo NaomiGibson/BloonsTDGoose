@@ -1,8 +1,8 @@
 #include "Msg_Bloon.h"
 
-void Msg_Bloon::init(ResourceManager& rm, MyD3D& d3d, Track& track, float progress, string letter) {
+void Msg_Bloon::init(ResourceManager& rm, MyD3D& d3d, Track& track, float progress, string letter, int health) {
 	pos = track.findPos(progress);
-	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), 1, { 0, 0 }, 0, { 1, 1 });
+	spr.init(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5), health, { 0, 0 }, 0, { 1, 1 });
 	rm.loadFont(d3d, L"../bin/data/Moghul.spritefont", "Moghul");
 	spr.setOrigin({ 0.5f, 0.5f });
 	spr.setPos(pos);

@@ -32,7 +32,6 @@ private:
 	float msgBloonProgress[8]{ 288, 384, 480, 4992, 5064, 5136, 5208, 5280 };
 
 	BasicBtn btn_reset;
-	BasicBtn btn_exit;
 
 	Stats ui_stats;
 public:

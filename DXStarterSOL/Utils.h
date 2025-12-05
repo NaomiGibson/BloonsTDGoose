@@ -28,13 +28,13 @@ enum upgrades {
 };
 namespace GC {
 	const int START_LIVES = 50;
-	const int START_COINS = 500;
-	const int GOOSE_COST = 20;
+	const int START_COINS = 30;
+	const int GOOSE_COST = 25;
 	const int MAX_BLOONS = 500;
 	const float BLOON_SPAWN_RATE = 0.2f;
 	const int BLOONS_PER_ROUND = 100;
 	const int MAX_BLOON_HEALTH = 5;
-	const int MAX_ROUNDS = 5;
+	const int MAX_ROUNDS = 10;
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
 	const Vector4 DARK_GREEN = { 23, 47, 23, 1 };
@@ -49,10 +49,10 @@ namespace GC {
 		{ none,							"End of Path" }
 	};
 	const unordered_map<upgrades, int> UPGRADE_PRICES = {
-		{ projectileReinforcement_1,	10 },
-		{ projectileReinforcement_2,	15 },
-		{ quickFire_1,					15 },
-		{ quickFire_2,					20 },
+		{ projectileReinforcement_1,	15 },
+		{ projectileReinforcement_2,	20 },
+		{ quickFire_1,					10 },
+		{ quickFire_2,					15 },
 		{ longDistance_1,				5 },
 		{ longDistance_2,				10 },
 		{ none,							0	}

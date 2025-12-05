@@ -31,7 +31,6 @@ private:
 
 	Sprite spr_bg;
 	BasicBtn btn_play;
-	BasicBtn btn_exit;
 public:
 	StartMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d, Track& track);

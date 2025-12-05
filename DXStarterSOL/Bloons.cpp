@@ -12,22 +12,43 @@ void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
 			{ 0, 1, 0.1f, { 1 }},
 		},
 		{ // round 2
-			{ 0, 5, 3.f, { 1 } },
+			{ 0, 5, 3.5f, { 1 } },
 		},
 		{ // round 3
-			{ 0, 2, 0.5f, { 1 } },
-			{ 4, 2, 0.5f, { 1 } },
-			{ 4, 2, 0.5f, { 1 } },
-			{ 4, 2, 0.5f, { 1 } },
-			{ 4, 2, 0.5f, { 1 } },
+			{ 0, 2, 0.525f, { 1 } },
+			{ 4.2f, 2, 0.515f, { 1 } },
+			{ 4.2f, 2, 0.515f, { 1 } },
+			{ 4.2f, 2, 0.515f, { 1 } },
+			{ 4.2f, 2, 0.515f, { 1 } },
 		},
 		{ // round 4
 			{ 0, 5, 2.1f, { 1 } },
-			{ 4, 1, 0, { 2 } },
+			{ 4.2f, 1, 0, { 2 } },
 		},
 		{ // round 5
 			{ 0, 4, 2.1f, { 1, 2 } },
-			{ 10, 4, 2.1f, { 1, 2 } },
+			{ 20, 4, 2.1f, { 1, 2 } },
+		},
+		{ // round 6
+			{ 0, 4, 2.1f, { 2 } },
+			{ 20, 4, 1.5f, { 1 } },
+			{ 20, 4, 2.1f, { 2 } },
+		},
+		{ // round 7
+			{ 0, 4, 2.1f, { 2 } },
+			{ 7, 4, 2.1f, { 2 } },
+		},
+		{ // round 8
+			{ 0, 4, 2.1f, { 2 } },
+			{ 7, 4, 2.1f, { 2 } },
+		},
+		{ // round 9
+			{ 0, 4, 2.1f, { 2 } },
+			{ 7, 4, 2.1f, { 2 } },
+		},
+		{ // round 10
+			{ 0, 4, 2.1f, { 2 } },
+			{ 7, 4, 2.1f, { 2 } },
 		},
 	};
 	resetRounds();
@@ -139,6 +160,7 @@ void Bloons::activate(int idx, int health_) {
 	assert(health_ > 0, <= GC::MAX_BLOON_HEALTH); // invalid bloon health
 	isActive[idx] = true;
 	progress[idx] = 0;
+	position[idx] = track.findPos(progress[idx]);
 	setHealth(idx, health_);
 }
 Collider& Bloons::getCollider(int idx) {

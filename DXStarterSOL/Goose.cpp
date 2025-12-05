@@ -40,19 +40,22 @@ void Goose::setRange(float rad) {
 	spr_rangeIndicator.setScale({ (rad * 2) / spr_rangeIndicator.getTexSize().x, (rad * 2) / spr_rangeIndicator.getTexSize().y });
 }
 void Goose::fire(Bloons& bloons, int idx, Projectiles& projectiles) {
+	// find target position
 	Vector2 tgt = bloons.getPos(idx);
+	// face target position
 	Vector2 vec_direction = { tgt.x - spr.getPos().x, tgt.y - spr.getPos().y};
 	float direction = atan2(vec_direction.y, vec_direction.x);
 	spr.setRotationRads(direction);
+	// spawn projectile
 	projectiles.activate(spr.getPos(), direction, bulletDurability);
 }
 bool Goose::findTarget(Bloons& bloons, Projectiles& projectiles) {
 	float time = GetClock();
-	if (time - lastShot >= shootSpeed / (*GameStats::GetInstance()).getTimeScale()) {					// at the set shoot speed
+	if (time - lastShot >= shootSpeed / (*GameStats::GetInstance()).getTimeScale()) {	// at the set shoot speed
 		int closestIdx(0);
 		float closestDist(coll_range.getDistance(bloons.getCollider(0)));
 		float thisDist(closestDist);
-		for (int i(1); i < GC::MAX_BLOONS; i++) {						// find the closest bloon
+		for (int i(1); i < GC::MAX_BLOONS; i++) {						// find the closest active bloon
 			if (bloons.getIsActive(i)) {
 				thisDist = coll_range.getDistance(bloons.getCollider(i));
 				if (thisDist < closestDist) {
@@ -120,10 +123,10 @@ bool Goose::applyUpgrade(ResourceManager& rm, upgrades upgrade) {
 				canApply = false;
 			break;
 		case quickFire_1:
-			shootSpeed = 1.f;
+			shootSpeed = 1.5f;
 			break;
 		case quickFire_2:
-			shootSpeed = 0.5f;
+			shootSpeed = 1.f;
 			break;
 		case longDistance_1:
 			if (!appliedUpgrades.at(projectileReinforcement_1)) {
