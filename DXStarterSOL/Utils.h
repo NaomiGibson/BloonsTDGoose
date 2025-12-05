@@ -14,7 +14,8 @@ enum Modes {
 	place,
 	defend,
 	win,
-	lose
+	lose,
+	quit
 };
 enum upgrades {
 	projectileReinforcement_1,

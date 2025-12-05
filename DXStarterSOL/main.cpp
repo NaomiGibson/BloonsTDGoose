@@ -162,7 +162,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 
 	bool canUpdateRender;
 	float dTime = 0;
-	while (WinUtil::Get().BeginLoop(canUpdateRender))
+	while ((*GameStats::GetInstance()).getMode() != quit && WinUtil::Get().BeginLoop(canUpdateRender))
 	{
 		if (canUpdateRender)
 		{
