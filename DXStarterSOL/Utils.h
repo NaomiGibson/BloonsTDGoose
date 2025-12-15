@@ -27,7 +27,7 @@ enum upgrades {
 	none
 };
 namespace GC {
-	const int START_LIVES = 50;
+	const int START_LIVES = 15;
 	const int START_COINS = 30;
 	const int GOOSE_COST = 25;
 	const int MAX_BLOONS = 500;
@@ -38,6 +38,7 @@ namespace GC {
 	const int MAX_PROJECTILES = 60;
 	const int MAX_GEESE = 20;
 	const Vector4 DARK_GREEN = { 23, 47, 23, 1 };
+
 
 	const unordered_map<upgrades, string> UPGRADE_NAMES = {
 		{ projectileReinforcement_1,	"Projectile Reinforcement 1" },
