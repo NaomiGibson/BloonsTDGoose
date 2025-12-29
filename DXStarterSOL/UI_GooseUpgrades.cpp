@@ -69,9 +69,10 @@ void UI_PurchaseBtn::activate(ResourceManager& rm, string purchaseIconTexName, i
 // GOOSE UPGRADES INTERFACE
 
 void UI_GooseUpgrades::init(MyD3D& d3d, ResourceManager& rm) {
-	btn_upgrade1.init(d3d, rm, rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6).texName, 1, pos + Vector2{ 48, 85 }, 0, 10);
-	btn_upgrade2.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 148, 85 }, 0, 10);
-	btn_upgrade3.init(d3d, rm, rm.findSpritesheet("upgradeIcons").texName, 1, pos + Vector2{ 248, 85 }, 0, 10);
+	string sprSheetName = rm.loadSpritesheet(d3d, L"../bin/data/upgradeIcons.dds", "upgradeIcons", 2, 3, 6);
+	btn_upgrade1.init(d3d, rm, sprSheetName, 1, pos + Vector2{ 48, 85 }, 0, 10);
+	btn_upgrade2.init(d3d, rm, sprSheetName, 1, pos + Vector2{ 148, 85 }, 0, 10);
+	btn_upgrade3.init(d3d, rm, sprSheetName, 1, pos + Vector2{ 248, 85 }, 0, 10);
 	txt_focusedName = Text{ "Moghul", "Upgrades", pos, { 0, 0, 0, 1 } };
 }
 void UI_GooseUpgrades::update(ResourceManager& rm, float dTime, Vector2 mousePos, bool isLMBPressed) {

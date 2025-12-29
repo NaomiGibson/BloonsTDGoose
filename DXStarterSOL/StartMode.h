@@ -21,6 +21,7 @@ using namespace DirectX::SimpleMath;
 #include "Text.h"
 #include "Button.h"
 #include "Msg_Bloon.h"
+#include "SpinningPyramid.h"
 
 class StartMode
 {
@@ -31,6 +32,7 @@ private:
 
 	Sprite spr_bg;
 	BasicBtn btn_play;
+	SpinningPyramid pyramid;
 public:
 	StartMode() {};
 	void init(ResourceManager& rm, MyD3D& d3d, Track& track);

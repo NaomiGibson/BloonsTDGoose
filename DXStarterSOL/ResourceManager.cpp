@@ -8,12 +8,51 @@ void ResourceManager::release() {
 		pair.second = nullptr;
 	fontCache.clear();
 	spritesheetCache.clear();
+	object3DCache.clear();
 }
 
+// 3D OBJECTS
+
+string ResourceManager::buildObject3D(MyD3D& d3d, const string& objName, Vector3 size) {
+	ResourceManager::Object_3D object3D;
+
+	// Create vertex buffer for a quad (two triangle square)
+	VertexPosColour vertices[] =
+	{
+		{ Vector3(-size.x / 2, -size.y / 2, +size.z / 2), Colours::Magenta }, // bottom left
+		{ Vector3(+size.x / 2, -size.y / 2, +size.z / 2), Colours::Yellow }, // bottom right
+		{ Vector3(+size.x / 2, -size.y / 2, -size.z / 2), Colours::Cyan }, // bottom back
+		{ Vector3(+size.x / 2, +size.y / 2, +size.z / 2), Colours::Green }, // top
+	};
+	CreateVertexBuffer(d3d.GetDevice(), sizeof(VertexPosColour) * 4, vertices, object3D.vertBuffer);
+
+	UINT indices[] = {
+		0, 1, 2,	// bottom
+		3, 1, 0,	// front
+		3, 0, 2,	// back left
+		3, 2, 1,	// back right
+	};
+	CreateIndexBuffer(d3d.GetDevice(), sizeof(UINT) * 12, indices, object3D.idxBuffer);
+
+	addObject3D(objName, object3D);
+	return objName;
+}
+ResourceManager::Object_3D& ResourceManager::findObject3D(string objName) {
+	Object3DMap::iterator it = object3DCache.find(objName);
+	if (it != object3DCache.end())
+		return (*it).second;
+	assert(false); // Searching for 3D object that does not exist
+}
+ID3D11Buffer* ResourceManager::findVertBuffer(string objName) {
+	return findObject3D(objName).vertBuffer;
+}
+ID3D11Buffer* ResourceManager::findIdxBuffer(string objName) {
+	return findObject3D(objName).idxBuffer;
+}
 
 // SPRITESHEETS
 
-ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
+string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
 	Spritesheet sheet = findSpritesheet(texName);
 	string name = sheet.texName;
 	if (!(findSpritesheet(texName).texName == texName)) {
@@ -47,15 +86,15 @@ ResourceManager::Spritesheet ResourceManager::loadSpritesheet(MyD3D& d3d, const 
 			}
 		}
 		addSprSheet(texName, sprSheet);
-		return sprSheet;
+		return texName;
 	}
-	return findSpritesheet(texName);
+	return texName;
 }
-ResourceManager::Spritesheet ResourceManager::findSpritesheet(string sprSheetName) {
+ResourceManager::Spritesheet& ResourceManager::findSpritesheet(string sprSheetName) {
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
 	if (it != spritesheetCache.end())
 		return (*it).second;
-	return Spritesheet{};
+	assert(false); // Searching for spritesheet that does not exist
 }
 RECT ResourceManager::findRect(string spritesheet, int spriteID) {
 	Spritesheet sprSheet = findSpritesheet(spritesheet);
@@ -145,6 +184,9 @@ DirectX::SpriteFont* ResourceManager::loadFont(MyD3D& d3d, const wstring& fileNa
 
 // ADD TO MAPS
 
+void ResourceManager::addObject3D(string objName, Object_3D object3D) {
+	object3DCache.insert(Object3DMap::value_type(objName, object3D));
+}
 void ResourceManager::addSprSheet(string texName, Spritesheet sprSheet) {
 	spritesheetCache.insert(SpritesheetMap::value_type(texName, sprSheet));
 }

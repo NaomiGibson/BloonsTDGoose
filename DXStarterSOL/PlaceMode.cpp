@@ -6,7 +6,7 @@ void PlaceMode::init(ResourceManager& rm, MyD3D& d3d) {
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound(), GC::MAX_ROUNDS);
 	string texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
 	btn_play.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
-	ResourceManager::Spritesheet sprsheet = rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12);
+	ResourceManager::Spritesheet sprsheet = rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 12));
 	btn_placeGoose.init(d3d, rm, sprsheet.texName, 1, { 1680, 600 }, 90, GC::GOOSE_COST);
 	ui_goosePlacer.init(rm, d3d);
 	ui_gooseUpgrades.init(d3d, rm);

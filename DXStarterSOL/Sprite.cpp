@@ -7,7 +7,7 @@ void Sprite::init(string texName_, RECT texRect_, Vector2 pos_, float rotation_,
 	setRotation(rotation_);
 	scale = scale_;
 }
-void Sprite::init(ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
+void Sprite::init(ResourceManager::Spritesheet& sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
 	texName = sprSheet.texName;
 	texRect = sprSheet.texRects[sprID - 1];
 	pos = pos_;

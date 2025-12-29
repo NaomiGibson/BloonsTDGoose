@@ -111,6 +111,7 @@
     <ClCompile Include="PlaceMode.cpp" />
     <ClCompile Include="Projectiles.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SpinningPyramid.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartMode.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Projectiles.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="SpinningPyramid.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartMode.h" />
     <ClInclude Include="Text.h" />

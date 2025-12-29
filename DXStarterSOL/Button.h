@@ -38,7 +38,7 @@ private:
 	bool useTxt = false;
 public:
 	void init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texName, RECT texRect, Vector2 pos_, float rotation_, Vector2 scale_);
-	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
+	void init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet& sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_);
 	void initText(string fontName_, string msg_, Vector2 pos_, Vector4 colour_);
 	void initText(string fontName_, string msg_);
 	void update(float dTime, Vector2 mousePos, bool isLMBPressed);

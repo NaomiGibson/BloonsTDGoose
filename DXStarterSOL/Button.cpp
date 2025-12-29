@@ -42,7 +42,7 @@ void BasicBtn::init(MyD3D& d3d, ResourceManager& rm, Vector2 size, string texNam
 	spr.setOrigin({ 0.5, 0.5 });
 	btn.init(rm, d3d, pos_, spr.GetScreenSize().x / 2);
 }
-void BasicBtn::init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
+void BasicBtn::init(MyD3D& d3d, ResourceManager& rm, ResourceManager::Spritesheet& sprSheet, int sprID, Vector2 pos_, float rotation_, Vector2 scale_) {
 	spr.init(sprSheet, sprID, pos_, rotation_, scale_);
 	spr.setOrigin({ 0.5, 0.5 });
 	btn.init(rm, d3d, pos_, spr.GetScreenSize().x / 2);

@@ -108,6 +108,9 @@
     <ClCompile Include="Msg_Bloon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpinningPyramid.cpp">
+      <Filter>Source Files\World Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D3D.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="Msg_Bloon.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinningPyramid.h">
+      <Filter>Header Files\World Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

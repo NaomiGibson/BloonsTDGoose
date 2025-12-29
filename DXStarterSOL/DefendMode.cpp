@@ -5,7 +5,7 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& b
 	string texName = rm.loadTexture(d3d, L"../bin/data/FastForwardIcon.dds", "fastForwardIcon");
 	rm.loadTexture(d3d, L"../bin/data/PlayIcon64.dds", "playIcon64");
 	btn_gameSpeed.init(d3d, rm, { 64, 64 }, texName, { 0, 0, 64, 64 }, { 1840, 996 }, 0, { 1, 1 });
-	ResourceManager::Spritesheet sprsheetName = rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14);
+	ResourceManager::Spritesheet sprsheetName = rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/EnvironmentTiles.dds", "environmentTiles", 4, 4, 14));
 	spr_bridge1.init(sprsheetName, 14, { 192, 312 }, 0, { 1, 1 });
 	spr_bridge2.init(sprsheetName, 13, { 672, 792 }, 0, { 1, 1 });
 	projectiles.init(rm, d3d);
