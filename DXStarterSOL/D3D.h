@@ -53,6 +53,16 @@ public:
 	const std::wstring& GetGPUDesc() const {
 		return mGPUDesc;
 	}
+	/*
+	* Prepare the input assembler on the graphics pipeline for new data
+	* pInputLayout - vertex description D3D object
+	* pVBuffer - vertex buffer
+	* szVertex - size of a vertex
+	* pIBuffer - index buffer
+	* topology - what do these buffers refer to? Lines, points, triangle lists?
+	*/
+	void InitInputAssembler(ID3D11InputLayout* pInputLayout, ID3D11Buffer* pVBuffer, UINT szVertex, ID3D11Buffer* pIBuffer,
+		D3D_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 private:
 	//what type of gpu have we got - hopefully a hardware one
@@ -100,7 +110,7 @@ private:
 	//specify the type of swapchain needed
 	void CreateSwapChainDescription(DXGI_SWAP_CHAIN_DESC& sd, HWND hMainWnd, bool windowed, int screenWidth, int screenHeight);
 	//once you have a description you can create the swapchain needed
-	void CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd);
+	void CreateSwapChain(DXGI_SWAP_CHAIN_DESC& sd);	
 };
 
 

@@ -96,4 +96,6 @@ private:
 	SpritesheetMap spritesheetCache;
 	FontMap fontCache;
 	Object3DMap object3DCache;
+	ID3D11VertexShader* pVertexShader = nullptr;
+	ID3D11PixelShader* pPixelShader = nullptr;	
 };

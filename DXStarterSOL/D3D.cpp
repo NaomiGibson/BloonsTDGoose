@@ -28,6 +28,15 @@ void MyD3D::EndRender()
 }
 
 
+void MyD3D::InitInputAssembler(ID3D11InputLayout* pInputLayout, ID3D11Buffer* pVBuffer, UINT szVertex, ID3D11Buffer* pIBuffer, D3D_PRIMITIVE_TOPOLOGY topology)
+{
+	UINT offset = 0;
+	assert(mpd3dImmediateContext);
+	mpd3dImmediateContext->IASetVertexBuffers(0, 1, &pVBuffer, &szVertex, &offset);
+	mpd3dImmediateContext->IASetInputLayout(pInputLayout);
+	mpd3dImmediateContext->IASetIndexBuffer(pIBuffer, DXGI_FORMAT_R32_UINT, 0);
+	mpd3dImmediateContext->IASetPrimitiveTopology(topology);
+}
 
 // Resize the swap chain and recreate the render target view.
 void MyD3D::ResizeSwapChain(int screenWidth, int screenHeight, bool isFullscreen)

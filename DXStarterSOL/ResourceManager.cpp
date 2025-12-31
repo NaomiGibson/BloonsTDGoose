@@ -9,6 +9,10 @@ void ResourceManager::release() {
 	fontCache.clear();
 	spritesheetCache.clear();
 	object3DCache.clear();
+	delete pVertexShader;
+	pVertexShader = nullptr;
+	delete pPixelShader;
+	pPixelShader = nullptr;
 }
 
 // 3D OBJECTS
@@ -16,7 +20,7 @@ void ResourceManager::release() {
 string ResourceManager::buildObject3D(MyD3D& d3d, const string& objName, Vector3 size) {
 	ResourceManager::Object_3D object3D;
 
-	// Create vertex buffer for a quad (two triangle square)
+	// Create vertex buffer for a pyramid
 	VertexPosColour vertices[] =
 	{
 		{ Vector3(-size.x / 2, -size.y / 2, +size.z / 2), Colours::Magenta }, // bottom left
