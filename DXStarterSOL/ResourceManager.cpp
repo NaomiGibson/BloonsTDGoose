@@ -98,7 +98,7 @@ ResourceManager::Spritesheet& ResourceManager::findSpritesheet(string sprSheetNa
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
 	if (it != spritesheetCache.end())
 		return (*it).second;
-	assert(false); // Searching for spritesheet that does not exist
+	//assert(false); // Searching for spritesheet that does not exist
 }
 RECT ResourceManager::findRect(string spritesheet, int spriteID) {
 	Spritesheet sprSheet = findSpritesheet(spritesheet);
