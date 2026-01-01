@@ -101,12 +101,10 @@ private:
 	SpritesheetMap spritesheetCache;
 	FontMap fontCache;
 	Object3DMap object3DCache;
-	ID3D11VertexShader* pVertexShader = nullptr;
-	ID3D11PixelShader* pPixelShader = nullptr;	
 	ID3D11VertexShader* vertexShader = nullptr;	//d3d vertex shader
-	ID3D11PixelShader* pixelShader = nullptr;		//d3d pixel shader
-	GfxParamsPerObj gfxData;				//a structure containing data the gpu needs to render something
-	ID3D11Buffer* gfxDataConstsBuffer;	//a d3d object to copy the above data into, ends up in a constant register
-	ID3D11InputLayout* inputLayout;			//vertex description
+	ID3D11PixelShader* pixelShader = nullptr;	//d3d pixel shader
+	GfxParamsPerObj gfxData;					//a structure containing data the gpu needs to render something
+	ID3D11Buffer* gfxDataConstsBuffer;			//a d3d object to copy the above data into, ends up in a constant register
+	ID3D11InputLayout* inputLayout;				//vertex description
 
 };

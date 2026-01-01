@@ -9,10 +9,10 @@ void ResourceManager::release() {
 	fontCache.clear();
 	spritesheetCache.clear();
 	object3DCache.clear();
-	delete pVertexShader;
-	pVertexShader = nullptr;
-	delete pPixelShader;
-	pPixelShader = nullptr;
+	delete vertexShader;
+	vertexShader = nullptr;
+	delete pixelShader;
+	pixelShader = nullptr;
 	delete gfxDataConstsBuffer;
 	gfxDataConstsBuffer = nullptr;
 	delete inputLayout;
@@ -39,7 +39,7 @@ void ResourceManager::buildFX(MyD3D& d3d) {
 
 	//load in a pre-compiled pixel shader	
 	pBuff = ReadAndAllocate("../bin/data/SimplePS.cso", bytes);
-	CreatePixelShader(d3d.GetDevice(), pBuff, bytes, pPixelShader);
+	CreatePixelShader(d3d.GetDevice(), pBuff, bytes, pixelShader);
 	delete[] pBuff;
 
 }
