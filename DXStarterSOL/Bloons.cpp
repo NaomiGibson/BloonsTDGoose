@@ -1,6 +1,6 @@
 #include "Bloons.h"
 void Bloons::init(ResourceManager& rm, MyD3D& d3d) {
-	spr.init(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5)), 1, { 0, 0 }, 0, { 1, 1 });
+	spr.init(*(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/Bloons.dds", "bloons", 2, 4, 5))), 1, { 0, 0 }, 0, { 1, 1 });
 	collider.init(rm, d3d, { 0, 0 }, 26);
 	collider.getDbSpr().setOrigin({ 0.5f, 0.5f });
 	spr.setOrigin({ 0.5, 0.5 });

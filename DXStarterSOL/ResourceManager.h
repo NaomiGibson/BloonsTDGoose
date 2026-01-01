@@ -50,7 +50,7 @@ public:
 	// 3D OBJECTS
 
 	string buildObject3D(MyD3D& d3d, const string& objName, Vector3 size);
-	Object_3D& findObject3D(string objName);
+	Object_3D* findObject3D(string objName);
 	ID3D11Buffer* findVertBuffer(string objName);
 	ID3D11Buffer* findIdxBuffer(string objName);
 
@@ -73,7 +73,7 @@ public:
 	// if spritesheet already exists, nothing is loaded and the pre-existing version is returned
 	string loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int rows_, int columns_, int numSprites);
 	// return spritesheet already loaded in cache given its name
-	Spritesheet& findSpritesheet(string sprSheetName);
+	Spritesheet* findSpritesheet(string sprSheetName);
 	// return the rect of the given sprite on a spritesheet
 	RECT findRect(string spritesheet, int spriteID); 
 

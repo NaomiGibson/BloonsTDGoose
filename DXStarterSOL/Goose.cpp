@@ -1,13 +1,13 @@
 #include "Goose.h"
 void Goose::init(ResourceManager& rm, MyD3D& d3d) {
-	spr.init(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 15)), 1, { 0, 0 }, 0, {1, 1});
+	spr.init(*(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/Geese.dds", "goose", 4, 4, 15))), 1, { 0, 0 }, 0, {1, 1});
 	float range = 128;
 	coll_range.init(rm, d3d, spr.getPos(), range);
 	spr.setOrigin({ 0.42f, 0.5 });
 	spr.setRotation(90);
 	coll_range.getDbSpr().setOrigin({ 0.5, 0.5 });
 	coll_goose.init(rm, d3d, spr.getPos() + spr.GetScreenSize() / 2, 24);
-	spr_rangeIndicator.init(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/CollisionRadius.dds", "collisionRad", 2, 1, 2)), 1, spr.getPos(), 0, {1, 1});
+	spr_rangeIndicator.init(*(rm.findSpritesheet(rm.loadSpritesheet(d3d, L"../bin/data/CollisionRadius.dds", "collisionRad", 2, 1, 2))), 1, spr.getPos(), 0, {1, 1});
 	spr_rangeIndicator.setOrigin({ 0.5f, 0.5f });
 	spr_rangeIndicator.setIsActive(false);
 	setRange(range);

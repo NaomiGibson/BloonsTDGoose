@@ -41,25 +41,24 @@ string ResourceManager::buildObject3D(MyD3D& d3d, const string& objName, Vector3
 	addObject3D(objName, object3D);
 	return objName;
 }
-ResourceManager::Object_3D& ResourceManager::findObject3D(string objName) {
+ResourceManager::Object_3D* ResourceManager::findObject3D(string objName) {
 	Object3DMap::iterator it = object3DCache.find(objName);
 	if (it != object3DCache.end())
-		return (*it).second;
-	assert(false); // Searching for 3D object that does not exist
+		return &(*it).second;
+	return nullptr;
 }
 ID3D11Buffer* ResourceManager::findVertBuffer(string objName) {
-	return findObject3D(objName).vertBuffer;
+	return (*findObject3D(objName)).vertBuffer;
 }
 ID3D11Buffer* ResourceManager::findIdxBuffer(string objName) {
-	return findObject3D(objName).idxBuffer;
+	return (*findObject3D(objName)).idxBuffer;
 }
 
 // SPRITESHEETS
 
 string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, const string& texName, int columns, int rows, int numSprites) {
-	Spritesheet sheet = findSpritesheet(texName);
-	string name = sheet.texName;
-	if (!(findSpritesheet(texName).texName == texName)) {
+	if (findSpritesheet(texName) == nullptr) 
+	{
 		ID3D11ShaderResourceView* tex = findTex(loadTexture(d3d, fileName, texName));
 		Spritesheet sprSheet;
 		sprSheet.texName = texName;
@@ -94,14 +93,14 @@ string ResourceManager::loadSpritesheet(MyD3D& d3d, const wstring& fileName, con
 	}
 	return texName;
 }
-ResourceManager::Spritesheet& ResourceManager::findSpritesheet(string sprSheetName) {
+ResourceManager::Spritesheet* ResourceManager::findSpritesheet(string sprSheetName) {
 	SpritesheetMap::iterator it = spritesheetCache.find(sprSheetName);
 	if (it != spritesheetCache.end())
-		return (*it).second;
-	//assert(false); // Searching for spritesheet that does not exist
+		return &(*it).second;
+	return nullptr;
 }
 RECT ResourceManager::findRect(string spritesheet, int spriteID) {
-	Spritesheet sprSheet = findSpritesheet(spritesheet);
+	Spritesheet& sprSheet = *findSpritesheet(spritesheet);
 	assert(spriteID <= sprSheet.texRects.size());
 	return sprSheet.texRects[spriteID - 1];
 }
