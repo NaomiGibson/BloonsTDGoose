@@ -13,7 +13,52 @@ void ResourceManager::release() {
 	pVertexShader = nullptr;
 	delete pPixelShader;
 	pPixelShader = nullptr;
+	delete gfxDataConstsBuffer;
+	gfxDataConstsBuffer = nullptr;
+	delete inputLayout;
+	inputLayout = nullptr;		
+
 }
+
+// FX
+
+void ResourceManager::buildFX(MyD3D& d3d) {
+	CheckShaderModel5Supported(d3d.GetDevice());
+
+	// Create the constant buffers for the variables defined in the vertex shader.
+	CreateConstantBuffer(d3d.GetDevice(), sizeof(GfxParamsPerObj), &gfxDataConstsBuffer);
+
+	//load in a pre-compiled vertex shader
+	char* pBuff = nullptr;
+	unsigned int bytes = 0;
+	pBuff = ReadAndAllocate("../bin/data/SimpleVS.cso", bytes);
+	CreateVertexShader(d3d.GetDevice(), pBuff, bytes, vertexShader);
+	//create a link between our data and the vertex shader
+	CreateInputLayout(d3d.GetDevice(), VertexPosColour::sVertexDesc, 2, pBuff, bytes, &inputLayout);
+	delete[] pBuff;
+
+	//load in a pre-compiled pixel shader	
+	pBuff = ReadAndAllocate("../bin/data/SimplePS.cso", bytes);
+	CreatePixelShader(d3d.GetDevice(), pBuff, bytes, pPixelShader);
+	delete[] pBuff;
+
+}
+ID3D11VertexShader* ResourceManager::getVertexShader() {
+	return vertexShader;
+}
+ID3D11PixelShader* ResourceManager::getPixelShader() {
+	return pixelShader;
+}
+GfxParamsPerObj& ResourceManager::getGfxData() {
+	return gfxData;
+}
+ID3D11Buffer* ResourceManager::getGfxDataConstsBuffer() {
+	return gfxDataConstsBuffer;
+}
+ID3D11InputLayout* ResourceManager::getInputLayout() {
+	return inputLayout;
+}
+
 
 // 3D OBJECTS
 

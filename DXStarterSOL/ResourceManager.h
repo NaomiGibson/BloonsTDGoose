@@ -14,18 +14,13 @@
 #include "SpriteFont.h"
 #include "DDSTextureLoader.h"
 #include "CommonStates.h"
+#include "ShaderTypes.h"
+#include "FX.h"
 
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-struct VertexPosColour
-{
-	DirectX::SimpleMath::Vector3 Pos;				//local position of the vert
-	DirectX::SimpleMath::Vector3 Colour;			//rgba
-
-	static const D3D11_INPUT_ELEMENT_DESC sVertexDesc[2];
-};
 
 class ResourceManager
 {
@@ -43,9 +38,19 @@ public:
 	typedef unordered_map<string, ID3D11ShaderResourceView*> TexMap;
 	typedef unordered_map<string, Spritesheet> SpritesheetMap;
 	typedef unordered_map<string, DirectX::SpriteFont*> FontMap;
-	typedef unordered_map<string, Object_3D> Object3DMap;
+	typedef unordered_map<string, Object_3D> Object3DMap; 
+
 
 	void release();
+
+	// FX
+
+	void buildFX(MyD3D& d3d);
+	ID3D11VertexShader* getVertexShader();
+	ID3D11PixelShader* getPixelShader();
+	GfxParamsPerObj& getGfxData();
+	ID3D11Buffer* getGfxDataConstsBuffer();
+	ID3D11InputLayout* getInputLayout();
 
 	// 3D OBJECTS
 
@@ -98,4 +103,10 @@ private:
 	Object3DMap object3DCache;
 	ID3D11VertexShader* pVertexShader = nullptr;
 	ID3D11PixelShader* pPixelShader = nullptr;	
+	ID3D11VertexShader* vertexShader = nullptr;	//d3d vertex shader
+	ID3D11PixelShader* pixelShader = nullptr;		//d3d pixel shader
+	GfxParamsPerObj gfxData;				//a structure containing data the gpu needs to render something
+	ID3D11Buffer* gfxDataConstsBuffer;	//a d3d object to copy the above data into, ends up in a constant register
+	ID3D11InputLayout* inputLayout;			//vertex description
+
 };

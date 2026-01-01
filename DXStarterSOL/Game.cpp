@@ -8,6 +8,7 @@ void Game::release() {
 }
 
 void Game::init() {
+	rm.buildFX(*p_d3d);
 	//widely used game objects
 	string texName = rm.loadTexture(*p_d3d, L"../bin/data/ExitIcon.dds", "ExitIcon");
 	btn_exit.init(*p_d3d, rm, { 128, 128 }, texName, { 0, 0, 128, 128 }, { 84, 980 }, 0, { 1, 1 });

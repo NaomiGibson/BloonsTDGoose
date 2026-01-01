@@ -101,6 +101,7 @@
     <ClCompile Include="D3D.cpp" />
     <ClCompile Include="D3DUtil.cpp" />
     <ClCompile Include="DefendMode.cpp" />
+    <ClCompile Include="FX.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Goose.cpp" />
     <ClCompile Include="GoosePlacer.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="PlaceMode.cpp" />
     <ClCompile Include="Projectiles.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="SpinningPyramid.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartMode.cpp" />
@@ -129,6 +131,7 @@
     <ClInclude Include="D3D.h" />
     <ClInclude Include="D3DUtil.h" />
     <ClInclude Include="DefendMode.h" />
+    <ClInclude Include="FX.h" />
     <ClInclude Include="Goose.h" />
     <ClInclude Include="GoosePlacer.h" />
     <ClInclude Include="Input.h" />
@@ -138,6 +141,7 @@
     <ClInclude Include="Projectiles.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="SpinningPyramid.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartMode.h" />
