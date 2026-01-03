@@ -59,8 +59,11 @@ ID3D11PixelShader* ResourceManager::getPixelShader() {
 	assert(pixelShader);
 	return pixelShader;
 }
-GfxParamsPerObj& ResourceManager::getGfxData() {
+GfxParamsPerObj ResourceManager::getGfxData() {
 	return gfxData;
+}
+void ResourceManager::setWvp(Matrix wvp) {
+	gfxData.wvp = wvp;
 }
 ID3D11Buffer* ResourceManager::getGfxDataConstsBuffer() {
 	assert(gfxDataConstsBuffer);
@@ -80,18 +83,18 @@ string ResourceManager::buildObject3D(MyD3D& d3d, const string& objName, Vector3
 	// Create vertex buffer for a pyramid
 	VertexPosColour vertices[] =
 	{
-		{ Vector3(-size.x / 2, -size.y / 2, +size.z / 2), Colours::Magenta }, // bottom left
-		{ Vector3(+size.x / 2, -size.y / 2, +size.z / 2), Colours::Yellow }, // bottom right
-		{ Vector3(+size.x / 2, -size.y / 2, -size.z / 2), Colours::Cyan }, // bottom back
-		{ Vector3(+size.x / 2, +size.y / 2, +size.z / 2), Colours::Green }, // top
+		{ Vector3(-size.x / 2, -size.y / 2, +size.z / 2), Colours::Magenta	},	// bottom left
+		{ Vector3(+size.x / 2, -size.y / 2, +size.z / 2), Colours::Yellow	},	// bottom right
+		{ Vector3( 0		 , -size.y / 2, -size.z / 2), Colours::Cyan		},	// bottom back
+		{ Vector3( 0		 , +size.y / 2, 0		   ), Colours::Green	},	// top
 	};
 	CreateVertexBuffer(d3d.GetDevice(), sizeof(VertexPosColour) * 4, vertices, object3D.vertBuffer);
 
 	UINT indices[] = {
-		0, 1, 2,	// bottom
-		3, 1, 0,	// front
-		3, 0, 2,	// back left
-		3, 2, 1,	// back right
+		1, 2, 0,	// bottom
+		1, 0, 3,	// front
+		0, 2, 3,	// back left
+		2, 1, 3,	// back right
 	};
 	CreateIndexBuffer(d3d.GetDevice(), sizeof(UINT) * 12, indices, object3D.idxBuffer);
 

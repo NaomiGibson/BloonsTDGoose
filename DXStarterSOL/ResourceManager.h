@@ -49,7 +49,8 @@ public:
 	void buildFX(MyD3D& d3d);
 	ID3D11VertexShader* getVertexShader();
 	ID3D11PixelShader* getPixelShader();
-	GfxParamsPerObj& getGfxData();
+	GfxParamsPerObj getGfxData();
+	void setWvp(Matrix wvp);
 	ID3D11Buffer* getGfxDataConstsBuffer();
 	ID3D11InputLayout* getInputLayout();
 

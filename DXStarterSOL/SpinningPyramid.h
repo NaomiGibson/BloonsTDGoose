@@ -5,13 +5,13 @@ class SpinningPyramid
 {
 private:
 	string meshName = "default";
-	Vector3 pos;
 	Vector3 rotation;
 	Vector3 vel;
 
 	Matrix world;
 	Matrix view;
 	Matrix proj;
+
 public:
 	void init(MyD3D& d3d, ResourceManager& rm); // build cube
 	void update(MyD3D& d3d, ResourceManager& rm); // calculate verts based on rotation
