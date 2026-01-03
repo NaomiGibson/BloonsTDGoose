@@ -8,17 +8,25 @@ void ResourceManager::release() {
 		pair.second = nullptr;
 	fontCache.clear();
 	spritesheetCache.clear();
+	for (auto& pair : object3DCache)
+		pair.second.release();
 	object3DCache.clear();
-	delete vertexShader;
 	vertexShader = nullptr;
-	delete pixelShader;
+	delete vertexShader;
 	pixelShader = nullptr;
-	delete gfxDataConstsBuffer;
+	delete pixelShader;
 	gfxDataConstsBuffer = nullptr;
+	delete gfxDataConstsBuffer;
+	inputLayout = nullptr;
 	delete inputLayout;
-	inputLayout = nullptr;		
-
 }
+void ResourceManager::Object_3D::release() {
+	idxBuffer = nullptr;
+	delete idxBuffer;
+	vertBuffer = nullptr;
+	delete vertBuffer;
+}
+
 
 // FX
 
@@ -44,18 +52,22 @@ void ResourceManager::buildFX(MyD3D& d3d) {
 
 }
 ID3D11VertexShader* ResourceManager::getVertexShader() {
+	assert(vertexShader);
 	return vertexShader;
 }
 ID3D11PixelShader* ResourceManager::getPixelShader() {
+	assert(pixelShader);
 	return pixelShader;
 }
 GfxParamsPerObj& ResourceManager::getGfxData() {
 	return gfxData;
 }
 ID3D11Buffer* ResourceManager::getGfxDataConstsBuffer() {
+	assert(gfxDataConstsBuffer);
 	return gfxDataConstsBuffer;
 }
 ID3D11InputLayout* ResourceManager::getInputLayout() {
+	assert(inputLayout);
 	return inputLayout;
 }
 

@@ -34,6 +34,7 @@ public:
 	struct Object_3D {
 		ID3D11Buffer* idxBuffer;
 		ID3D11Buffer* vertBuffer;
+		void release();
 	};
 	typedef unordered_map<string, ID3D11ShaderResourceView*> TexMap;
 	typedef unordered_map<string, Spritesheet> SpritesheetMap;

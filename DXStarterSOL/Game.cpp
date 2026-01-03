@@ -82,6 +82,8 @@ void Game::update(float dTime, Vector2 mousePos, bool isLMBPressed, bool keyboar
 }
 void Game::render(float dTime) {
 	p_d3d->BeginRender({ 0, 0, 0, 0 });
+	p_d3d->GetDeviceCtx().VSSetShader(rm.getVertexShader(), nullptr, 0);
+	p_d3d->GetDeviceCtx().PSSetShader(rm.getPixelShader(), nullptr, 0);
 	CommonStates dxstate(&(*p_d3d).GetDevice());
 	gpSpriteBatch->Begin(SpriteSortMode_Deferred, dxstate.NonPremultiplied());
 
