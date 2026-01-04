@@ -10,7 +10,7 @@ void SpinningPyramid::render(MyD3D& d3d, ResourceManager& rm) {
 	d3d.InitInputAssembler(rm.getInputLayout(), mesh.vertBuffer, sizeof(VertexPosColour), mesh.idxBuffer);
 
 	Matrix rot = Matrix::CreateRotationX(GetClock() * 0.3f) * Matrix::CreateRotationY(GetClock() * 0.55f) * Matrix::CreateRotationZ(GetClock() * 0.9f);
-	world = rot * Matrix::CreateTranslation({0, 0, 1});;
+	world = rot * Matrix::CreateTranslation(pos);
 	rm.setWvp(world * view * proj);
 	d3d.GetDeviceCtx().UpdateSubresource(rm.getGfxDataConstsBuffer(), 0, nullptr, &rm.getGfxData(), 0, 0);
 
