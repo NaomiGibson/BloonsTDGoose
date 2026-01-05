@@ -68,7 +68,7 @@ private:
 	int coins{ GC::START_COINS };
 	int round{ 0 };
 	float timeScale{ 1 };
-	Modes mode{ Modes::start };
+	Modes mode{ Modes::lose };
 public:
 	static GameStats* GetInstance();			
 	GameStats(const GameStats& obj) = delete;	

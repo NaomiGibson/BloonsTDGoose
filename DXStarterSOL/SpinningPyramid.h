@@ -6,7 +6,6 @@ class SpinningPyramid
 private:
 	string meshName = "default";
 	Vector3 pos = { 0, 0, 0.5 };
-	Vector3 rotation;
 	Vector3 vel;
 
 	Matrix world;

@@ -28,7 +28,11 @@ class StartMode
 private:
 	vector<Msg_Bloon> bloons;
 	string loseMsg = "BLOONSTOWERDEFENCEGEESE";
-	float msgBloonProgress[23]{  /*bloons*/ 1824, 2016, 2208, 2400, 2592, 2784, /*tower*/ 96, 192, 288, 384, 480, /*defence*/ 6528, 6432, 6336, 6240, 6144, 6048, 5952, /*geese*/ 4416, 4320, 4224, 4128, 4032};
+	float msgBloonProgress[23]{  
+		/*bloons*/	1824, 2016, 2208, 2400, 2592, 2784, 
+		/*tower*/	96, 192, 288, 384, 480, 
+		/*defence*/ 6528, 6432, 6336, 6240, 6144, 6048, 5952, 
+		/*geese*/	4416, 4320, 4224, 4128, 4032};
 
 	Sprite spr_bg;
 	BasicBtn btn_play;

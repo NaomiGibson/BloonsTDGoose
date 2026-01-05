@@ -5,7 +5,6 @@ void LoseMode::init(ResourceManager& rm, MyD3D& d3d, Track& track) {
 	string texName = rm.loadTexture(d3d, L"../bin/data/BloonsMap.dds", "mainBackground");
 	spr_bg.init(texName, { 0, 0, 1920, 1080 }, { 0, 0 }, 0, { 1, 1 });
 	// buttons
-	//txt_loseMsg = Text("Moghul", "YOU LOSE!", { 512, 512 }, { 0, 0, 0, 1 });
 	texName = rm.loadTexture(d3d, L"../bin/data/PlayIcon.dds", "playIcon");
 	btn_reset.init(d3d, rm, { 256, 256 }, texName, { 0, 0, 256, 256 }, { 1680, 744 }, 0, { 1, 1 });
 	btn_reset.initText("Moghul", "Reset", { -55, -16 }, { 0, 0, 0, 1 });

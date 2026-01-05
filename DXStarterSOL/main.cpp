@@ -22,7 +22,6 @@ using namespace DirectX::SimpleMath;
 //need to let D3D know what's happened (OnResize_Default).
 void OnResize(int screenWidth, int screenHeight, MyD3D& d3d, bool isFullscreen)
 {
-	//gResTimer = GetClock() + 2;
 	d3d.OnResize_Default(screenWidth, screenHeight, isFullscreen);
 }
 /*

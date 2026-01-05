@@ -12,15 +12,6 @@ void DefendMode::init(ResourceManager& rm,  MyD3D& d3d, Goose geese[], Bloons& b
 	ui_stats.init(d3d, rm, (*GameStats::GetInstance()).getLives(), (*GameStats::GetInstance()).getCoins(), (*GameStats::GetInstance()).getRound(), GC::MAX_ROUNDS);
 }
 void DefendMode::handleCollision(ResourceManager& rm, Bloons& bloons) {
-	// BLOON V GOOSE COLLISION		 FOR DEBUG ONLY
-	//bool isGooseColliding = false;
-	//for (int i = 0; i < GC::MAX_BLOONS; i++) {
-	//	Collider& coll_bloon = bloons.getCollider(i);
-	//	bool isColliding = goose.getRangeCollider().isColliding(coll_bloon);
-	//	if (isColliding) isGooseColliding = true;
-	//}
-	//goose.getRangeCollider().onCollision(rm, isGooseColliding);
-
 	// PROJECTILE V BLOON COLLISION
 	for (int i_bloon(0); i_bloon < GC::MAX_BLOONS; i_bloon++) {										// for each active  //
 		if (bloons.getIsActive(i_bloon)) {															// pair of bloons   //

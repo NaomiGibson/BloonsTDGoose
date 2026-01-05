@@ -29,8 +29,6 @@ void Goose::updatePlace(float dTime, Vector2 mousePos, bool isLMBPressed) {
 }
 void Goose::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	if (isActive) {
-		//coll_goose.db_render(d3d, rm, dTime, batch);
-		//coll_range.db_render(d3d, rm, dTime, batch);
 		spr.render(d3d, rm, dTime, batch);
 		spr_rangeIndicator.render(d3d, rm, dTime, batch);
 	}

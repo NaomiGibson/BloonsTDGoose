@@ -122,9 +122,7 @@ void Bloons::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& b
 			position[i] = pos;							// position of the bloon and 
 			spr.setPos(pos);							// render it for each bloon
 			spr.setTexRect(rm.findRect("bloons", health[i]));
-			spr.render(d3d, rm, dTime, batch);			
-			//collider.setPos(pos);						// do the same for the collider debug sprite
-			//collider.db_render(d3d, rm, dTime, batch);
+			spr.render(d3d, rm, dTime, batch);
 		}
 	}
 }

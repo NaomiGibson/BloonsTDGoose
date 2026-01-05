@@ -16,13 +16,11 @@ void StartMode::update(float dTime, Vector2 mousePos, bool isLMBPressed) {
 	btn_play.update(dTime, mousePos, isLMBPressed);
 	if (btn_play.getButton().getIsBtnDown())
 		(*GameStats::GetInstance()).setMode(Modes::place);
-	//pyramid.update(d3d, rm);
 	for (int i(0); i < loseMsg.size(); i++) {
 		bloons[i].update(dTime);
 	}
 }
 void StartMode::render(ResourceManager& rm, MyD3D& d3d, DirectX::SpriteBatch& sprBatch, float dTime) {
-	//spr_bg.render(d3d, rm, dTime, sprBatch);	
 	pyramid.render(d3d, rm);
 	for (int i(0); i < bloons.size(); i++) {
 		bloons[i].render(rm, d3d, dTime, sprBatch);

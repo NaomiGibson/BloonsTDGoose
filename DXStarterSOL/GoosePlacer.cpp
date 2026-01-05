@@ -20,7 +20,6 @@ void GoosePlacer::update(ResourceManager& rm, Vector2 mousePos, bool isLMBPresse
 void GoosePlacer::render(MyD3D& d3d, ResourceManager& rm, float dTime, SpriteBatch& batch) {
 	if (isActive) {
 		spr.render(d3d, rm, dTime, batch);
-		//collider.db_render(d3d, rm, dTime, batch);
 	}
 }
 void GoosePlacer::placeGoose(ResourceManager& rm, Vector2 pos, Goose geese[], Track& track, Stats& ui_stats) {
